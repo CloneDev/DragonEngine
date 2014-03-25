@@ -44,6 +44,7 @@ namespace DragonEngine
 
         public static float DefaultFading = 0.2f;
         public static bool PremultipliedAlphaRendering = true;
+        public static string DefaultDataPath = "Content/spine/";
 
         #endregion
 
