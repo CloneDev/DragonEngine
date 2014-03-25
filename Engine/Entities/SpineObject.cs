@@ -77,7 +77,7 @@ namespace DragonEngine.Entities
             mBounds = new SkeletonBounds();
             mInitPosition = new Vector2(0, 0);
             mScale = 1.0f;
-            mUpdateActionGameTime.Add(UpdateAnimation);
+            //mUpdateActionGameTime.Add(UpdateAnimation);
         }
 
         public void Load()
@@ -102,7 +102,6 @@ namespace DragonEngine.Entities
 
         public void Draw()
         {
-            //----------Spine----------
             mSkeletonRenderer.Begin();
             mSkeletonRenderer.Draw(mSkeleton);
             mSkeletonRenderer.End();

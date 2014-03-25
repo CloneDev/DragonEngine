@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Spine;
-//using DragonEngine.SceneManagement;
 
 
 namespace DragonEngine.Manager
@@ -55,7 +54,6 @@ namespace DragonEngine.Manager
         #endregion
 
         #region Methoden
-
 
         public override void Initialize()
         {

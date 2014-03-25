@@ -16,9 +16,7 @@ namespace SnakeMobile.GameContent.Scenes
     {
         #region Properties
 
-        #region Spine
         SpineObject mFluffy;
-        #endregion
 
         #endregion
 
@@ -39,7 +37,7 @@ namespace SnakeMobile.GameContent.Scenes
 
         public override void Initialize()
         {
-            mFluffy = new SpineObject("fluffy");
+            mFluffy = new SpineObject("fluffy", new Vector2(300, 300));
             mDrawAction.Add(mFluffy.Draw);
             
             base.Initialize();
