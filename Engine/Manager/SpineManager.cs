@@ -105,6 +105,11 @@ namespace DragonEngine.Manager
             mRessourcen.Clear();
         }
 
+        public override void LoadContent()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

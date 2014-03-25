@@ -40,6 +40,9 @@ namespace DragonEngine.Entities
         public TiledSprite(Vector2 pPosition, String pTextureName, int pRectangleWidth, int pRectangleHeight)
             : base(pPosition, pTextureName)
         {
+            mSourceRectangleWidth = pRectangleWidth;
+            mSourceRectangleHeight = pRectangleHeight;
+
             int rectangleRows = //(mWidth % pRectangleHeight == 0) ? (int)(mWidth / pRectangleWidth) : (int)(mWidth / pRectangleWidth)
                 (int)(mWidth / pRectangleWidth);
 
@@ -68,7 +71,7 @@ namespace DragonEngine.Entities
         {
             spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mTextureName), Position, mSourceRectangle[mSourceRectanglePosition], mTint);
             if (EngineSettings.IsDebug)
-                spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), new Rectangle((int)mPosition.X, (int)mPosition.Y, mWidth, mHeight), mDebugColor);
+                spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), new Rectangle((int)mPosition.X, (int)mPosition.Y, mSourceRectangleWidth, mSourceRectangleHeight), mDebugColor);
         }
 
         public Texture2D GetTileTexture2D(int pTile)

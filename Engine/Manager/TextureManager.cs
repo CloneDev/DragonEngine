@@ -62,17 +62,17 @@ namespace DragonEngine.Manager
             }
         }
 
-        public override void LoadStringDictionary(Dictionary<string, string> pLoadDictionary)
-        {
-            foreach (KeyValuePair<String, String> pair in pLoadDictionary)
-            {
-                if (!mRessourcen.ContainsKey(pair.Key))
-                {
-                    Texture2D tex = EngineSettings.EngineContent.Load<Texture2D>(pair.Value);
-                    mRessourcen.Add(pair.Key, tex);
-                }
-            }
-        }
+        //public override void LoadStringDictionary(Dictionary<string, string> pLoadDictionary)
+        //{
+        //    foreach (KeyValuePair<String, String> pair in pLoadDictionary)
+        //    {
+        //        if (!mRessourcen.ContainsKey(pair.Key))
+        //        {
+        //            Texture2D tex = EngineSettings.EngineContent.Load<Texture2D>(pair.Value);
+        //            mRessourcen.Add(pair.Key, tex);
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Gibt eine Texture2D zurück.
@@ -90,14 +90,14 @@ namespace DragonEngine.Manager
             mRessourcen.Clear();
         }
 
-        public override void UnloadStringList(List<string> pUnloadList)
-        {
-            foreach (String s in pUnloadList)
-            {
-                if(mRessourcen.ContainsKey(s))
-                    mRessourcen.Remove(s);
-            }
-        }
+        //public override void UnloadStringList(List<string> pUnloadList)
+        //{
+        //    foreach (String s in pUnloadList)
+        //    {
+        //        if(mRessourcen.ContainsKey(s))
+        //            mRessourcen.Remove(s);
+        //    }
+        //}
         #endregion
     }
 }
