@@ -24,8 +24,6 @@ namespace DragonEngine.Manager
         abstract public void LoadContent();
         abstract public void Unload();
         abstract public T GetElementByString<T>(String pElementName);
-        abstract public void LoadStringDictionary(Dictionary<string, string> pLoadDictionary);
-        abstract public void UnloadStringList(List<String> pUnloadList);
         #endregion
     }
 }
