@@ -14,7 +14,7 @@ namespace DragonEngine.Entities
         #region Properties
 
         protected Rectangle[] mSourceRectangle;
-        protected int mSourceRectanglePosition = 10;
+        protected int mSourceRectanglePosition = 0;
         protected int mSourceRectangleHeight;
         protected int mSourceRectangleWidth;
         #endregion
@@ -28,6 +28,9 @@ namespace DragonEngine.Entities
                 else mSourceRectanglePosition = 0;
             } 
         }
+
+        public int CurrentTileWidth { get { return mSourceRectangle[mSourceRectanglePosition].Width; } }
+        public int CurrentTileHeight { get { return mSourceRectangle[mSourceRectanglePosition].Height; } }
         #endregion
 
         #region Constructor
@@ -69,14 +72,14 @@ namespace DragonEngine.Entities
         }
 
         public Texture2D GetTileTexture2D(int pTile)
-        {            
+        {
             Color[] imageData = new Color[mWidth * mHeight];
             TextureManager.Instance.GetElementByString<Texture2D>(mTextureName).GetData<Color>(imageData);
 
             Color[] color = new Color[mSourceRectangle[pTile].Width * mSourceRectangle[pTile].Height];
             for (int x = 0; x < mSourceRectangle[pTile].Width; x++)
                 for (int y = 0; y < mSourceRectangle[pTile].Height; y++)
-                    color[x + y * mSourceRectangle[pTile].Width] = imageData[x + mSourceRectangle[pTile].X + (y + mSourceRectangle[pTile].Y) * TextureManager.Instance.GetElementByString<Texture2D>("SpriteAtlas").Width];
+                    color[x + y * mSourceRectangle[pTile].Width] = imageData[x + mSourceRectangle[pTile].X + (y + mSourceRectangle[pTile].Y) * TextureManager.Instance.GetElementByString<Texture2D>(mTextureName).Width];
 
             Texture2D subtexture = new Texture2D(EngineSettings.Graphics.GraphicsDevice, mSourceRectangle[pTile].Width, mSourceRectangle[pTile].Height);
             subtexture.SetData<Color>(color);
