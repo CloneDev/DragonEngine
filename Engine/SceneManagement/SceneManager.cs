@@ -68,6 +68,12 @@ namespace DragonEngine.SceneManagement
                 mSceneDictionary.ElementAt(i).Value.Initialize();
         }
 
+        public void LoadContent()
+        {
+            foreach (KeyValuePair<string, Scene> pair in mSceneDictionary)
+                pair.Value.LoadContent();
+        }
+
         /// <summary>
         /// Fügt eine neue Scene zum SceneManager hinzu. Die übergebene Scene muss von Scene erben.
         /// </summary>

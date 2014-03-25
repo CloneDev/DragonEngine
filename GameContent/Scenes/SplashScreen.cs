@@ -5,6 +5,7 @@ using System.Text;
 using DragonEngine.SceneManagement;
 using Microsoft.Xna.Framework;
 using DragonEngine.Entities;
+using DragonEngine.Manager;
 
 namespace SnakeMobile.GameContent.Scenes
 {

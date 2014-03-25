@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using DragonEngine.SceneManagement;
-
+using Microsoft.Xna.Framework;
 
 namespace DragonEngine.Manager
 {
@@ -30,11 +29,9 @@ namespace DragonEngine.Manager
         {
             // Erzeugt einen pixel der danach beliebig eingefärbt und skaliert werden kann(debug hitbox usw.)
             // und fügt ihn dem Ressourcen Dictionary bei.
-            Texture2D pixel;
-            pixel = new Texture2D(EngineSettings.Graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-            pixel.SetData<Color>(new Color[] { Color.White });
-
-            mRessourcen.Add("pixel", pixel);
+            //Texture2D pixel;
+            //pixel = new Texture2D(EngineSettings.Graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            //pixel.SetData<Color>(new Color[] { Color.White });
         }
         #endregion
 
@@ -43,7 +40,12 @@ namespace DragonEngine.Manager
 
         public override void Initialize()
         {
+            
+        }
 
+        public override void LoadContent()
+        {
+            mRessourcen.Add("pixel", EngineSettings.EngineContent.Load<Texture2D>(@"gfx\pixel"));
         }
 
         /// <summary>
@@ -60,6 +62,17 @@ namespace DragonEngine.Manager
             }
         }
 
+        public override void LoadStringDictionary(Dictionary<string, string> pLoadDictionary)
+        {
+            foreach (KeyValuePair<String, String> pair in pLoadDictionary)
+            {
+                if (!mRessourcen.ContainsKey(pair.Key))
+                {
+                    Texture2D tex = EngineSettings.EngineContent.Load<Texture2D>(pair.Value);
+                    mRessourcen.Add(pair.Key, tex);
+                }
+            }
+        }
 
         /// <summary>
         /// Gibt eine Texture2D zurück.
@@ -77,6 +90,14 @@ namespace DragonEngine.Manager
             mRessourcen.Clear();
         }
 
+        public override void UnloadStringList(List<string> pUnloadList)
+        {
+            foreach (String s in pUnloadList)
+            {
+                if(mRessourcen.ContainsKey(s))
+                    mRessourcen.Remove(s);
+            }
+        }
         #endregion
     }
 }

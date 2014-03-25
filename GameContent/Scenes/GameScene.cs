@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using DragonEngine.Entities;
 using Microsoft.Xna.Framework.Input;
 using DragonEngine;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace SnakeMobile.GameContent.Scenes
 {
@@ -52,6 +53,9 @@ namespace SnakeMobile.GameContent.Scenes
         private Vector2 ItemPosition = new Vector2(-3, -3);
         private bool ItemCollected = false;
 
+        private Rectangle TapLeft;
+        private Rectangle TapRight;
+
         #region Steine
         private static readonly int StoneAppear = 2;
         private static readonly int StoneMaxCount = 20;
@@ -82,7 +86,7 @@ namespace SnakeMobile.GameContent.Scenes
         private List<Sprite> BtnList = new List<Sprite>();
         #endregion
 
-        private SpriteFont font;
+        //private SpriteFont font;
 
         #endregion
 
@@ -98,51 +102,25 @@ namespace SnakeMobile.GameContent.Scenes
 
             ResetSnake();
 
-            BtnRetry = new Sprite(new Vector2(1000, 20), "PlayBtn");
-            BtnHighscore = new Sprite(new Vector2(1000, 260), "PlayBtn");
-            BtnHome = new Sprite(new Vector2(1000, 500), "PlayBtn");
-
-            BtnList.Add(BtnRetry);
-            BtnList.Add(BtnHighscore);
-            BtnList.Add(BtnHome);
-
             mDrawAction.Add(DrawGrid);
             mDrawAction.Add(DrawScore);
 
             if (EngineSettings.IsDebug)
                 mDrawAction.Add(DrawDebug);
 
-            FishItem = new AnimatedSprite(new Vector2(-3, -3), "SpriteAtlas", 32, 32, new List<int>(){160, 161, 162, 163}, 200, true);
-            mBigFish = new BigFish(new Vector2(-3, -3), "SpriteAtlas", 32, 32, new List<int>() {1, 2, 3, 4}, 200, true);
-            SnakeSheet = new TiledSprite(new Vector2(-32, -32), "SpriteAtlas", 32, 32);
 
-            mUpdateGameObjects.Add(FishItem);
-            mUpdateGameObjects.Add(mBigFish);
+            int ThirdScreenWidth = EngineSettings.WindowWidth / 3;
 
-            for (int i = 0; i < StoneMaxCount; i++)
-                StoneClass[i] = new Stone(new Vector2(-3, -3), "SpriteAtlas", 96, 96, new List<int> { 3, 4, 8, 9 }, 3000, false);
+            TapLeft = new Rectangle(0, 0, ThirdScreenWidth, EngineSettings.WindowHeight);
+            TapRight = new Rectangle(EngineSettings.WindowWidth - ThirdScreenWidth, 0, ThirdScreenWidth, EngineSettings.WindowHeight);
 
-            spriteFont = new DSpriteFont(new Vector2(0, 0), "Font", new List<Rectangle>()
-                {
-                    new Rectangle(0,0,40,64), 
-                    new Rectangle(40,0,40,64), 
-                    new Rectangle(80,0,40,64), 
-                    new Rectangle(120,0,40,64), 
-                    new Rectangle(160,0,40,64), 
-                    new Rectangle(200,0,40,64), 
-                    new Rectangle(240,0,40,64), 
-                    new Rectangle(280,0,40,64), 
-                    new Rectangle(320,0,40,64), 
-                    new Rectangle(360,0,40,64), 
-                    new Rectangle(400,0,16,16), 
-                    new Rectangle(0,64,192,64)
-                }
-            );
         }
         #endregion
 
         #region Methoden
 
+        #region DrawMethoden
+        
         private void DrawGrid()
         {
             mSpriteBatch.Begin();
@@ -172,11 +150,13 @@ namespace SnakeMobile.GameContent.Scenes
         private void DrawDebug()
         {
             mSpriteBatch.Begin();
-            mSpriteBatch.DrawString(font, "Game Ende : " + IsGameEnd, Vector2.Zero, Color.Azure);
-            mSpriteBatch.DrawString(font, "Score : " + Score * 10, new Vector2(0, 20), Color.Azure);
-            mSpriteBatch.DrawString(font, "Speed : " + updateSkipInGame, new Vector2(0, 40), Color.Azure);
-            mSpriteBatch.DrawString(font, "Stones : " + StoneCount, new Vector2(0, 60), Color.Azure);
-            mSpriteBatch.DrawString(font, "Fish RestTime : " + mBigFish.FishTimer.GetInfo(), new Vector2(0, 80), Color.Azure);
+            //mSpriteBatch.DrawString(font, "Game Ende : " + IsGameEnd, Vector2.Zero, Color.Azure);
+            //mSpriteBatch.DrawString(font, "Score : " + Score * 10, new Vector2(0, 20), Color.Azure);
+            //mSpriteBatch.DrawString(font, "Speed : " + updateSkipInGame, new Vector2(0, 40), Color.Azure);
+            //mSpriteBatch.DrawString(font, "Stones : " + StoneCount, new Vector2(0, 60), Color.Azure);
+            //mSpriteBatch.DrawString(font, "Fish RestTime : " + mBigFish.FishTimer.GetInfo(), new Vector2(0, 80), Color.Azure);
+            mSpriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), TapLeft, Color.AliceBlue);
+            mSpriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), TapRight, Color.AntiqueWhite);
             mSpriteBatch.End();
         }
 
@@ -205,7 +185,19 @@ namespace SnakeMobile.GameContent.Scenes
 
             mSpriteBatch.End();
         }
+        
+        #endregion
+        
+        #region Update Methoden
 
+        public override void Update(GameTime gameTime)
+        {
+            foreach (GameObject go in mUpdateGameObjects)
+                go.Update(gameTime);
+
+            UpdatePlayerPosition(gameTime);
+        }
+        
         private void UpdatePlayerPosition(GameTime gameTime)
         {
             if (IsGameEnd) EndGame();
@@ -290,6 +282,111 @@ namespace SnakeMobile.GameContent.Scenes
             //SetWorldElements();
         }
 
+        private void UpdateTapInput(GameTime gameTime)
+        {
+            Point tapPosition;
+
+            TouchCollection currentTouchState = TouchPanel.GetState();
+            if (TouchPanel.IsGestureAvailable)
+            {
+                var gesture = TouchPanel.ReadGesture();
+                tapPosition = new Point((int)gesture.Position.X, (int)gesture.Position.Y);
+
+                if (TapLeft.Contains(tapPosition) && gesture.GestureType == GestureType.Tap)
+                {
+                    MoveDirection--;
+                    if (MoveDirection == 0) MoveDirection = 4;
+                }
+
+                if (TapRight.Contains(tapPosition) && gesture.GestureType == GestureType.Tap)
+                {
+                    MoveDirection++;
+                    if (MoveDirection == 5) MoveDirection = 1;
+                }
+            }
+        }
+
+        private void UpdateInput(GameTime gameTime)
+        {
+            ksLast = ksCurrent;
+            ksCurrent = Keyboard.GetState();
+
+            if (ksCurrent.IsKeyUp(Keys.Left) && ksLast.IsKeyDown(Keys.Left))
+            {
+                MoveDirection--;
+                if (MoveDirection == 0) MoveDirection = 4;
+            }
+
+            if (ksCurrent.IsKeyUp(Keys.Right) && ksLast.IsKeyDown(Keys.Right))
+            {
+                MoveDirection++;
+                if (MoveDirection == 5) MoveDirection = 1;
+            }
+        }
+
+        private void UpdateItem(GameTime gameTime)
+        {
+            if (ItemPosition == new Vector2(-3, -3))
+            {
+                bool endloop = false;
+
+                while (!endloop)
+                {
+                    Vector2 tmpPosi = GetFreePositionOnGrid();
+                    if (mGameWorld[(int)tmpPosi.X, (int)tmpPosi.Y] == 0)
+                    {
+                        ItemPosition = tmpPosi;
+                        endloop = true;
+                    }
+                }
+            }
+            mGameWorld[(int)ItemPosition.X, (int)ItemPosition.Y] = 4;
+            FishItem.Position = ItemPosition * new Vector2(32, 32) + new Vector2(64, 64);
+        }
+
+        private void UpdateGameEndScreen(GameTime gameTime)
+        {
+            int clickId = -1;
+            if (EngineSettings.OnAndriod)
+            {
+                Point tapPosition;
+
+                TouchCollection currentTouchState = TouchPanel.GetState();
+                while (TouchPanel.IsGestureAvailable)
+                {
+                    var gesture = TouchPanel.ReadGesture();
+                    tapPosition = new Point((int)gesture.Position.X, (int)gesture.Position.Y);
+
+                    foreach (Sprite s in BtnList)
+                        if (s.SpriteBox.Contains(tapPosition) && gesture.GestureType == GestureType.Tap)
+                            clickId = BtnList.IndexOf(s);
+                }
+
+
+            }
+            else
+            {
+                MouseState ms = Mouse.GetState();
+
+                foreach (Sprite s in BtnList)
+                    if (s.SpriteBox.Contains(ms.X, ms.Y) && ms.LeftButton == ButtonState.Pressed)
+                        clickId = BtnList.IndexOf(s);
+            }
+
+            switch (clickId)
+            {
+                case 0: StartNewGame();
+                    break;
+                case 1: SceneManager.Instance.SetCurrentSceneTo("Highscore");
+                    break;
+                case 2: SceneManager.Instance.SetCurrentSceneTo("Start");
+                    break;
+                default: break;
+            }
+        }
+        
+        #endregion
+        
         private void AddNewStone()
         {
             int id = rnd.Next(0, 2);
@@ -330,44 +427,6 @@ namespace SnakeMobile.GameContent.Scenes
             mGameWorld[(int)mPositionInGrid[mSnakeLength - tailPosition].X, (int)mPositionInGrid[mSnakeLength - tailPosition].Y] = 3;
             if (mPositionInGrid[0].X < 0 || mPositionInGrid[0].Y < 0 || mPositionInGrid[0].X >= 36 || mPositionInGrid[0].Y >= 18) return;
             mGameWorld[(int)mPositionInGrid[0].X, (int)mPositionInGrid[0].Y] = 1;
-        }
-
-        private void UpdateInput(GameTime gameTime)
-        {
-            ksLast = ksCurrent;
-            ksCurrent = Keyboard.GetState();
-
-            if (ksCurrent.IsKeyUp(Keys.Left) && ksLast.IsKeyDown(Keys.Left))
-            {
-                MoveDirection--;
-                if (MoveDirection == 0) MoveDirection = 4;
-            }
-
-            if (ksCurrent.IsKeyUp(Keys.Right) && ksLast.IsKeyDown(Keys.Right))
-            {
-                MoveDirection++;
-                if (MoveDirection == 5) MoveDirection = 1;
-            }
-        }
-
-        private void UpdateItem(GameTime gameTime)
-        {
-            if (ItemPosition == new Vector2(-3, -3))
-            {
-                bool endloop = false;
-
-                while (!endloop)
-                {
-                    Vector2 tmpPosi = GetFreePositionOnGrid();
-                    if(mGameWorld[(int)tmpPosi.X, (int)tmpPosi.Y] == 0)
-                    {
-                        ItemPosition = tmpPosi;
-                        endloop = true;
-                    }
-                }
-            }
-            mGameWorld[(int)ItemPosition.X, (int)ItemPosition.Y] = 4;
-            FishItem.Position = ItemPosition * new Vector2(32, 32) + new Vector2(64, 64);
         }
 
         private void CreateNewStone()
@@ -551,7 +610,10 @@ namespace SnakeMobile.GameContent.Scenes
             CalculateSnakeSpriteAnim();
 
             mUpdateAction.Add(UpdatePlayerPosition);
-            mUpdateAction.Add(UpdateInput);
+            if (EngineSettings.OnAndriod)
+                mUpdateAction.Add(UpdateTapInput);
+            else
+                mUpdateAction.Add(UpdateInput);
             mUpdateAction.Add(UpdateItem);
             mUpdateAction.Add(mBigFish.UpdateTimer);
 
@@ -584,32 +646,56 @@ namespace SnakeMobile.GameContent.Scenes
             mUpdateGameObjects.Add(BtnHome);
 
             mUpdateAction.Remove(UpdatePlayerPosition);
-            mUpdateAction.Remove(UpdateInput);
+            if (EngineSettings.OnAndriod)
+                mUpdateAction.Remove(UpdateTapInput);
+            else
+                mUpdateAction.Remove(UpdateInput);
             mUpdateAction.Remove(UpdateItem);
             mUpdateAction.Remove(mBigFish.UpdateTimer);
 
             mUpdateAction.Add(UpdateGameEndScreen);
         }
 
-        private void UpdateGameEndScreen(GameTime gameTime)
+        public override void LoadContent()
         {
-            MouseState ms = Mouse.GetState();
-            int clickId = -1;
+            base.LoadContent();
 
-            foreach (Sprite s in BtnList)
-                if (s.SpriteBox.Contains(ms.X, ms.Y) && ms.LeftButton == ButtonState.Pressed)
-                    clickId = BtnList.IndexOf(s);
+            //font = EngineSettings.EngineContent.Load<SpriteFont>(@"font\font");
 
-            switch (clickId)
-            {
-                case 0: StartNewGame();
-                    break;
-                case 1: SceneManager.Instance.SetCurrentSceneTo("Highscore");
-                    break;
-                case 2: SceneManager.Instance.SetCurrentSceneTo("Start");
-                    break;
-                default: break;
-            }
+            BtnRetry = new Sprite(new Vector2(1000, 20), "PlayBtn");
+            BtnHighscore = new Sprite(new Vector2(1000, 260), "PlayBtn");
+            BtnHome = new Sprite(new Vector2(1000, 500), "PlayBtn");
+
+            FishItem = new AnimatedSprite(new Vector2(-3, -3), "SpriteAtlas", 32, 32, new List<int>() { 160, 161, 162, 163 }, 200, true);
+            mBigFish = new BigFish(new Vector2(-3, -3), "SpriteAtlas", 32, 32, new List<int>() { 1, 2, 3, 4 }, 200, true);
+            SnakeSheet = new TiledSprite(new Vector2(-32, -32), "SpriteAtlas", 32, 32);
+
+            for (int i = 0; i < StoneMaxCount; i++)
+                StoneClass[i] = new Stone(new Vector2(-3, -3), "SpriteAtlas", 96, 96, new List<int> { 3, 4, 8, 9 }, 3000, false);
+
+            spriteFont = new DSpriteFont(new Vector2(0, 0), "Font", new List<Rectangle>()
+                {
+                    new Rectangle(0,0,40,64), 
+                    new Rectangle(40,0,40,64), 
+                    new Rectangle(80,0,40,64), 
+                    new Rectangle(120,0,40,64), 
+                    new Rectangle(160,0,40,64), 
+                    new Rectangle(200,0,40,64), 
+                    new Rectangle(240,0,40,64), 
+                    new Rectangle(280,0,40,64), 
+                    new Rectangle(320,0,40,64), 
+                    new Rectangle(360,0,40,64), 
+                    new Rectangle(400,0,16,16), 
+                    new Rectangle(0,64,192,64)
+                }
+            );
+
+            BtnList.Add(BtnRetry);
+            BtnList.Add(BtnHighscore);
+            BtnList.Add(BtnHome);
+
+            mUpdateGameObjects.Add(FishItem);
+            mUpdateGameObjects.Add(mBigFish);
         }
 
         protected override void FillTexture2DList()
@@ -618,8 +704,6 @@ namespace SnakeMobile.GameContent.Scenes
             mTexture2DStringList.Add("Item", @"gfx\coin");
             mTexture2DStringList.Add("SpriteAtlas", @"gfx\textureAtlas");
             mTexture2DStringList.Add("Font", @"gfx\menuAtlas");
-
-            font = EngineSettings.EngineContent.Load<SpriteFont>(@"font\font");
         }
        
         #endregion

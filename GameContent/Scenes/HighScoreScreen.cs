@@ -5,6 +5,8 @@ using System.Text;
 using DragonEngine.SceneManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using DragonEngine;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace SnakeMobile.GameContent.Scenes
 {
@@ -30,10 +32,27 @@ namespace SnakeMobile.GameContent.Scenes
         #region Methoden
         private void LeaveScreen(GameTime gameTime)
         {
-            MouseState ms = Mouse.GetState();
+            if (EngineSettings.OnAndriod)
+            {
+                TouchCollection currentTouchState = TouchPanel.GetState();
+                while (TouchPanel.IsGestureAvailable)
+                {
+                    var gesture = TouchPanel.ReadGesture();
+                    switch (gesture.GestureType)
+                    {
+                        case GestureType.Tap:
+                            SceneManager.Instance.SetCurrentSceneTo("Start");
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                MouseState ms = Mouse.GetState();
 
-            if (ms.LeftButton == ButtonState.Pressed)
-                SceneManager.Instance.SetCurrentSceneTo("Start");
+                if (ms.LeftButton == ButtonState.Pressed)
+                    SceneManager.Instance.SetCurrentSceneTo("Start");
+            }
         }
         #endregion
     }

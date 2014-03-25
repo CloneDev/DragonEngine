@@ -12,9 +12,13 @@ namespace DragonEngine
         #region Properties
         
         public static bool IsDebug = false;
+        public static bool OnAndriod = false;
 
         public static int WindowHeight = 480;
         public static int WindowWidth = 640;
+
+        public static int DisplayHeight;
+        public static int DisplayWidth;
 
         public static ContentManager EngineContent;
         public static GraphicsDeviceManager Graphics;

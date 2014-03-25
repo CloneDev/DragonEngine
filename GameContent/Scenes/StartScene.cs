@@ -7,24 +7,20 @@ using Microsoft.Xna.Framework;
 using DragonEngine.Entities;
 using Microsoft.Xna.Framework.Input;
 using DragonEngine;
-using DragonEngine.Manager;
-using Spine;
+using Microsoft.Xna.Framework.Input.Touch;
+using Snessy.GameContent.Scenes;
 
 namespace SnakeMobile.GameContent.Scenes
 {
     class StartScene : Scene
     {
         #region Properties
-
-        #region Spine
-        private SkeletonRenderer skeletonRenderer;
-        private Skeleton skeleton;
-        private AnimationState animationState;
-        private SkeletonBounds bounds = new SkeletonBounds();
-        private bool flipSkel;
-        string name = "";
-        #endregion
-
+        private Sprite BtnHighScore;
+        private Sprite BtnShare;
+        private Sprite BtnCredits;
+        private Sprite BtnInstruction;
+        private Sprite BtnStart;
+        private Sprite MiddleLogo;
         #endregion
 
         #region Getter & Setter
@@ -36,102 +32,92 @@ namespace SnakeMobile.GameContent.Scenes
             : base(pSceneName)
         {
             mClearColor = Color.CadetBlue;
-            mUpdateAction.Add(CheckClick);
-            mUpdateAction.Add(UpdateSpine);
-            mDrawAction.Add(DrawSpine);
+            if (EngineSettings.OnAndriod)
+            {
+                TouchPanel.EnabledGestures = GestureType.Tap;
+                mUpdateAction.Add(CheckTap);
+            }
+            else
+                mUpdateAction.Add(CheckClick);
         }
         #endregion
 
         #region Methoden
-        protected override void Load()
-        {
-            TextureManager.Instance.Add("BackgroundStart", @"gfx\menuBackground");
-            LoadSpine(new Vector2(500, 650), "fluffy", 1f, 0.2f);
-        }
 
-        private void LoadSpine(Vector2 position, string name, float scale, float fading)
+        private void CheckTap(GameTime gameTime)
         {
-            SpineSettings.LoadFadingSettings();
-            this.name = name;
-            //----------Spine-Daten aufbereiten----------
-                
-            //----------Hier ggf nochmal kapseln: Allg Vorlage f Spine-Objekttyp----------
-                json.Scale = scale;
-                SkeletonData skeletonData = json.ReadSkeletonData("Content/spine/" + name + ".json");
-                // Define mixing between animations.
-                AnimationStateData animationStateData = new AnimationStateData(skeletonData);
-                SpineSettings.SetFadingSettings(animationStateData);
-            //----------Konkretes instanziertes Spine-Objekt----------
-                skeleton = new Skeleton(skeletonData);
-                skeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
-                animationState = new AnimationState(animationStateData);
-                skeleton.x = position.X;
-                skeleton.y = position.Y;
-        }
+            Point tapPosition;
 
-        private bool BoundingBoxCollision(Rectangle cbox) //Checken ob Rectangle mit bb-Attachement (z.B. Keule) kollidiert
-        {
-            bounds.Update(skeleton, true);
-            bool collision = false;
-            if (bounds.AabbIntersectsSegment(cbox.X, cbox.Y, cbox.X, cbox.Y + cbox.Height)
-                || bounds.AabbIntersectsSegment(cbox.X + cbox.Width, cbox.Y, cbox.X + cbox.Width, cbox.Y + cbox.Height)
-                || bounds.AabbIntersectsSegment(cbox.X, cbox.Y, cbox.X + cbox.Width, cbox.Y)
-                || bounds.AabbIntersectsSegment(cbox.X, cbox.Y + cbox.Height, cbox.X + cbox.Width, cbox.Y + cbox.Height)
-                )
+            TouchCollection currentTouchState = TouchPanel.GetState();
+            if (TouchPanel.IsGestureAvailable)
             {
-                if (bounds.IntersectsSegment(cbox.X, cbox.Y, cbox.X, cbox.Y + cbox.Height) != null
-                    ||
-                    bounds.IntersectsSegment(cbox.X + cbox.Width, cbox.Y, cbox.X + cbox.Width, cbox.Y + cbox.Height) != null
-                    ||
-                    bounds.IntersectsSegment(cbox.X, cbox.Y, cbox.X + cbox.Width, cbox.Y) != null
-                    ||
-                    bounds.IntersectsSegment(cbox.X, cbox.Y + cbox.Height, cbox.X + cbox.Width, cbox.Y + cbox.Height) != null
-                    )
+                var gesture = TouchPanel.ReadGesture();
+                tapPosition = new Point((int)gesture.Position.X, (int)gesture.Position.Y);
+
+                if (BtnStart.SpriteBox.Contains(tapPosition) && gesture.GestureType == GestureType.Tap)
                 {
-                    collision = true;
+                    if (EngineSettings.OnAndriod)
+                    {
+                        AndroidGameScene gc = (AndroidGameScene)SceneManager.Instance.GetScene("Game");
+                        //gc.StartNewGame();
+                    }
+                    else
+                    {
+                        GameScene gc = (GameScene)SceneManager.Instance.GetScene("Game");
+                        gc.StartNewGame();
+                    }
+                    SceneManager.Instance.SetCurrentSceneTo("Game");
                 }
+
+                if (BtnHighScore.SpriteBox.Contains(tapPosition) && gesture.GestureType == GestureType.Tap)
+                    SceneManager.Instance.SetCurrentSceneTo("Highscore");
+                if (BtnCredits.SpriteBox.Contains(tapPosition) && gesture.GestureType == GestureType.Tap)
+                    SceneManager.Instance.SetCurrentSceneTo("Credits");
             }
-            return collision;
-        }
-
-        private void UpdateSpine(GameTime gameTime)
-        {
-            //Player -> Drawposition
-            //skeleton.X = position.X - camera.viewport.X;
-            //skeleton.Y = position.Y - camera.viewport.Y;
-            //skeleton.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
-            animationState.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
-            animationState.Apply(skeleton);
-            skeleton.UpdateWorldTransform();
-        }
-
-        private void DrawSpine()
-        {
-            //----------Spine----------
-            skeletonRenderer.Begin();
-            skeletonRenderer.Draw(skeleton);
-            skeletonRenderer.End();
-            //Player -> Worldposition
-            //skeleton.X = position.X;
-            //skeleton.Y = position.Y;
         }
 
         private void CheckClick(GameTime gameTime)
         {
             MouseState ms = Mouse.GetState();
-            if (ms.LeftButton == ButtonState.Pressed && animationState.GetCurrent(0) != null)
+
+            if (BtnStart.SpriteBox.Contains(ms.X, ms.Y) && ms.LeftButton == ButtonState.Pressed)
             {
-                if (animationState.GetCurrent(0).animation.name == skeleton.data.FindAnimation("idle").name)
-                    animationState.SetAnimation(0, "attack", false);
+                GameScene gc = (GameScene)SceneManager.Instance.GetScene("Game");
+                gc.StartNewGame();
+                SceneManager.Instance.SetCurrentSceneTo("Game");
             }
-            else if (ms.RightButton == ButtonState.Pressed)
+
+            if (BtnHighScore.SpriteBox.Contains(ms.X, ms.Y) && ms.LeftButton == ButtonState.Pressed)
+                SceneManager.Instance.SetCurrentSceneTo("Highscore");
+            if (BtnCredits.SpriteBox.Contains(ms.X, ms.Y) && ms.LeftButton == ButtonState.Pressed)
+                SceneManager.Instance.SetCurrentSceneTo("Credits");
+        }
+
+        public override void LoadContent()
+        {
+            base.LoadContent();
+
+            BtnHighScore = new Sprite(new Vector2(32, 96), "Dummy");
+            BtnShare = new Sprite(new Vector2(32, 284), "Dummy");
+            BtnStart = new Sprite(new Vector2(360, 424), "PlayBtn");
+            BtnCredits = new Sprite(new Vector2(968, 96), "Dummy");
+            BtnInstruction = new Sprite(new Vector2(968, 284), "Dummy");
+
+            if (EngineSettings.IsDebug)
             {
-                Environment.Exit(0);
+                mUpdateGameObjects.Add(BtnHighScore);
+                mUpdateGameObjects.Add(BtnShare);
+                mUpdateGameObjects.Add(BtnStart);
+                mUpdateGameObjects.Add(BtnCredits);
+                mUpdateGameObjects.Add(BtnInstruction);
             }
-            else
-            {
-                animationState.AddAnimation(0, "idle", true, 0);
-            }
+        }
+
+        protected override void FillTexture2DList()
+        {
+            mTexture2DStringList.Add("Dummy", @"gfx\dummybtn");
+            mTexture2DStringList.Add("PlayBtn", @"gfx\playbtn");
+            mTexture2DStringList.Add("BackgroundStart", @"gfx\menuBackground");
         }
         #endregion
     }

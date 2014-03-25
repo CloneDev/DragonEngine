@@ -21,6 +21,7 @@ namespace DragonEngine.SceneManagement
         protected Color mClearColor = Color.LawnGreen;
 
         // String1 für AssetName, String2 für AssetPfad
+        protected Dictionary<String, String> mTexture2DStringList = new Dictionary<string, string>();
         protected List<GameObject> mUpdateGameObjects = new List<GameObject>();
         protected List<Action<GameTime>> mUpdateAction = new List<Action<GameTime>>();
         protected List<Action> mDrawAction = new List<Action>();
@@ -37,10 +38,12 @@ namespace DragonEngine.SceneManagement
 
         public Scene()
         {
+            FillTexture2DList();
         }
         public Scene(String pSceneName)
         {
             this.mName = pSceneName;
+            FillTexture2DList();
         }
         #endregion
 
@@ -50,6 +53,11 @@ namespace DragonEngine.SceneManagement
         {
             mRenderTarget = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.WindowWidth, EngineSettings.WindowHeight);
             mSpriteBatch = new SpriteBatch(EngineSettings.Graphics.GraphicsDevice);
+        }
+
+        public virtual void LoadContent()
+        {
+            TextureManager.Instance.LoadStringDictionary(mTexture2DStringList);
         }
 
         /// <summary>
@@ -67,6 +75,7 @@ namespace DragonEngine.SceneManagement
 
         public virtual void Draw()
         {
+            
             mSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
             mSpriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mBackgroundName), new Rectangle(0, 0, EngineSettings.WindowWidth, EngineSettings.WindowHeight), mClearColor);
             mSpriteBatch.End();
@@ -80,7 +89,7 @@ namespace DragonEngine.SceneManagement
             mSpriteBatch.End();
         }
 
-        protected virtual void Load()
+        protected virtual void FillTexture2DList()
         {
 
         }
