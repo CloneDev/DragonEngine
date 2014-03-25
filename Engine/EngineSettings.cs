@@ -20,6 +20,9 @@ namespace DragonEngine
         public static int DisplayHeight;
         public static int DisplayWidth;
 
+        public static float AspectRatioX;
+        public static float AspectRatioY;
+
         public static ContentManager EngineContent;
         public static GraphicsDeviceManager Graphics;
         public static GameTime Time;
@@ -35,6 +38,10 @@ namespace DragonEngine
         {
             Graphics.PreferredBackBufferHeight = DisplayHeight;
             Graphics.PreferredBackBufferWidth = DisplayWidth;
+
+            AspectRatioX = WindowWidth / (float)DisplayWidth;
+            AspectRatioY = WindowHeight / (float)DisplayHeight;
+
             Graphics.ApplyChanges();
 
         }

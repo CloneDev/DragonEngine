@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DragonEngine.Entities
 {
-    class BaseObject
+    public class BaseObject
     {
         #region Properties
 

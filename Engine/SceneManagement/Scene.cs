@@ -38,12 +38,12 @@ namespace DragonEngine.SceneManagement
 
         public Scene()
         {
-            FillTexture2DList();
+            //FillTexture2DList();
         }
         public Scene(String pSceneName)
         {
             this.mName = pSceneName;
-            FillTexture2DList();
+            //FillTexture2DList();
         }
         #endregion
 
@@ -57,7 +57,7 @@ namespace DragonEngine.SceneManagement
 
         public virtual void LoadContent()
         {
-            TextureManager.Instance.LoadStringDictionary(mTexture2DStringList);
+            //TextureManager.Instance.LoadStringDictionary(mTexture2DStringList);
         }
 
         /// <summary>
@@ -75,7 +75,8 @@ namespace DragonEngine.SceneManagement
 
         public virtual void Draw()
         {
-            
+            EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(mRenderTarget);
+
             mSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
             mSpriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mBackgroundName), new Rectangle(0, 0, EngineSettings.WindowWidth, EngineSettings.WindowHeight), mClearColor);
             mSpriteBatch.End();
@@ -87,10 +88,12 @@ namespace DragonEngine.SceneManagement
             foreach (GameObject go in mUpdateGameObjects)
                 go.Draw(mSpriteBatch);
             mSpriteBatch.End();
-        }
 
-        protected virtual void FillTexture2DList()
-        {
+            EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(null);
+
+            mSpriteBatch.Begin();
+            mSpriteBatch.Draw(mRenderTarget, new Rectangle(0, 0, EngineSettings.DisplayWidth, EngineSettings.DisplayHeight), Color.White);
+            mSpriteBatch.End();
 
         }
 
