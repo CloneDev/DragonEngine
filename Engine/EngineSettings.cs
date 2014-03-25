@@ -33,8 +33,8 @@ namespace DragonEngine
         /// </summary>
         public static void SetResolution()
         {
-            Graphics.PreferredBackBufferHeight = WindowHeight;
-            Graphics.PreferredBackBufferWidth = WindowWidth;
+            Graphics.PreferredBackBufferHeight = DisplayHeight;
+            Graphics.PreferredBackBufferWidth = DisplayWidth;
             Graphics.ApplyChanges();
 
         }
