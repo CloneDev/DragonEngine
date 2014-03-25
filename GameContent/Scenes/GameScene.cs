@@ -697,14 +697,6 @@ namespace SnakeMobile.GameContent.Scenes
             mUpdateGameObjects.Add(FishItem);
             mUpdateGameObjects.Add(mBigFish);
         }
-
-        protected override void FillTexture2DList()
-        {
-            mTexture2DStringList.Add("Background", @"gfx\background");
-            mTexture2DStringList.Add("Item", @"gfx\coin");
-            mTexture2DStringList.Add("SpriteAtlas", @"gfx\textureAtlas");
-            mTexture2DStringList.Add("Font", @"gfx\menuAtlas");
-        }
        
         #endregion
     }

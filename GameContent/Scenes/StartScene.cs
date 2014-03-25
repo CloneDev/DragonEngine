@@ -17,12 +17,7 @@ namespace SnakeMobile.GameContent.Scenes
         #region Properties
 
         #region Spine
-        private SkeletonRenderer skeletonRenderer;
-        private Skeleton skeleton;
-        private AnimationState animationState;
-        private SkeletonBounds bounds = new SkeletonBounds();
-        private bool flipSkel;
-        string name = "";
+        SpineObject mFluffy;
         #endregion
 
         #endregion
@@ -37,92 +32,35 @@ namespace SnakeMobile.GameContent.Scenes
         {
             mClearColor = Color.CadetBlue;
             mUpdateAction.Add(CheckClick);
-            mUpdateAction.Add(UpdateSpine);
-            mDrawAction.Add(DrawSpine);
         }
         #endregion
 
         #region Methoden
-        protected override void Load()
+
+        public override void Initialize()
+        {
+            mFluffy = new SpineObject("fluffy");
+            mUpdateAction.Add(mFluffy.Update);
+            mDrawAction.Add(mFluffy.Draw);
+            
+            base.Initialize();
+        }
+        
+        public override void LoadContent()
         {
             TextureManager.Instance.Add("BackgroundStart", @"gfx\menuBackground");
-            LoadSpine(new Vector2(500, 650), "fluffy", 1f, 0.2f);
-        }
+            mFluffy.Load();
 
-        private void LoadSpine(Vector2 position, string name, float scale, float fading)
-        {
-            SpineSettings.LoadFadingSettings();
-            this.name = name;
-            //----------Spine-Daten aufbereiten----------
-                
-            //----------Hier ggf nochmal kapseln: Allg Vorlage f Spine-Objekttyp----------
-                json.Scale = scale;
-                SkeletonData skeletonData = json.ReadSkeletonData("Content/spine/" + name + ".json");
-                // Define mixing between animations.
-                AnimationStateData animationStateData = new AnimationStateData(skeletonData);
-                SpineSettings.SetFadingSettings(animationStateData);
-            //----------Konkretes instanziertes Spine-Objekt----------
-                skeleton = new Skeleton(skeletonData);
-                skeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
-                animationState = new AnimationState(animationStateData);
-                skeleton.x = position.X;
-                skeleton.y = position.Y;
-        }
-
-        private bool BoundingBoxCollision(Rectangle cbox) //Checken ob Rectangle mit bb-Attachement (z.B. Keule) kollidiert
-        {
-            bounds.Update(skeleton, true);
-            bool collision = false;
-            if (bounds.AabbIntersectsSegment(cbox.X, cbox.Y, cbox.X, cbox.Y + cbox.Height)
-                || bounds.AabbIntersectsSegment(cbox.X + cbox.Width, cbox.Y, cbox.X + cbox.Width, cbox.Y + cbox.Height)
-                || bounds.AabbIntersectsSegment(cbox.X, cbox.Y, cbox.X + cbox.Width, cbox.Y)
-                || bounds.AabbIntersectsSegment(cbox.X, cbox.Y + cbox.Height, cbox.X + cbox.Width, cbox.Y + cbox.Height)
-                )
-            {
-                if (bounds.IntersectsSegment(cbox.X, cbox.Y, cbox.X, cbox.Y + cbox.Height) != null
-                    ||
-                    bounds.IntersectsSegment(cbox.X + cbox.Width, cbox.Y, cbox.X + cbox.Width, cbox.Y + cbox.Height) != null
-                    ||
-                    bounds.IntersectsSegment(cbox.X, cbox.Y, cbox.X + cbox.Width, cbox.Y) != null
-                    ||
-                    bounds.IntersectsSegment(cbox.X, cbox.Y + cbox.Height, cbox.X + cbox.Width, cbox.Y + cbox.Height) != null
-                    )
-                {
-                    collision = true;
-                }
-            }
-            return collision;
-        }
-
-        private void UpdateSpine(GameTime gameTime)
-        {
-            //Player -> Drawposition
-            //skeleton.X = position.X - camera.viewport.X;
-            //skeleton.Y = position.Y - camera.viewport.Y;
-            //skeleton.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
-            animationState.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
-            animationState.Apply(skeleton);
-            skeleton.UpdateWorldTransform();
-        }
-
-        private void DrawSpine()
-        {
-            //----------Spine----------
-            skeletonRenderer.Begin();
-            skeletonRenderer.Draw(skeleton);
-            skeletonRenderer.End();
-            //Player -> Worldposition
-            //skeleton.X = position.X;
-            //skeleton.Y = position.Y;
+            base.LoadContent();
         }
 
         private void CheckClick(GameTime gameTime)
         {
             MouseState ms = Mouse.GetState();
-            if (ms.LeftButton == ButtonState.Pressed && animationState.GetCurrent(0) != null)
+            if (ms.LeftButton == ButtonState.Pressed && mFluffy.AnimationState.GetCurrent(0) != null)
             {
-                if (animationState.GetCurrent(0).animation.name == skeleton.data.FindAnimation("idle").name)
-                    animationState.SetAnimation(0, "attack", false);
+                if (mFluffy.AnimationState.GetCurrent(0).animation.name == mFluffy.Skeleton.Data.FindAnimation("idle").name)
+                    mFluffy.AnimationState.SetAnimation(0, "attack", false);
             }
             else if (ms.RightButton == ButtonState.Pressed)
             {
@@ -130,7 +68,7 @@ namespace SnakeMobile.GameContent.Scenes
             }
             else
             {
-                animationState.AddAnimation(0, "idle", true, 0);
+                mFluffy.AnimationState.AddAnimation(0, "idle", true, 0);
             }
         }
         #endregion

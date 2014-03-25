@@ -60,15 +60,20 @@ namespace SnakeMobile
         /// </summary>
         protected override void LoadContent()
         {
+            //Load Settings
+            SpineSettings.LoadFadingSettings();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            //Load Manager
             TextureManager.Instance.LoadContent();
+            SpineManager.Instance.LoadContent();
             SceneManager.Instance.LoadContent();
 
-            SceneManager.Instance.GetScene("Game").Background = "Background";
-            SceneManager.Instance.GetScene("Splash").Background = "SplashScreen";
+            //Load Scenes
+            //SceneManager.Instance.GetScene("Game").Background = "Background";
+            //SceneManager.Instance.GetScene("Splash").Background = "SplashScreen";
             SceneManager.Instance.GetScene("Start").Background = "BackgroundStart";
-            SceneManager.Instance.SetStartSceneTo("Splash");
+            SceneManager.Instance.SetStartSceneTo("Start");
 
         }
 

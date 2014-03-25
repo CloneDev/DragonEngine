@@ -37,10 +37,6 @@ namespace SnakeMobile.GameContent.Scenes
             if (timer.IsTimerFinish(gameTime)) SceneManager.Instance.SetCurrentSceneTo("Start");
         }
 
-        protected override void FillTexture2DList()
-        {
-            mTexture2DStringList.Add("SplashScreen", @"gfx\splash");
-        }
         #endregion
     }
 }

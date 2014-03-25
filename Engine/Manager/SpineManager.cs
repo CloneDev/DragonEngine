@@ -67,6 +67,11 @@ namespace DragonEngine.Manager
             Add("fluffy");
         }
 
+        public override void Unload()
+        {
+            mRessourcen.Clear();
+        }
+
         /// <summary>
         /// Fügt ein neues Element in mRessourcenManager ein.
         /// </summary>
@@ -105,14 +110,19 @@ namespace DragonEngine.Manager
                 return (T)new object();
         }
 
-        public override void Unload()
+        public Skeleton NewSkeleton(string pName, float pScale)
         {
-            mRessourcen.Clear();
+            RawSpineData TmpSpineData = GetElementByString<RawSpineData>(pName);
+            TmpSpineData.json.Scale = pScale; //Set Scaling
+            SkeletonData TmpSkeletonData = TmpSpineData.json.ReadSkeletonData("Content/spine/" + pName + ".json"); //Apply Json with Scaling to get skelData
+            return new Skeleton(TmpSkeletonData);
         }
 
-        public override void LoadContent()
+        public AnimationState NewAnimationState(SkeletonData pSkeletonData)
         {
-            throw new NotImplementedException();
+            AnimationStateData TmpAnimationStateData = new AnimationStateData(pSkeletonData);
+            SpineSettings.SetFadingSettings(TmpAnimationStateData);//Set mixing between animations
+            return new AnimationState(TmpAnimationStateData);
         }
 
         #endregion

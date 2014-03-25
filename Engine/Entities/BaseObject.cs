@@ -26,7 +26,7 @@ namespace DragonEngine.Entities
         }
         #endregion
 
-        #region Virutal Methoden
+        #region Virtual Methoden
 
         /// <summary>
         /// Gibt das angehängte GameObject an der Stelle von pIndex.
@@ -46,8 +46,6 @@ namespace DragonEngine.Entities
             for (int i = 0; i < mUpdateActionGameTime.Count; i++)
                 mUpdateActionGameTime[i](gameTime);
         }
-
-        public virtual void Draw(SpriteBatch spriteBatch) { }
 
         public void AddAction(Action<BaseObject> pAction)
         {

@@ -21,7 +21,6 @@ namespace DragonEngine.SceneManagement
         protected Color mClearColor = Color.LawnGreen;
 
         // String1 für AssetName, String2 für AssetPfad
-        protected Dictionary<String, String> mTexture2DStringList = new Dictionary<string, string>();
         protected List<GameObject> mUpdateGameObjects = new List<GameObject>();
         protected List<Action<GameTime>> mUpdateAction = new List<Action<GameTime>>();
         protected List<Action> mDrawAction = new List<Action>();
@@ -29,7 +28,6 @@ namespace DragonEngine.SceneManagement
 
         #region Getter & Setter
         public String Name { get { return this.mName; } }
-        public Dictionary<String, String> AssetList { get { return mTexture2DStringList; } }
         public List<GameObject> UpdateGameObjects { get { return mUpdateGameObjects; } }
         public String Background { set { mBackgroundName = value; mClearColor = Color.White; } }
         #endregion
@@ -38,12 +36,10 @@ namespace DragonEngine.SceneManagement
 
         public Scene()
         {
-            //FillTexture2DList();
         }
         public Scene(String pSceneName)
         {
             this.mName = pSceneName;
-            //FillTexture2DList();
         }
         #endregion
 
@@ -57,7 +53,7 @@ namespace DragonEngine.SceneManagement
 
         public virtual void LoadContent()
         {
-            //TextureManager.Instance.LoadStringDictionary(mTexture2DStringList);
+
         }
 
         /// <summary>
