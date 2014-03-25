@@ -62,6 +62,11 @@ namespace DragonEngine.Manager
 
         }
 
+        public override void LoadContent()
+        {
+            Add("fluffy");
+        }
+
         /// <summary>
         /// Fügt ein neues Element in mRessourcenManager ein.
         /// </summary>
