@@ -47,6 +47,7 @@ namespace SnakeMobile
         protected override void Initialize()
         {
             SceneManager.Instance.Initialize();
+
             //SceneManager.Instance.GetScene("Game").Background = "Background";
             //SceneManager.Instance.GetScene("Splash").Background = "SplashScreen";
             SceneManager.Instance.GetScene("Start").Background = "BackgroundStart";
@@ -68,13 +69,6 @@ namespace SnakeMobile
             TextureManager.Instance.LoadContent();
             SpineManager.Instance.LoadContent();
             SceneManager.Instance.LoadContent();
-
-            //Load Scenes
-            //SceneManager.Instance.GetScene("Game").Background = "Background";
-            //SceneManager.Instance.GetScene("Splash").Background = "SplashScreen";
-            SceneManager.Instance.GetScene("Start").Background = "BackgroundStart";
-            SceneManager.Instance.SetStartSceneTo("Start");
-
         }
 
         /// <summary>

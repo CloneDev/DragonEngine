@@ -40,7 +40,6 @@ namespace SnakeMobile.GameContent.Scenes
         public override void Initialize()
         {
             mFluffy = new SpineObject("fluffy");
-            mUpdateAction.Add(mFluffy.Update);
             mDrawAction.Add(mFluffy.Draw);
             
             base.Initialize();
