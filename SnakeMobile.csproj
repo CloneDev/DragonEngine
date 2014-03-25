@@ -42,15 +42,42 @@
     <Compile Include="Engine\Entities\TiledSprite.cs" />
     <Compile Include="Engine\Entities\Timer.cs" />
     <Compile Include="Engine\Manager\Manager.cs" />
+    <Compile Include="Engine\Manager\SpineManager.cs" />
     <Compile Include="Engine\Manager\TextureManager.cs" />
     <Compile Include="Engine\PlayerSettings.cs" />
     <Compile Include="Engine\Pool\ObjectPool.cs" />
     <Compile Include="Engine\SceneManagement\Scene.cs" />
     <Compile Include="Engine\SceneManagement\SceneManager.cs" />
+    <Compile Include="Engine\SpineSettings.cs" />
+    <Compile Include="Engine\Spine\csharp\Animation.cs" />
+    <Compile Include="Engine\Spine\csharp\AnimationState.cs" />
+    <Compile Include="Engine\Spine\csharp\AnimationStateData.cs" />
+    <Compile Include="Engine\Spine\csharp\Atlas.cs" />
+    <Compile Include="Engine\Spine\csharp\Attachments\AtlasAttachmentLoader.cs" />
+    <Compile Include="Engine\Spine\csharp\Attachments\Attachment.cs" />
+    <Compile Include="Engine\Spine\csharp\Attachments\AttachmentLoader.cs" />
+    <Compile Include="Engine\Spine\csharp\Attachments\AttachmentType.cs" />
+    <Compile Include="Engine\Spine\csharp\Attachments\BoundingBoxAttachment.cs" />
+    <Compile Include="Engine\Spine\csharp\Attachments\RegionAttachment.cs" />
+    <Compile Include="Engine\Spine\csharp\Bone.cs" />
+    <Compile Include="Engine\Spine\csharp\BoneData.cs" />
+    <Compile Include="Engine\Spine\csharp\Event.cs" />
+    <Compile Include="Engine\Spine\csharp\EventData.cs" />
+    <Compile Include="Engine\Spine\csharp\Json.cs" />
+    <Compile Include="Engine\Spine\csharp\Skeleton.cs" />
+    <Compile Include="Engine\Spine\csharp\SkeletonBounds.cs" />
+    <Compile Include="Engine\Spine\csharp\SkeletonData.cs" />
+    <Compile Include="Engine\Spine\csharp\SkeletonJson.cs" />
+    <Compile Include="Engine\Spine\csharp\Skin.cs" />
+    <Compile Include="Engine\Spine\csharp\Slot.cs" />
+    <Compile Include="Engine\Spine\csharp\SlotData.cs" />
+    <Compile Include="Engine\Spine\xna\SkeletonRenderer.cs" />
+    <Compile Include="Engine\Spine\xna\SpriteBatcher.cs" />
+    <Compile Include="Engine\Spine\xna\Util.cs" />
+    <Compile Include="Engine\Spine\xna\XnaTextureLoader.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameContent\BigFish.cs" />
     <Compile Include="GameContent\DSpriteFont.cs" />
-    <Compile Include="GameContent\Scenes\AndroidGameScene.cs" />
     <Compile Include="GameContent\Scenes\CreditsScene.cs" />
     <Compile Include="GameContent\Scenes\GameScene.cs" />
     <Compile Include="GameContent\Scenes\HighScoreScreen.cs" />
@@ -80,6 +107,9 @@
     <Content Include="..\..\..\..\..\..\..\Program Files %28x86%29\MonoGame\v3.0\Assemblies\WindowsGL\SDL.dll">
       <Link>SDL.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\spine\fluffy-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
@@ -130,6 +160,14 @@
   <ItemGroup>
     <Content Include="Content\gfx\pixel.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\spine\fluffy.atlas">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\spine\fluffy.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

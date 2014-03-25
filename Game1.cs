@@ -11,8 +11,6 @@ using DragonEngine.SceneManagement;
 using DragonEngine.Manager;
 using SnakeMobile.GameContent.Scenes;
 using DragonEngine;
-using Microsoft.Xna.Framework.Input.Touch;
-using Snessy.GameContent.Scenes;
 #endregion
 
 namespace SnakeMobile
@@ -24,26 +22,19 @@ namespace SnakeMobile
     {
         SpriteBatch spriteBatch;
 
-        public Game1()
-            : base()
+        public Game1() : base()
         {
             Content.RootDirectory = "Content";
-            EngineSettings.OnAndriod = false;
-            EngineSettings.IsDebug = false;
+
             EngineSettings.EngineContent = Content;
             EngineSettings.Graphics = new GraphicsDeviceManager(this);
             EngineSettings.SetResolution(1280, 720);
-            EngineSettings.Graphics.IsFullScreen = false;
-            EngineSettings.Graphics.ApplyChanges();
 
             SceneManager.Instance.AddScene(new StartScene("Start"));
-            if (EngineSettings.OnAndriod)
-                SceneManager.Instance.AddScene(new AndroidGameScene("Game"));
-            else
-                SceneManager.Instance.AddScene(new GameScene("Game"));
-            SceneManager.Instance.AddScene(new SplashScreen("Splash"));
-            SceneManager.Instance.AddScene(new HighScoreScreen("Highscore"));
-            SceneManager.Instance.AddScene(new CreditsScene("Credits"));
+            //SceneManager.Instance.AddScene(new GameScene("Game"));
+            //SceneManager.Instance.AddScene(new SplashScreen("Splash"));
+            //SceneManager.Instance.AddScene(new HighScoreScreen("Highscore"));
+            //SceneManager.Instance.AddScene(new CreditsScene("Credits"));
 
         }
 
@@ -56,7 +47,10 @@ namespace SnakeMobile
         protected override void Initialize()
         {
             SceneManager.Instance.Initialize();
-            
+            //SceneManager.Instance.GetScene("Game").Background = "Background";
+            //SceneManager.Instance.GetScene("Splash").Background = "SplashScreen";
+            SceneManager.Instance.GetScene("Start").Background = "BackgroundStart";
+            SceneManager.Instance.SetStartSceneTo("Start");
             base.Initialize();
         }
 
@@ -66,15 +60,8 @@ namespace SnakeMobile
         /// </summary>
         protected override void LoadContent()
         {
+            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            TextureManager.Instance.LoadContent();
-            SceneManager.Instance.LoadContent();
-
-            SceneManager.Instance.GetScene("Game").Background = "Background";
-            SceneManager.Instance.GetScene("Splash").Background = "SplashScreen";
-            SceneManager.Instance.GetScene("Start").Background = "BackgroundStart";
-            SceneManager.Instance.SetStartSceneTo("Splash");
         }
 
         /// <summary>
