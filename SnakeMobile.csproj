@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Engine\EngineSettings.cs" />
     <Compile Include="Engine\Entities\AnimatedSprite.cs" />
+    <Compile Include="Engine\Entities\BaseObject.cs" />
     <Compile Include="Engine\Entities\GameObject.cs" />
     <Compile Include="Engine\Entities\Sprite.cs" />
     <Compile Include="Engine\Entities\TiledSprite.cs" />
