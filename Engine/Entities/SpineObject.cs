@@ -41,27 +41,27 @@ namespace DragonEngine.Entities
 
         public SpineObject(string pName)
         {
-            Initialize();
             mName = pName;
+            mInitPosition = new Vector2(0, 0);
+            mScale = 1.0f;
         }
 
         public SpineObject(string pName, float pScale)
         {
-            Initialize();
             mName = pName;
+            mInitPosition = new Vector2(0, 0);
             mScale = pScale;
         }
 
         public SpineObject(string pName, Vector2 pPosition)
         {
-            Initialize();
             mName = pName;
             mInitPosition = pPosition;
+            mScale = 1.0f;
         }
 
         public SpineObject(string pName, Vector2 pPosition, float pScale)
         {
-            Initialize();
             mName = pName;
             mInitPosition = pPosition;
             mScale = pScale;
@@ -75,8 +75,6 @@ namespace DragonEngine.Entities
         {
             mSkeletonRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
             mBounds = new SkeletonBounds();
-            mInitPosition = new Vector2(0, 0);
-            mScale = 1.0f;
             //mUpdateActionGameTime.Add(UpdateAnimation);
         }
 
