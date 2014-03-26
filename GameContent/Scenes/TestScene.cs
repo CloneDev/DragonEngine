@@ -37,7 +37,7 @@ namespace SnakeMobile.GameContent.Scenes
 
         public override void Initialize()
         {
-            mCamera = new Camera(new Rectangle(-100,-100,2000,1000));
+            mCamera = new Camera(new Rectangle(0,0,EngineSettings.VirtualResX,EngineSettings.VirtualResY));
             mCamera.Initialize();
             mCamera.Move(-50, -50);
             mFluffy = new SpineObject("fluffy", new Vector2(600, 650));
