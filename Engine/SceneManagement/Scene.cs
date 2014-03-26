@@ -88,7 +88,7 @@ namespace DragonEngine.SceneManagement
             EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(null);
 
             mSpriteBatch.Begin();
-            mSpriteBatch.Draw(mRenderTarget, new Rectangle(0, 0, EngineSettings.DisplayWidth, EngineSettings.DisplayHeight), Color.White);
+            mSpriteBatch.Draw(mRenderTarget, new Rectangle(0, 0, EngineSettings.WindowWidth, EngineSettings.WindowHeight), Color.White);
             mSpriteBatch.End();
 
         }
