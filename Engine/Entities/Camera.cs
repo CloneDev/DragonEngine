@@ -8,15 +8,18 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DragonEngine.Entities
 {
-    class Camera
+    class Camera : BaseObject
     {
         #region Properties
 
-        public Rectangle viewport;
-        public Rectangle screenViewport = new Rectangle();
-        public Matrix viewportTransform;
-        public Matrix screenTransform;
-        int camerabewegung;
+        private Rectangle mViewport;
+        private Rectangle mScreenViewport = new Rectangle();
+        private Matrix mViewportTransform;
+        private Matrix mScreenTransform;
+        private int leftspace = 200;
+        private int rightspace = 200;
+        private int bottomspace = 200;
+        private int topspace = 200;
 
         #endregion
 
@@ -24,114 +27,83 @@ namespace DragonEngine.Entities
 
         public Camera()
         {
-            viewport = new Rectangle(0, 0, (int)Game1.resolution.X, (int)Game1.resolution.Y);
+            mViewport = new Rectangle(0, 0, (int)Game1.resolution.X, (int)Game1.resolution.Y);
         }
 
         #endregion
 
         #region Methoden
 
-        public virtual void Update(GraphicsDeviceManager graphics, Player spieler, Map karte)
+        public virtual void Update(Player player, Map map)
         {
-            //Kamera an Spieler anpassen 
-            int leftspace = Convert.ToInt32((double)Game1.luaInstance["cameraLeftspace"]);
-            int rightspace = Convert.ToInt32((double)Game1.luaInstance["cameraRightspace"]);
-            int bottomspace = Convert.ToInt32((double)Game1.luaInstance["cameraBottomspace"]);
-            int topspace = Convert.ToInt32((double)Game1.luaInstance["cameraTopspace"]);
-            int maxbewegung = Convert.ToInt32((double)Game1.luaInstance["cameraMaxBewegung"]);
-            int bewegungsteps = Convert.ToInt32((double)Game1.luaInstance["cameraBewegungSteps"]);
-            if (Game1.input.camR)
+            if (mViewport.X + leftspace > player.position.X) //Scrolling nach links
             {
-                if (camerabewegung < maxbewegung)
-                    camerabewegung += bewegungsteps;
+                mViewport.X = (int)player.position.X - leftspace;
             }
-            else if (Game1.input.camL)
+            else if (mViewport.X + mViewport.Width - rightspace < player.position.X) //Scrolling nach rechts
             {
-                if (camerabewegung > -maxbewegung)
-                    camerabewegung -= bewegungsteps;
+                mViewport.X = (int)player.position.X - (mViewport.Width - rightspace);
             }
-            else if(camerabewegung != 0)
+            if (mViewport.X < 0) //Linker Maprand
             {
-                if (camerabewegung > 0)
-                    camerabewegung -= bewegungsteps;
-                else
-                    camerabewegung += bewegungsteps;
-
+                mViewport.X = 0;
+            }
+            else if (mViewport.X > map.size.X - mViewport.Width) //Rechter Maprand
+            {
+                mViewport.X = (int)map.size.X - mViewport.Width;
             }
 
-            if (viewport.X + leftspace > spieler.position.X) //Scrolling nach links
+            if (mViewport.Y + topspace > player.position.Y) //Scrolling nach oben
             {
-                viewport.X = (int)spieler.position.X - leftspace;
+                mViewport.Y = (int)player.position.Y - topspace;
             }
-            else if (viewport.X + viewport.Width - rightspace < spieler.position.X) //Scrolling nach rechts
+            else if (mViewport.Y + mViewport.Height - bottomspace < player.position.Y) //Scrolling nach unten
             {
-                viewport.X = (int)spieler.position.X - (viewport.Width - rightspace);
+                mViewport.Y = (int)player.position.Y - (mViewport.Height - bottomspace);
             }
-            if (viewport.X < 0) //Linker Maprand
+            if (mViewport.Y < 0) //Oberer Maprand
             {
-                viewport.X = 0;
+                mViewport.Y = 0;
             }
-            else if (viewport.X > karte.size.X - viewport.Width) //Rechter Maprand
+            else if (mViewport.Y > map.size.Y - mViewport.Height) //Unterer Maprand
             {
-                viewport.X = (int)karte.size.X - viewport.Width;
+                mViewport.Y = (int)map.size.Y - mViewport.Height;
             }
-            if (viewport.X + camerabewegung > 0 && viewport.X + camerabewegung < karte.size.X - viewport.Width)
-                viewport.X += camerabewegung;
-            else if (viewport.X + camerabewegung > karte.size.X-viewport.Width) //Rechter Maprand
-                viewport.X = (int)karte.size.X - viewport.Width;
-            else if(viewport.X + camerabewegung < 0)
-                viewport.X = 0;
-            if (viewport.Y + topspace > spieler.position.Y) //Scrolling nach oben
-            {
-                viewport.Y = (int)spieler.position.Y - topspace;
-            }
-            else if (viewport.Y + viewport.Height - bottomspace < spieler.position.Y) //Scrolling nach unten
-            {
-                viewport.Y = (int)spieler.position.Y - (viewport.Height - bottomspace);
-            }
-            if (viewport.Y < 0) //Oberer Maprand
-            {
-                viewport.Y = 0;
-            }
-            else if (viewport.Y > karte.size.Y - viewport.Height) //Unterer Maprand
-            {
-                viewport.Y = (int)karte.size.Y - viewport.Height;
-            }
-            UpdateTransformation(graphics); //Abgekapselt damit Camera für Menü ohne Spieler verwendbar ist.
+            UpdateTransformation(); //Abgekapselt damit Camera für Menü ohne Spieler verwendbar ist.
         }
 
-        public void UpdateTransformation(GraphicsDeviceManager graphics)
+        public void UpdateTransformation()
         {
-            int width = graphics.GraphicsDevice.PresentationParameters.BackBufferWidth;
-            int height = graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
+            int width = EngineSettings.Graphics.GraphicsDevice.PresentationParameters.BackBufferWidth;
+            int height = EngineSettings.Graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
             if (Game1.stretch) //Viewport screenfüllend
             {
-                screenViewport.X = 0;
-                screenViewport.Y = 0;
-                screenViewport.Width = width;
-                screenViewport.Height = height;
+                mScreenViewport.X = 0;
+                mScreenViewport.Y = 0;
+                mScreenViewport.Width = width;
+                mScreenViewport.Height = height;
             }
             else //Viewport mit Offset auf Screen
             {
-                if (screenViewport.X < screenViewport.Y) //Balken oben/unten
+                if (mScreenViewport.X < mScreenViewport.Y) //Balken oben/unten
                 {
-                    screenViewport.Width = (int)width;
-                    screenViewport.Height = (int)(width / Game1.resolution.X * Game1.resolution.Y);
+                    mScreenViewport.Width = (int)width;
+                    mScreenViewport.Height = (int)(width / Game1.resolution.X * Game1.resolution.Y);
                 }
                 else //Balken links/rechts
                 {
-                    screenViewport.Height = (int)height;
-                    screenViewport.Width = (int)(height / Game1.resolution.Y * Game1.resolution.X);
+                    mScreenViewport.Height = (int)height;
+                    mScreenViewport.Width = (int)(height / Game1.resolution.Y * Game1.resolution.X);
                 }
-                screenViewport.X = (width - (int)screenViewport.Width) / 2;
-                screenViewport.Y = (height - (int)screenViewport.Height) / 2;
+                mScreenViewport.X = (width - (int)mScreenViewport.Width) / 2;
+                mScreenViewport.Y = (height - (int)mScreenViewport.Height) / 2;
                 //= viewport.Width / resolution.X;
                 //= viewport.Height / resolution.Y;
             }
-            Matrix screenScale = Matrix.CreateScale((float)screenViewport.Width / Game1.resolution.X, (float)screenViewport.Height / Game1.resolution.Y, 1);
-            screenTransform = screenScale * Matrix.CreateTranslation(screenViewport.X, screenViewport.Y, 0);
+            Matrix screenScale = Matrix.CreateScale((float)mScreenViewport.Width / Game1.resolution.X, (float)mScreenViewport.Height / Game1.resolution.Y, 1);
+            mScreenTransform = screenScale * Matrix.CreateTranslation(mScreenViewport.X, mScreenViewport.Y, 0);
 
-            viewportTransform = Matrix.CreateTranslation(-viewport.X, -viewport.Y, 0);
+            mViewportTransform = Matrix.CreateTranslation(-mViewport.X, -mViewport.Y, 0);
         }
 
         #endregion
