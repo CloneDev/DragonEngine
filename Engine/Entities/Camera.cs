@@ -44,42 +44,56 @@ namespace DragonEngine.Entities
             mScreenTransform = mScreenScale * Matrix.CreateTranslation(mScreenViewport.X, mScreenViewport.Y, 0);
         }
 
-        public virtual void Update(Player player, Map map)
+        public virtual void Update()
         {
-            if (mViewport.X + leftspace > player.position.X) //Scrolling nach links
-            {
-                mViewport.X = (int)player.position.X - leftspace;
-            }
-            else if (mViewport.X + mViewport.Width - rightspace < player.position.X) //Scrolling nach rechts
-            {
-                mViewport.X = (int)player.position.X - (mViewport.Width - rightspace);
-            }
-            if (mViewport.X < 0) //Linker Maprand
-            {
-                mViewport.X = 0;
-            }
-            else if (mViewport.X > map.size.X - mViewport.Width) //Rechter Maprand
-            {
-                mViewport.X = (int)map.size.X - mViewport.Width;
-            }
+            UpdateViewportTransformation();
+        }
 
-            if (mViewport.Y + topspace > player.position.Y) //Scrolling nach oben
+        public void Move()
+        {
+            //Add Movement here
+            ForceInViewArea();
+        }
+
+        public void FocusOn(Rectangle pFocus)
+        {
+            if (mViewport.Left < pFocus.Left) //Scrolling nach links
             {
-                mViewport.Y = (int)player.position.Y - topspace;
+                mViewport.X = pFocus.Left;
             }
-            else if (mViewport.Y + mViewport.Height - bottomspace < player.position.Y) //Scrolling nach unten
+            else if (mViewport.Right > pFocus.Right) //Scrolling nach rechts
             {
-                mViewport.Y = (int)player.position.Y - (mViewport.Height - bottomspace);
+                mViewport.X = pFocus.Right - mViewport.Width;
             }
-            if (mViewport.Y < 0) //Oberer Maprand
+            if (mViewport.Top < pFocus.Top) //Scrolling nach oben
             {
-                mViewport.Y = 0;
+                mViewport.Y = pFocus.Top;
             }
-            else if (mViewport.Y > map.size.Y - mViewport.Height) //Unterer Maprand
+            else if (mViewport.Bottom > pFocus.Bottom) //Scrolling nach unten
             {
-                mViewport.Y = (int)map.size.Y - mViewport.Height;
+                mViewport.Y = pFocus.Bottom - mViewport.Height;
             }
-            UpdateTransformation(); //Abgekapselt damit Camera für Menü ohne Spieler verwendbar ist.
+            ForceInViewArea();
+        }
+
+        public void ForceInViewArea()
+        {
+            if (mViewport.Left < mViewArea.Left) //Linker Rand
+            {
+                mViewport.X = mViewArea.Left;
+            }
+            else if (mViewport.Right > mViewArea.Right) //Rechter Rand
+            {
+                mViewport.X = mViewArea.Right - mViewport.Width;
+            }
+            if (mViewport.Top < mViewArea.Top) //Oberer Rand
+            {
+                mViewport.Y = mViewArea.Top;
+            }
+            else if (mViewport.Bottom > mViewArea.Bottom) //Unterer Rand
+            {
+                mViewport.Y = mViewArea.Bottom - mViewport.Height;
+            }
         }
 
         public void UpdateViewportTransformation()
@@ -87,7 +101,7 @@ namespace DragonEngine.Entities
             mViewportTransform = Matrix.CreateTranslation(-mViewport.X, -mViewport.Y, 0);
         }
 
-        //public void InitializeBlackBandTransformation()
+        public void InitializeBlackBandTransformation()
         {
             if (mScreenViewport.X < mScreenViewport.Y) //Balken oben/unten
             {
