@@ -109,10 +109,10 @@ namespace SnakeMobile.GameContent.Scenes
                 mDrawAction.Add(DrawDebug);
 
 
-            int ThirdScreenWidth = EngineSettings.WindowWidth / 3;
+            int ThirdScreenWidth = EngineSettings.ScreenResX / 3;
 
-            TapLeft = new Rectangle(0, 0, ThirdScreenWidth, EngineSettings.WindowHeight);
-            TapRight = new Rectangle(EngineSettings.WindowWidth - ThirdScreenWidth, 0, ThirdScreenWidth, EngineSettings.WindowHeight);
+            TapLeft = new Rectangle(0, 0, ThirdScreenWidth, EngineSettings.ScreenResY);
+            TapRight = new Rectangle(EngineSettings.ScreenResX - ThirdScreenWidth, 0, ThirdScreenWidth, EngineSettings.ScreenResY);
 
         }
         #endregion
@@ -164,12 +164,12 @@ namespace SnakeMobile.GameContent.Scenes
         {
             mSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
-            mSpriteBatch.Draw(spriteFont.GetTileTexture2D(11), new Vector2(EngineSettings.WindowWidth - ScorePaddingRight - 7 * 40 - spriteFont.GetTileTexture2D(11).Width, 5), Color.White);
+            mSpriteBatch.Draw(spriteFont.GetTileTexture2D(11), new Vector2(EngineSettings.VirtualResX - ScorePaddingRight - 7 * 40 - spriteFont.GetTileTexture2D(11).Width, 5), Color.White);
 
-            mSpriteBatch.Draw(spriteFont.GetTileTexture2D(0), new Vector2(EngineSettings.WindowWidth - ScorePaddingRight - 40, 5), Color.White);
+            mSpriteBatch.Draw(spriteFont.GetTileTexture2D(0), new Vector2(EngineSettings.VirtualResX - ScorePaddingRight - 40, 5), Color.White);
 
             bool stillDrawing = true;
-            int drawPositionX = EngineSettings.WindowWidth - 80 - ScorePaddingRight;
+            int drawPositionX = EngineSettings.VirtualResX - 80 - ScorePaddingRight;
             int tmpScore = Score;
             
             if(Score > 0)

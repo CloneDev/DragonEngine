@@ -47,7 +47,7 @@ namespace DragonEngine.SceneManagement
 
         public virtual void Initialize()
         {
-            mRenderTarget = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.WindowWidth, EngineSettings.WindowHeight);
+            mRenderTarget = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResX, EngineSettings.VirtualResY);
             mSpriteBatch = new SpriteBatch(EngineSettings.Graphics.GraphicsDevice);
         }
 
@@ -74,7 +74,7 @@ namespace DragonEngine.SceneManagement
             EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(mRenderTarget);
 
             mSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
-            mSpriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mBackgroundName), new Rectangle(0, 0, EngineSettings.WindowWidth, EngineSettings.WindowHeight), mClearColor);
+            mSpriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mBackgroundName), new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY), mClearColor);
             mSpriteBatch.End();
 
             for(int i = 0; i < mDrawAction.Count; i++)
@@ -88,7 +88,7 @@ namespace DragonEngine.SceneManagement
             EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(null);
 
             mSpriteBatch.Begin();
-            mSpriteBatch.Draw(mRenderTarget, new Rectangle(0, 0, EngineSettings.WindowWidth, EngineSettings.WindowHeight), Color.White);
+            mSpriteBatch.Draw(mRenderTarget, new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY), Color.White);
             mSpriteBatch.End();
 
         }

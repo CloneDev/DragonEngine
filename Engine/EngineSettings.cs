@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 namespace DragonEngine
@@ -14,45 +15,66 @@ namespace DragonEngine
         public static bool IsDebug = false;
         public static bool OnAndriod = false;
 
-        public static int WindowHeight = 480;
-        public static int WindowWidth = 640;
-
-        public static int DisplayHeight;
-        public static int DisplayWidth;
-
-        public static float AspectRatioX;
-        public static float AspectRatioY;
-
         public static ContentManager EngineContent;
         public static GraphicsDeviceManager Graphics;
         public static GameTime Time;
+
+        #region Resolution
+
+        private static Vector2 ScreenResolution = Vector2.Zero;
+        private static Vector2 VirtualResolution = new Vector2(1280, 720);
+
+        public static int VirtualResX { get { return (int)VirtualResolution.X; } }
+        public static int VirtualResY { get { return (int)VirtualResolution.Y; } }
+
+        public static int ScreenResX { get { return (int)ScreenResolution.X; } }
+        public static int ScreenResY { get { return (int)ScreenResolution.Y; } }
+
+        #endregion
+
         #endregion
 
         #region Methoden
 
+        /// <summary>
+        /// Setzt die Windowauflösung auf Bildschirmauflösung und Fullscreen = true.
+        /// </summary>
+        public static void FitToFullScreen()
+        {
+            GetScreenResolution();
+            SetWindowToFullScreenPC();
+        }
 
         /// <summary>
-        /// Setzt die auflösung wie sie gewünscht ist.
+        /// Läd die Bildschirmauflösung in Vector2 ScreenResolution.
         /// </summary>
-        public static void SetResolution()
+        public static void GetScreenResolution()
         {
-            Graphics.PreferredBackBufferHeight = WindowHeight;
-            Graphics.PreferredBackBufferWidth = WindowWidth;
+            ScreenResolution.X = (float)GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            ScreenResolution.Y = (float)GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+        }
 
-            AspectRatioX = WindowWidth / (float)DisplayWidth;
-            AspectRatioY = WindowHeight / (float)DisplayHeight;
-
+        /// <summary>
+        /// Setzt die Windowauflösung auf Vector2 ScreenResolution und Fullscreen = true.
+        /// </summary>
+        public static void SetWindowToFullScreen()
+        {
+            Graphics.PreferredBackBufferWidth = (int)ScreenResolution.X;
+            Graphics.PreferredBackBufferHeight = (int)ScreenResolution.Y;
+            Graphics.IsFullScreen = true;
             Graphics.ApplyChanges();
-
         }
 
-        public static void SetResolution(int pWidth, int pHeight)
+        /// <summary>
+        /// Setzt die Windowauflösung auf VirtualResolution.
+        /// </summary>
+        public static void SetWindowToFullScreenPC()
         {
-            WindowHeight = pHeight;
-            WindowWidth = pWidth;
-
-            SetResolution();
+            Graphics.PreferredBackBufferWidth = (int)VirtualResX;
+            Graphics.PreferredBackBufferHeight = (int)VirtualResY;
+            Graphics.ApplyChanges();
         }
+        
         #endregion
     }
 }

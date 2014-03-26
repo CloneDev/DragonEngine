@@ -28,7 +28,7 @@ namespace SnakeMobile
 
             EngineSettings.EngineContent = Content;
             EngineSettings.Graphics = new GraphicsDeviceManager(this);
-            EngineSettings.SetResolution(1280, 720);
+            EngineSettings.FitToFullScreen();
 
             SceneManager.Instance.AddScene(new StartScene("Start"));
             //SceneManager.Instance.AddScene(new GameScene("Game"));
