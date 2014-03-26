@@ -30,7 +30,7 @@ namespace SnakeMobile
             EngineSettings.Graphics = new GraphicsDeviceManager(this);
             EngineSettings.FitToFullScreen();
 
-            SceneManager.Instance.AddScene(new StartScene("Start"));
+            SceneManager.Instance.AddScene(new TestScene("Test"));
             //SceneManager.Instance.AddScene(new GameScene("Game"));
             //SceneManager.Instance.AddScene(new SplashScreen("Splash"));
             //SceneManager.Instance.AddScene(new HighScoreScreen("Highscore"));
@@ -50,8 +50,8 @@ namespace SnakeMobile
 
             //SceneManager.Instance.GetScene("Game").Background = "Background";
             //SceneManager.Instance.GetScene("Splash").Background = "SplashScreen";
-            SceneManager.Instance.GetScene("Start").Background = "BackgroundStart";
-            SceneManager.Instance.SetStartSceneTo("Start");
+            SceneManager.Instance.GetScene("Test").Background = "BackgroundStart";
+            SceneManager.Instance.SetStartSceneTo("Test");
             base.Initialize();
         }
 

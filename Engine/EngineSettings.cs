@@ -70,8 +70,10 @@ namespace DragonEngine
         /// </summary>
         public static void SetWindowToFullScreenPC()
         {
-            Graphics.PreferredBackBufferWidth = (int)VirtualResX;
-            Graphics.PreferredBackBufferHeight = (int)VirtualResY;
+            ScreenResolution = VirtualResolution;
+            ScreenResolution /= 2;
+            Graphics.PreferredBackBufferWidth = (int)ScreenResolution.X;
+            Graphics.PreferredBackBufferHeight = (int)ScreenResolution.Y;
             Graphics.ApplyChanges();
         }
         

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DragonEngine.Entities
 {
-    class Camera : BaseObject
+    public class Camera : BaseObject
     {
         #region Properties
 
@@ -18,6 +18,9 @@ namespace DragonEngine.Entities
         private Matrix mViewportTransform;
         private Matrix mScreenScale;
         private Matrix mScreenTransform;
+
+        public Matrix ViewportTransform { get { return mViewportTransform; } }
+        public Matrix ScreenTransform { get { return mScreenTransform; } }
 
         #endregion
 
@@ -49,9 +52,17 @@ namespace DragonEngine.Entities
             UpdateViewportTransformation();
         }
 
-        public void Move()
+        public void Move(int pDeltaX, int pDeltaY)
         {
-            //Add Movement here
+            mViewport.X += pDeltaX;
+            mViewport.Y += pDeltaY;
+            ForceInViewArea();
+        }
+
+        public void Move(Vector2 pDelta)
+        {
+            mViewport.X += (int)pDelta.X;
+            mViewport.Y += (int)pDelta.Y;
             ForceInViewArea();
         }
 

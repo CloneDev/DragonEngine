@@ -17,6 +17,7 @@ namespace DragonEngine.SceneManagement
         protected String mBackgroundName = "pixel";
         protected SpriteBatch mSpriteBatch;
         protected RenderTarget2D mRenderTarget;
+        protected Camera mCamera;
 
         protected Color mClearColor = Color.LawnGreen;
 
@@ -73,21 +74,21 @@ namespace DragonEngine.SceneManagement
         {
             EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(mRenderTarget);
 
-            mSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
+            mSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null, mCamera.ViewportTransform);
             mSpriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mBackgroundName), new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY), mClearColor);
             mSpriteBatch.End();
 
             for(int i = 0; i < mDrawAction.Count; i++)
                 mDrawAction[i]();
 
-            mSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
+            mSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null, mCamera.ViewportTransform);
             foreach (GameObject go in mUpdateGameObjects)
                 go.Draw(mSpriteBatch);
             mSpriteBatch.End();
 
             EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(null);
 
-            mSpriteBatch.Begin();
+            mSpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, mCamera.ScreenTransform);
             mSpriteBatch.Draw(mRenderTarget, new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY), Color.White);
             mSpriteBatch.End();
 

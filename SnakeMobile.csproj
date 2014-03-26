@@ -79,14 +79,7 @@
     <Compile Include="Engine\Spine\xna\Util.cs" />
     <Compile Include="Engine\Spine\xna\XnaTextureLoader.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="GameContent\BigFish.cs" />
-    <Compile Include="GameContent\DSpriteFont.cs" />
-    <Compile Include="GameContent\Scenes\CreditsScene.cs" />
-    <Compile Include="GameContent\Scenes\GameScene.cs" />
-    <Compile Include="GameContent\Scenes\HighScoreScreen.cs" />
-    <Compile Include="GameContent\Scenes\SplashScreen.cs" />
-    <Compile Include="GameContent\Scenes\StartScene.cs" />
-    <Compile Include="GameContent\Stone.cs" />
+    <Compile Include="GameContent\Scenes\TestScene.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
