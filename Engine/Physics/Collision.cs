@@ -5,7 +5,7 @@ using System.Text;
 using DragonEngine;
 using Microsoft.Xna.Framework;
 
-namespace SnakeMobile.Engine.Physics
+namespace DragonEngine.Physics
 {
     class Collision
     {
