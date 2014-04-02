@@ -14,27 +14,18 @@ namespace DragonEngine.Pool
 
         private static Dictionary<String, SpinePool> mPoolInstance;
 
-        public static SpinePool Instance(string pName)
+        public static Dictionary<String, SpinePool> Pools
         {
-            if (mPoolInstance[pName] == null)
+            get
+            {
+                if (mPoolInstance == null)
                 {
-                    mPoolInstance.Add(pName, new SpinePool(pName));
+                    mPoolInstance = new Dictionary<string, SpinePool>();
+                    mPoolInstance.Add("fluffy", new SpinePool("fluffy"));
                 }
-            return mPoolInstance[pName];
+                return mPoolInstance;
+            }
         }
-
-        //public static Dictionary<String, SpinePool> Pools
-        //{
-        //    get
-        //    {
-        //        if (mPoolInstance == null)
-        //        {
-        //            mPoolInstance = new Dictionary<string, SpinePool>();
-        //            mPoolInstance.Add("fluffy", new SpinePool("fluffy"));
-        //        }
-        //        return mPoolInstance;
-        //    }
-        //}
 
         #endregion
 

@@ -42,8 +42,7 @@ namespace SnakeMobile.GameContent.Scenes
             mCamera = new Camera(new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY));
             mCamera.Initialize();
             mCamera.Move(-50, -50);
-            mFluffy = SpinePool.Pools["fluffy"].GetObject(); //new SpineObject("fluffy", new Vector2(600, 650));
-            mFluffy.Position = new Vector2(600, 650);
+            mFluffy = SpinePool.Pools["fluffy"].GetObject();
             mFluffy.Initialize();
 
             base.Initialize();
@@ -53,6 +52,7 @@ namespace SnakeMobile.GameContent.Scenes
         {
             TextureManager.Instance.Add("BackgroundStart", @"gfx\menuBackground");
             mFluffy.Load();
+            mFluffy.Position = new Vector2(600, 650);
 
             base.LoadContent();
         }
