@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Input;
 using DragonEngine;
 using DragonEngine.Manager;
 using Spine;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace SnakeMobile.GameContent.Scenes
 {
@@ -30,50 +29,24 @@ namespace SnakeMobile.GameContent.Scenes
             : base(pSceneName)
         {
             mClearColor = Color.CadetBlue;
-            //mUpdateAction.Add(CheckClick);
         }
         #endregion
 
-        #region Override Methoden
+        #region Methoden
 
-        public override void Update()
-        {
-            CheckClick();
-            mFluffy.UpdateAnimation(EngineSettings.Time);
-        }
+        #region Initialize & Load
 
-        public override void Draw()
-        {
-            EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(mRenderTarget);
-
-            mSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null, mCamera.ViewportTransform);
-            mSpriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mBackgroundName), new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY), mClearColor);
-
-            mFluffy.Draw();
-            mSpriteBatch.End();
-
-            mSpriteBatch.End();
-
-            EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(null);
-
-            mSpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, mCamera.ScreenTransform);
-            mSpriteBatch.Draw(mRenderTarget, new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY), Color.White);
-            mSpriteBatch.End();
-        }
-        
         public override void Initialize()
         {
-            mCamera = new Camera(new Rectangle(0,0,EngineSettings.VirtualResX,EngineSettings.VirtualResY));
+            mCamera = new Camera(new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY));
             mCamera.Initialize();
             mCamera.Move(-50, -50);
             mFluffy = new SpineObject("fluffy", new Vector2(600, 650));
             mFluffy.Initialize();
-            //mDrawAction.Add(mFluffy.Draw);
-            //mUpdateAction.Add(mFluffy.UpdateAnimation);
 
             base.Initialize();
         }
-        
+
         public override void LoadContent()
         {
             TextureManager.Instance.Add("BackgroundStart", @"gfx\menuBackground");
@@ -81,13 +54,19 @@ namespace SnakeMobile.GameContent.Scenes
 
             base.LoadContent();
         }
+
         #endregion
 
-        #region Methoden
+        #region Update
 
+        public override void Update(GameTime gameTime)
+        {
+            CheckClick(gameTime);
+            mFluffy.Update(gameTime);
+            mCamera.UpdateViewportTransformation();
+        }
 
-
-        private void CheckClick()
+        private void CheckClick(GameTime gameTime)
         {
             mCamera.UpdateViewportTransformation();
             MouseState ms = Mouse.GetState();
@@ -105,6 +84,23 @@ namespace SnakeMobile.GameContent.Scenes
                 mFluffy.AnimationState.AddAnimation(0, "idle", true, 0);
             }
         }
+
+        #endregion
+
+        #region Draw
+
+        public override void Draw()
+        {
+            DrawBackground();
+            //mSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null, mCamera.ViewportTransform);
+            // //Draw with SpriteBatch
+            //mSpriteBatch.End();
+            mFluffy.Draw();
+            DrawToScreen();
+        }
+
+        #endregion
+
         #endregion
     }
 }
