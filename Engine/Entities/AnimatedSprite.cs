@@ -55,16 +55,13 @@ namespace DragonEngine.Entities
         }
         #endregion
 
-        #region Virtual Methoden
+        #region Methoden
 
         public override void Update()
         {
-            if(!mAnimDone)
-                this.Animate();
+            Animate();
         }
-        #endregion
 
-        #region Methoden
 
         private void Animate()
         {
@@ -79,6 +76,7 @@ namespace DragonEngine.Entities
                     if (!mRepeatAnimation)
                     {
                         CurrentTile = mFrames[mFrames.Count - 1];
+                        //mUpdateActionGameTime.Remove(Animate);
                         mAnimDone = true;
                         return;
                     }

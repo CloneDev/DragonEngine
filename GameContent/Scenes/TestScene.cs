@@ -59,14 +59,14 @@ namespace SnakeMobile.GameContent.Scenes
 
         #region Update
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
-            CheckClick(gameTime);
-            mFluffy.Update(gameTime);
+            CheckClick();
+            mFluffy.Update();
             mCamera.UpdateViewportTransformation();
         }
 
-        private void CheckClick(GameTime gameTime)
+        private void CheckClick()
         {
             mCamera.UpdateViewportTransformation();
             MouseState ms = Mouse.GetState();

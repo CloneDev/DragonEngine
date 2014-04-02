@@ -16,16 +16,15 @@ namespace DragonEngine.Entities
 
         #region Constructor
 
-        public BaseObject(){ }
+        public BaseObject()
+        {
+        }
         #endregion
 
         #region Virtual Methoden
 
-        public virtual void Update(){ }
-
-        public virtual void Draw(SpriteBatch pSpriteBatch){ }
+        public virtual void Update(){}
 
         #endregion
-
     }
 }

@@ -35,6 +35,7 @@ namespace DragonEngine.Entities
         #endregion
 
         #region Virtual Methoden
+        public virtual void Draw(SpriteBatch spriteBatch) { }
         #endregion
     }
 }

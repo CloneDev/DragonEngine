@@ -47,7 +47,7 @@ namespace DragonEngine.Entities
             mScreenTransform = mScreenScale * Matrix.CreateTranslation(mScreenViewport.X, mScreenViewport.Y, 0);
         }
 
-        public virtual void Update()
+        public override void Update()
         {
             UpdateViewportTransformation();
         }

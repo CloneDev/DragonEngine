@@ -55,15 +55,15 @@ namespace DragonEngine.SceneManagement
         /// Updatet Funktionen und GameObjects
         /// </summary>
         /// <param name="gameTime"></param>
-        public virtual void Update(GameTime gameTime);
+        public virtual void Update(){}
 
-        public virtual void Draw();
+        public virtual void Draw(){}
 
         protected void DrawBackground()
         {
             EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(mRenderTarget);
             mSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null, mCamera.ViewportTransform);
-            mSpriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mBackgroundName), new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY), mClearColor);
+                mSpriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mBackgroundName), new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY), mClearColor);
             mSpriteBatch.End();
         }
 
@@ -71,7 +71,7 @@ namespace DragonEngine.SceneManagement
         {
             EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(null);
             mSpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, mCamera.ScreenTransform);
-            mSpriteBatch.Draw(mRenderTarget, new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY), Color.White);
+                mSpriteBatch.Draw(mRenderTarget, new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY), Color.White);
             mSpriteBatch.End();
         }
         #endregion
