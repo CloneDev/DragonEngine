@@ -7,6 +7,7 @@ namespace DragonEngine.Pool
 {
     abstract class Pool<T>
     {
+
         #region Properties
         protected static List<T> mFreeRessources;
         protected static List<T> mUsedRessources;
@@ -48,7 +49,6 @@ namespace DragonEngine.Pool
                 return TmpObject;
             }
         }
-
 
         public void ReleaseObject(T pObject)
         {

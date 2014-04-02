@@ -9,6 +9,14 @@ namespace DragonEngine.Pool
 {
     class SpinePool : Pool<SpineObject>
     {
+
+        #region Singleton
+
+        private static SpinePool mInstance;
+        public static SpinePool Instance { get { if (mInstance == null) mInstance = new SpinePool(); return mInstance; } }
+
+        #endregion
+
         #region Properties
         #endregion
 
