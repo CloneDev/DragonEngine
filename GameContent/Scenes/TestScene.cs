@@ -43,6 +43,7 @@ namespace SnakeMobile.GameContent.Scenes
             mCamera.Initialize();
             mCamera.Move(-50, -50);
             mFluffy = SpinePool.Instance.GetObject(); //new SpineObject("fluffy", new Vector2(600, 650));
+            mFluffy.Position = new Vector2(600, 650);
             mFluffy.Initialize();
 
             base.Initialize();
