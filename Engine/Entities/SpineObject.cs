@@ -21,7 +21,7 @@ namespace DragonEngine.Entities
         private string mName;
         private Vector2 mInitPosition;
         private float mScale;
-        
+
 
         #endregion
 
@@ -87,16 +87,25 @@ namespace DragonEngine.Entities
             mSkeleton.Y = mInitPosition.Y;
         }
 
-        public void UpdateAnimation(GameTime gameTime)
+        #region Update
+
+        public void Update()
+        {
+            UpdateAnimation();
+        }
+
+        protected void UpdateAnimation()
         {
             //Player -> Drawposition
             //skeleton.X = position.X - camera.viewport.X;
             //skeleton.Y = position.Y - camera.viewport.Y;
             //skeleton.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
-            mAnimationState.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
+            mAnimationState.Update(EngineSettings.Time.ElapsedGameTime.Milliseconds / 1000f);
             mAnimationState.Apply(mSkeleton);
             mSkeleton.UpdateWorldTransform();
         }
+
+        #endregion
 
         public void Draw()
         {
