@@ -122,7 +122,7 @@ namespace DragonEngine.SceneManagement
         public void Update()
         {
             if (!mFadeActiv)
-                mCurrentScene.Update(EngineSettings.Time);
+                mCurrentScene.Update();
             else
                 FadeColorScene();
         }

@@ -22,20 +22,17 @@ namespace SnakeMobile
     {
         SpriteBatch spriteBatch;
 
-        public Game1() : base()
+        public Game1() 
+            : base()
         {
             Content.RootDirectory = "Content";
 
             EngineSettings.EngineContent = Content;
             EngineSettings.Graphics = new GraphicsDeviceManager(this);
             EngineSettings.FitToFullScreen();
+            EngineSettings.SetWindowToFullScreenPC();
 
             SceneManager.Instance.AddScene(new TestScene("Test"));
-            //SceneManager.Instance.AddScene(new GameScene("Game"));
-            //SceneManager.Instance.AddScene(new SplashScreen("Splash"));
-            //SceneManager.Instance.AddScene(new HighScoreScreen("Highscore"));
-            //SceneManager.Instance.AddScene(new CreditsScene("Credits"));
-
         }
 
         /// <summary>
@@ -48,8 +45,6 @@ namespace SnakeMobile
         {
             SceneManager.Instance.Initialize();
 
-            //SceneManager.Instance.GetScene("Game").Background = "Background";
-            //SceneManager.Instance.GetScene("Splash").Background = "SplashScreen";
             SceneManager.Instance.GetScene("Test").Background = "BackgroundStart";
             SceneManager.Instance.SetStartSceneTo("Test");
             base.Initialize();
@@ -65,6 +60,7 @@ namespace SnakeMobile
             SpineSettings.LoadFadingSettings();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
             //Load Manager
             TextureManager.Instance.LoadContent();
             SpineManager.Instance.LoadContent();

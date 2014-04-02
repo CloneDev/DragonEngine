@@ -29,7 +29,6 @@ namespace DragonEngine.Entities
         {
             mFrames = pFrames;
             mAnimSpeed = pAnimSpeed;
-            mUpdateActionGameTime.Add(Animate);
         }
 
         public AnimatedSprite(Vector2 pPosition, String pTextureName, List<Rectangle> pSourceRectangleList, List<int> pFrames, int pAnimSpeed)
@@ -37,7 +36,6 @@ namespace DragonEngine.Entities
         {
             mFrames = pFrames;
             mAnimSpeed = pAnimSpeed;
-            mUpdateActionGameTime.Add(Animate);
         }
 
         public AnimatedSprite(Vector2 pPosition, String pTextureName, int pRectangleWidth, int pRectangleHeight, List<int> pFrames, int pAnimSpeed, bool pIsRepeat)
@@ -46,7 +44,6 @@ namespace DragonEngine.Entities
             mFrames = pFrames;
             mAnimSpeed = pAnimSpeed;
             mRepeatAnimation = pIsRepeat;
-            mUpdateActionGameTime.Add(Animate);
         }
 
         public AnimatedSprite(Vector2 pPosition, String pTextureName, List<Rectangle> pSourceRectangleList, List<int> pFrames, int pAnimSpeed, bool pIsRepeat)
@@ -55,15 +52,23 @@ namespace DragonEngine.Entities
             mFrames = pFrames;
             mAnimSpeed = pAnimSpeed;
             mRepeatAnimation = pIsRepeat;
-            mUpdateActionGameTime.Add(Animate);
+        }
+        #endregion
+
+        #region Virtual Methoden
+
+        public override void Update()
+        {
+            if(!mAnimDone)
+                this.Animate();
         }
         #endregion
 
         #region Methoden
 
-        private void Animate(GameTime gameTime)
+        private void Animate()
         {
-            mAnimElapsedTime += (gameTime.ElapsedGameTime.Milliseconds);
+            mAnimElapsedTime += (EngineSettings.Time.ElapsedGameTime.Milliseconds);
             if (mAnimElapsedTime >= mAnimSpeed)
             {
                 mFrameInList++;
@@ -74,7 +79,6 @@ namespace DragonEngine.Entities
                     if (!mRepeatAnimation)
                     {
                         CurrentTile = mFrames[mFrames.Count - 1];
-                        mUpdateActionGameTime.Remove(Animate);
                         mAnimDone = true;
                         return;
                     }
@@ -82,9 +86,6 @@ namespace DragonEngine.Entities
 
                 CurrentTile = mFrames[mFrameInList];
                 mAnimElapsedTime = 0;
-
-                //if(mAnimDone)
-                //    CurrentTile = 
             }
         }
         #endregion
