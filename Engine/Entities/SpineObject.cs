@@ -39,33 +39,40 @@ namespace DragonEngine.Entities
 
         #region Constructor
 
-        public SpineObject(string pName)
-        {
-            mName = pName;
-            mInitPosition = new Vector2(0, 0);
-            mScale = 1.0f;
-        }
-
-        public SpineObject(string pName, float pScale)
-        {
-            mName = pName;
-            mInitPosition = new Vector2(0, 0);
-            mScale = pScale;
-        }
-
-        public SpineObject(string pName, Vector2 pPosition)
-        {
-            mName = pName;
-            mInitPosition = pPosition;
-            mScale = 1.0f;
-        }
-
-        public SpineObject(string pName, Vector2 pPosition, float pScale)
+        public SpineObject(string pName, Vector2 pPosition = new Vector2(), float pScale = 1.0f)
         {
             mName = pName;
             mInitPosition = pPosition;
             mScale = pScale;
         }
+
+        //public SpineObject(string pName)
+        //{
+        //    mName = pName;
+        //    mInitPosition = new Vector2(0, 0);
+        //    mScale = 1.0f;
+        //}
+
+        //public SpineObject(string pName, float pScale)
+        //{
+        //    mName = pName;
+        //    mInitPosition = new Vector2(0, 0);
+        //    mScale = pScale;
+        //}
+
+        //public SpineObject(string pName, Vector2 pPosition)
+        //{
+        //    mName = pName;
+        //    mInitPosition = pPosition;
+        //    mScale = 1.0f;
+        //}
+
+        //public SpineObject(string pName, Vector2 pPosition, float pScale)
+        //{
+        //    mName = pName;
+        //    mInitPosition = pPosition;
+        //    mScale = pScale;
+        //}
 
         #endregion
 
