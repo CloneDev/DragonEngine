@@ -12,12 +12,36 @@ namespace DragonEngine.Pool
 
         #region Singleton
 
-        private static SpinePool mInstance;
-        public static SpinePool Instance { get { if (mInstance == null) mInstance = new SpinePool(); return mInstance; } }
+        private static Dictionary<String, SpinePool> mPoolInstance;
+
+        public static SpinePool Instance(string pName)
+        {
+            if (mPoolInstance[pName] == null)
+                {
+                    mPoolInstance.Add(pName, new SpinePool(pName));
+                }
+            return mPoolInstance[pName];
+        }
+
+        //public static Dictionary<String, SpinePool> Pools
+        //{
+        //    get
+        //    {
+        //        if (mPoolInstance == null)
+        //        {
+        //            mPoolInstance = new Dictionary<string, SpinePool>();
+        //            mPoolInstance.Add("fluffy", new SpinePool("fluffy"));
+        //        }
+        //        return mPoolInstance;
+        //    }
+        //}
 
         #endregion
 
         #region Properties
+
+        private string mName;
+
         #endregion
 
         #region Getter & Setter
@@ -25,10 +49,10 @@ namespace DragonEngine.Pool
 
         #region Constructor
 
-        public SpinePool()
+        public SpinePool(string pName)
             //:base()
         {
-            //Initialize();
+            mName = pName;
         }
 
         #endregion
@@ -37,7 +61,7 @@ namespace DragonEngine.Pool
 
         protected override SpineObject CreateInstance()
         {
-            return new SpineObject("fluffy");
+            return new SpineObject(mName);
         }
 
         protected override void CleanUpInstance(SpineObject pObject)
