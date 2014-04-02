@@ -69,6 +69,19 @@ namespace DragonEngine.Entities
 
         #endregion
 
+        #region PoolMethoden
+
+        public void CleanUp()
+        {
+            Position = Vector2.Zero;
+            Flip = false;
+            AnimationState.ClearTracks();
+            Skeleton.SetToSetupPose();
+            Skeleton.SetSkin("default");
+        }
+
+        #endregion
+
         #region Methoden
 
         public void Initialize()

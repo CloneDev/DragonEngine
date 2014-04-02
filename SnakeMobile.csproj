@@ -49,7 +49,8 @@
     <Compile Include="Engine\Manager\TextureManager.cs" />
     <Compile Include="Engine\Physics\Collision.cs" />
     <Compile Include="Engine\PlayerSettings.cs" />
-    <Compile Include="Engine\Pool\ObjectPool.cs" />
+    <Compile Include="Engine\Pool\Pool.cs" />
+    <Compile Include="Engine\Pool\SpinePool.cs" />
     <Compile Include="Engine\SceneManagement\Scene.cs" />
     <Compile Include="Engine\SceneManagement\SceneManager.cs" />
     <Compile Include="Engine\SpineSettings.cs" />
