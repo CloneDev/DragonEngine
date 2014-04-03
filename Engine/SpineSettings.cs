@@ -41,6 +41,7 @@ namespace DragonEngine
         #region Properties
 
         private static Dictionary<String, List<AnimationMix>> AnimationFading = new Dictionary<string, List<AnimationMix>>();
+        private static Dictionary<String, float> Scaling = new Dictionary<string, float>();
 
         public static float DefaultFading = 0.2f;
         public static bool PremultipliedAlphaRendering = true;
@@ -58,6 +59,7 @@ namespace DragonEngine
             List<AnimationMix> AnimationFadingList; //Zu bearbeitende Liste, damit die nicht immer neu im Dictionary nachgeschlagen werden muss
 
             #region Fluffy
+            Scaling.Add("fluffy", 1.0f);
             AnimationFading.Add("fluffy", new List<AnimationMix>());
             AnimationFadingList = AnimationFading["fluffy"];
 
@@ -79,6 +81,7 @@ namespace DragonEngine
             #endregion
 
             #region Skeleton XY
+            //Scaling.Add("skeleton", 1.0f);
             //AnimationFading.Add("skeleton", new List<AnimationMix>());
             //AnimationFadingList = AnimationFading["skeleton"];
 
@@ -94,15 +97,20 @@ namespace DragonEngine
         /// <summary>
         /// Wendet alle zum Skeleton passenden AnimationMixes auf animationStateData an.
         /// </summary>
-        public static void SetFadingSettings(AnimationStateData animationStateData)
+        public static void SetFadingSettings(AnimationStateData pAnimationStateData)
         {
             List<AnimationMix> AnimationFadingList;
-            AnimationFadingList = AnimationFading[animationStateData.SkeletonData.Name];
+            AnimationFadingList = AnimationFading[pAnimationStateData.SkeletonData.Name];
 
             foreach (AnimationMix animMix in AnimationFadingList)
             {
-                animationStateData.SetMix(animMix.From, animMix.To, animMix.Fading);
+                pAnimationStateData.SetMix(animMix.From, animMix.To, animMix.Fading);
             }
+        }
+
+        public static float GetScaling(string pSkeletonName)
+        {
+            return Scaling[pSkeletonName];
         }
 
         #endregion

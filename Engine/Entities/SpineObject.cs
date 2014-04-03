@@ -39,11 +39,11 @@ namespace DragonEngine.Entities
 
         #region Constructor
 
-        public SpineObject(string pName, Vector2 pPosition = new Vector2(), float pScale = 1.0f)
+        public SpineObject(string pName)
         {
             mName = pName;
-            mInitPosition = pPosition;
-            mScale = pScale;
+            mInitPosition = Vector2.Zero;
+            mScale = 1.0f;
         }
 
         //public SpineObject(string pName)
@@ -91,16 +91,12 @@ namespace DragonEngine.Entities
 
         #region Methoden
 
-        public void Initialize()
+        public void Load()
         {
             mSkeletonRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
             mBounds = new SkeletonBounds();
-            //mUpdateActionGameTime.Add(UpdateAnimation);
-        }
 
-        public void Load()
-        {
-            mSkeleton = SpineManager.Instance.NewSkeleton(mName, mScale);
+            mSkeleton = SpineManager.Instance.NewSkeleton(mName, mScale); //Fixed Scale from here. Main instanciation.
             mSkeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
             mAnimationState = SpineManager.Instance.NewAnimationState(mSkeleton.Data);
             mSkeleton.X = mInitPosition.X;
