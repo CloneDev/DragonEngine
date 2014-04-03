@@ -35,6 +35,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Engine\Dragon.cs" />
     <Compile Include="Engine\EngineSettings.cs" />
     <Compile Include="Engine\Entities\AnimatedSprite.cs" />
     <Compile Include="Engine\Entities\BaseObject.cs" />
