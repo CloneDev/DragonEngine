@@ -54,7 +54,7 @@ namespace DragonEngine
         /// <summary>
         /// Läd die Settings für animationStateData.SetMix() in das AnimationFading-Dictionary.
         /// </summary>
-        public static void LoadFadingSettings()
+        public static void LoadSettings()
         {
             List<AnimationMix> AnimationFadingList; //Zu bearbeitende Liste, damit die nicht immer neu im Dictionary nachgeschlagen werden muss
 

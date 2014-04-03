@@ -10,38 +10,15 @@ namespace DragonEngine.Pool
     class SpinePool : Pool<SpineObject>
     {
 
-        #region Singleton
-
-        private static Dictionary<String, SpinePool> mPoolInstance;
-
-        public static Dictionary<String, SpinePool> Pools
-        {
-            get
-            {
-                if (mPoolInstance == null)
-                {
-                    mPoolInstance = new Dictionary<string, SpinePool>();
-                    mPoolInstance.Add("fluffy", new SpinePool("fluffy"));
-                }
-                return mPoolInstance;
-            }
-        }
-
-        #endregion
-
         #region Properties
 
         private string mName;
 
         #endregion
 
-        #region Getter & Setter
-        #endregion
-
         #region Constructor
 
-        public SpinePool(string pName)
-            //:base()
+        public SpinePool(string pName) : base()
         {
             mName = pName;
         }

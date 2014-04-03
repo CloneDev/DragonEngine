@@ -43,10 +43,7 @@ namespace SnakeMobile
         /// </summary>
         protected override void Initialize()
         {
-            SceneManager.Instance.Initialize();
-
-            SceneManager.Instance.GetScene("Test").Background = "BackgroundStart";
-            SceneManager.Instance.SetStartSceneTo("Test");
+            Dragon.Engine.Initialize();
             base.Initialize();
         }
 
@@ -56,15 +53,9 @@ namespace SnakeMobile
         /// </summary>
         protected override void LoadContent()
         {
-            //Load Settings
-            SpineSettings.LoadFadingSettings();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            //Load Manager
-            TextureManager.Instance.LoadContent();
-            SpineManager.Instance.LoadContent();
-            SceneManager.Instance.LoadContent();
+            Dragon.Engine.Load();
         }
 
         /// <summary>

@@ -112,7 +112,7 @@ namespace DragonEngine.Manager
         {
             RawSpineData TmpSpineData = GetElementByString<RawSpineData>(pName);
             TmpSpineData.json.Scale = SpineSettings.GetScaling(pName); //Set Scaling
-            SkeletonData TmpSkeletonData = TmpSpineData.json.ReadSkeletonData("Content/spine/" + pName + ".json"); //Apply Json with Scaling to get skelData
+            SkeletonData TmpSkeletonData = TmpSpineData.json.ReadSkeletonData(SpineSettings.DefaultDataPath + pName + ".json"); //Apply Json with Scaling to get skelData
             return new Skeleton(TmpSkeletonData);
         }
 

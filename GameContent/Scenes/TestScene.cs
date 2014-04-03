@@ -42,7 +42,7 @@ namespace SnakeMobile.GameContent.Scenes
             mCamera = new Camera(new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY));
             mCamera.Initialize();
             mCamera.Move(-50, -50);
-            mFluffy = SpinePool.Pools["fluffy"].GetObject();
+            mFluffy = Dragon.Engine.SpinePools["fluffy"].GetObject();
 
             base.Initialize();
         }

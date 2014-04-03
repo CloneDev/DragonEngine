@@ -20,18 +20,13 @@ namespace DragonEngine.Pool
 
         public Pool()
         {
-            Initialize();
+            mFreeRessources = new List<T>();
+            mUsedRessources = new List<T>();
         }
 
         #endregion
 
         #region Methoden
-
-        public static void Initialize()
-        {
-            mFreeRessources = new List<T>();
-            mUsedRessources = new List<T>();
-        }
 
         public T GetObject()
         {
@@ -53,12 +48,8 @@ namespace DragonEngine.Pool
         public void ReleaseObject(T pObject)
         {
             CleanUpInstance(pObject);
-
-            lock (mFreeRessources)
-            {
-                mFreeRessources.Add(pObject);
-                mUsedRessources.Remove(pObject);
-            }
+            mFreeRessources.Add(pObject);
+            mUsedRessources.Remove(pObject);
         }
 
         #region Abstract
