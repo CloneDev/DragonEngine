@@ -1,4 +1,7 @@
-﻿using System;
+﻿/**************************************************************
+ * (c) Jens Richter 2014
+ *************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,11 +35,6 @@ namespace DragonEngine
         #endregion
 
         #region Methoden
-
-        public void Initialize()
-        {
-
-        }
 
         public void Load()
         {

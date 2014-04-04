@@ -27,6 +27,7 @@ namespace SnakeMobile
         {
             Content.RootDirectory = "Content";
 
+            //Setting Enginge Settings
             EngineSettings.EngineContent = Content;
             EngineSettings.Graphics = new GraphicsDeviceManager(this);
             EngineSettings.FitToFullScreen();
@@ -43,7 +44,6 @@ namespace SnakeMobile
         /// </summary>
         protected override void Initialize()
         {
-            Dragon.Engine.Initialize();
             base.Initialize();
         }
 
