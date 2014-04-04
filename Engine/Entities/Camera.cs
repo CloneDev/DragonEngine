@@ -24,6 +24,7 @@ namespace DragonEngine.Entities
 
         public Matrix ViewportTransform { get { return mViewportTransform; } }
         public Matrix ScreenTransform { get { return mScreenTransform; } }
+        public Vector2 Position { get { return new Vector2(mViewport.X, mViewport.Y); } }
 
         #endregion
 

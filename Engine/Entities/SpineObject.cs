@@ -126,14 +126,14 @@ namespace DragonEngine.Entities
 
         #endregion
 
-        public void Draw()
+        public void Draw(Vector2 pOffset)
         {
+            Vector2 TmpPosition = Position;
+            Position += pOffset;
             mSkeletonRenderer.Begin();
             mSkeletonRenderer.Draw(mSkeleton);
             mSkeletonRenderer.End();
-            //Player -> Worldposition
-            //skeleton.X = position.X;
-            //skeleton.Y = position.Y;
+            Position = TmpPosition;
         }
 
         private bool BoundingBoxCollision(Rectangle cbox) //Checken ob Rectangle mit bb-Attachement (z.B. Keule) kollidiert
