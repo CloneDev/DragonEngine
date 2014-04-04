@@ -1,5 +1,5 @@
 ﻿/**************************************************************
- * (c) Carsten Baus 2014
+ * (c) Carsten Baus, Jens Richter 2014
  *************************************************************/
 using System;
 using System.Collections.Generic;
@@ -39,6 +39,9 @@ namespace DragonEngine.Entities
         public SpriteEffects Effect { get { return mEffekt; } set { mEffekt = value; } }
 
         public Rectangle SpriteBox { get { return mSpriteBox; } }
+
+        public Texture2D Texture { get { return TextureManager.Instance.GetElementByString<Texture2D>(mTextureName); } }
+
         #endregion
 
         #region Constructor
