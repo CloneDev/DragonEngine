@@ -21,6 +21,7 @@ namespace SnakeMobile.GameContent.Scenes
         #region Properties
 
         SpineObject mFluffy = Engine.SpinePools["fluffy"].GetObject();
+        Map mMap = new Map(MapLayout.profile);
 
         #endregion
 

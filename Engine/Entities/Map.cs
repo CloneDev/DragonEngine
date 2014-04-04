@@ -10,10 +10,10 @@ using DragonEngine.Entities;
 
 namespace DragonEngine.Entities
 {
+    public enum MapLayout { isometric, profile, topdown }
+
     class Map : GameObject
     {
-        public enum MapLayout { isometric, profile, topdown }
-
         #region Properties
 
         protected MapLayout mLayout;
@@ -28,7 +28,7 @@ namespace DragonEngine.Entities
 
         #region Constructor
 
-        Map(MapLayout pLayout) : base()
+        public Map(MapLayout pLayout) : base()
         {
             mLayout = pLayout;
         }
