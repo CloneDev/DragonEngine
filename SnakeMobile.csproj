@@ -41,6 +41,7 @@
     <Compile Include="Engine\Entities\BaseObject.cs" />
     <Compile Include="Engine\Entities\Camera.cs" />
     <Compile Include="Engine\Entities\GameObject.cs" />
+    <Compile Include="Engine\Entities\Map.cs" />
     <Compile Include="Engine\Entities\SpineObject.cs" />
     <Compile Include="Engine\Entities\Sprite.cs" />
     <Compile Include="Engine\Entities\TiledSprite.cs" />

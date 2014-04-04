@@ -19,7 +19,7 @@ namespace DragonEngine.Parser
         /// <summary>
         /// Erzeugt eine PixelMap(byte[x,y,rgba]=0-255) aus einem Sprite.
         /// </summary>
-        public byte[,,] GetPixelMap(Sprite pSprite)
+        public static byte[, ,] GetPixelMap(Sprite pSprite)
         {
             Color[] TmpPixelColors = new Color[pSprite.Texture.Width * pSprite.Texture.Height];
             pSprite.Texture.GetData<Color>(TmpPixelColors);
@@ -40,7 +40,7 @@ namespace DragonEngine.Parser
         /// <summary>
         /// Erzeugt eine RGBMap(string[x,y]="255,255,255") aus einem Sprite.
         /// </summary>
-        public string[,] GetRGBMap(Sprite pSprite)
+        public static string[,] GetRGBMap(Sprite pSprite)
         {
             Color[] TmpPixelColors = new Color[pSprite.Texture.Width * pSprite.Texture.Height];
             pSprite.Texture.GetData<Color>(TmpPixelColors);
@@ -58,7 +58,7 @@ namespace DragonEngine.Parser
         /// <summary>
         /// Erzeugt einen RGB-String("255,255,255") aus einer PixelMap(byte[x,y,rgba]=0-255) an der Position (pPosX, pPosY).
         /// </summary>
-        public string GetRGBFromPixelMap(byte[,,] pPixelMap, int pPosX, int pPosY)
+        public static string GetRGBFromPixelMap(byte[, ,] pPixelMap, int pPosX, int pPosY)
         {
             return pPixelMap[pPosX, pPosY, 0].ToString() + "," + pPixelMap[pPosX, pPosY, 1].ToString() + "," + pPixelMap[pPosX, pPosY, 2].ToString();
         }
@@ -66,7 +66,7 @@ namespace DragonEngine.Parser
         /// <summary>
         /// Erzeugt eine RGBMap(string[x,y]="255,255,255") aus einer PixelMap(byte[x,y,rgba]=0-255).
         /// </summary>
-        public string[,] GetRGBMapFromPixelMap(byte[, ,] pPixelMap)
+        public static string[,] GetRGBMapFromPixelMap(byte[, ,] pPixelMap)
         {
             string[,] TmpRGBMap = new String[pPixelMap.GetLength(0),pPixelMap.GetLength(1)];
             for (int i = 0; i < TmpRGBMap.GetLength(0); i++)
