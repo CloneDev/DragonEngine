@@ -19,19 +19,19 @@ namespace DragonEngine.Parser
         /// <summary>
         /// Erzeugt eine PixelMap(byte[x,y,rgba]=0-255) aus einem Sprite.
         /// </summary>
-        public static byte[, ,] GetPixelMap(Sprite pSprite)
+        public static byte[, ,] GetPixelMap(Texture2D pTexture)
         {
-            Color[] TmpPixelColors = new Color[pSprite.Texture.Width * pSprite.Texture.Height];
-            pSprite.Texture.GetData<Color>(TmpPixelColors);
-            byte[, ,] TmpPixelRGBA = new byte[pSprite.Texture.Width, pSprite.Texture.Height, 4];
-            for (int i = 0; i < pSprite.Texture.Height; i++)
+            Color[] TmpPixelColors = new Color[pTexture.Width * pTexture.Height];
+            pTexture.GetData<Color>(TmpPixelColors);
+            byte[, ,] TmpPixelRGBA = new byte[pTexture.Width, pTexture.Height, 4];
+            for (int i = 0; i < pTexture.Height; i++)
             {
-                for (int t = 0; t < pSprite.Texture.Width; t++)
+                for (int t = 0; t < pTexture.Width; t++)
                 {
-                    TmpPixelRGBA[t, i, 0] = TmpPixelColors[i * pSprite.Texture.Width + t].R;
-                    TmpPixelRGBA[t, i, 1] = TmpPixelColors[i * pSprite.Texture.Width + t].G;
-                    TmpPixelRGBA[t, i, 2] = TmpPixelColors[i * pSprite.Texture.Width + t].B;
-                    TmpPixelRGBA[t, i, 3] = TmpPixelColors[i * pSprite.Texture.Width + t].A;
+                    TmpPixelRGBA[t, i, 0] = TmpPixelColors[i * pTexture.Width + t].R;
+                    TmpPixelRGBA[t, i, 1] = TmpPixelColors[i * pTexture.Width + t].G;
+                    TmpPixelRGBA[t, i, 2] = TmpPixelColors[i * pTexture.Width + t].B;
+                    TmpPixelRGBA[t, i, 3] = TmpPixelColors[i * pTexture.Width + t].A;
                 }
             }
             return TmpPixelRGBA;
@@ -40,16 +40,16 @@ namespace DragonEngine.Parser
         /// <summary>
         /// Erzeugt eine RGBMap(string[x,y]="255,255,255") aus einem Sprite.
         /// </summary>
-        public static string[,] GetRGBMap(Sprite pSprite)
+        public static string[,] GetRGBMap(Texture2D pTexture)
         {
-            Color[] TmpPixelColors = new Color[pSprite.Texture.Width * pSprite.Texture.Height];
-            pSprite.Texture.GetData<Color>(TmpPixelColors);
-            string[,] TmpRGBMap = new String[pSprite.Texture.Width, pSprite.Texture.Height];
-            for (int i = 0; i < pSprite.Texture.Height; i++)
+            Color[] TmpPixelColors = new Color[pTexture.Width * pTexture.Height];
+            pTexture.GetData<Color>(TmpPixelColors);
+            string[,] TmpRGBMap = new String[pTexture.Width, pTexture.Height];
+            for (int i = 0; i < pTexture.Height; i++)
             {
-                for (int t = 0; t < pSprite.Texture.Width; t++)
+                for (int t = 0; t < pTexture.Width; t++)
                 {
-                    TmpRGBMap[t, i] = TmpPixelColors[i * pSprite.Texture.Width + t].R.ToString() + "," + TmpPixelColors[i * pSprite.Texture.Width + t].G.ToString() + "," + TmpPixelColors[i * pSprite.Texture.Width + t].B.ToString();
+                    TmpRGBMap[t, i] = TmpPixelColors[i * pTexture.Width + t].R.ToString() + "," + TmpPixelColors[i * pTexture.Width + t].G.ToString() + "," + TmpPixelColors[i * pTexture.Width + t].B.ToString();
                 }
             }
             return TmpRGBMap;

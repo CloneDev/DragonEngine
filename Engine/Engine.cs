@@ -8,7 +8,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using DragonEngine.Manager;
 using DragonEngine.SceneManagement;
-using DragonEngine.Pool;
+using DragonEngine.Pools;
 
 namespace DragonEngine
 {

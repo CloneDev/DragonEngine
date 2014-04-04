@@ -8,7 +8,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using DragonEngine.Entities;
 
-namespace DragonEngine.Pool
+namespace DragonEngine.Pools
 {
     class SpinePool : Pool<SpineObject>
     {
