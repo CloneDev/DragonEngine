@@ -41,7 +41,6 @@
     <Compile Include="Engine\Entities\BaseObject.cs" />
     <Compile Include="Engine\Entities\Camera.cs" />
     <Compile Include="Engine\Entities\GameObject.cs" />
-    <Compile Include="Engine\Entities\Map.cs" />
     <Compile Include="Engine\Entities\SpineObject.cs" />
     <Compile Include="Engine\Entities\Sprite.cs" />
     <Compile Include="Engine\Entities\TiledSprite.cs" />
@@ -52,8 +51,8 @@
     <Compile Include="Engine\Parser\PixelMap.cs" />
     <Compile Include="Engine\Physics\Collision.cs" />
     <Compile Include="Engine\PlayerSettings.cs" />
-    <Compile Include="Engine\Pool\Pool.cs" />
-    <Compile Include="Engine\Pool\SpinePool.cs" />
+    <Compile Include="Engine\Pools\Pool.cs" />
+    <Compile Include="Engine\Pools\SpinePool.cs" />
     <Compile Include="Engine\SceneManagement\Scene.cs" />
     <Compile Include="Engine\SceneManagement\SceneManager.cs" />
     <Compile Include="Engine\SpineSettings.cs" />
