@@ -74,7 +74,7 @@ namespace DragonEngine
         public static void SetWindowToFullScreenPC()
         {
             ScreenResolution = VirtualResolution;
-            ScreenResolution /= 2;
+            ScreenResolution *= 0.75f;
             Graphics.PreferredBackBufferWidth = (int)ScreenResolution.X;
             Graphics.PreferredBackBufferHeight = (int)ScreenResolution.Y;
             Graphics.ApplyChanges();

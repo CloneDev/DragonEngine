@@ -33,6 +33,7 @@ namespace SnakeMobile
             EngineSettings.FitToFullScreen();
             Engine.Setup();
             SceneManager.Instance.AddScene(new TestScene("Test"));
+            SceneManager.Instance.GetScene("Test").Background = "BackgroundStart";
             SceneManager.Instance.SetStartSceneTo("Test");
         }
 
