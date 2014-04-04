@@ -108,7 +108,7 @@ namespace DragonEngine.Entities
 
         #region Update
 
-        public void Update()
+        public override void Update()
         {
             UpdateAnimation();
         }

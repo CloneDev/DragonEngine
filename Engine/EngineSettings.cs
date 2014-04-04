@@ -18,7 +18,7 @@ namespace DragonEngine
         public static bool IsDebug = false;
         public static bool OnAndriod = false;
 
-        public static ContentManager EngineContent;
+        public static ContentManager Content;
         public static GraphicsDeviceManager Graphics;
         public static GameTime Time;
 

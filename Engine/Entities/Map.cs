@@ -8,11 +8,11 @@ using System.Text;
 using DragonEngine;
 using DragonEngine.Entities;
 
-namespace SnakeMobile.Engine.Entities
+namespace DragonEngine.Entities
 {
     class Map : GameObject
     {
-        enum MapLayout { isometric, profile, topdown }
+        public enum MapLayout { isometric, profile, topdown }
 
         #region Properties
 

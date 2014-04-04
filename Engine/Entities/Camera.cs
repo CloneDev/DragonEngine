@@ -29,26 +29,18 @@ namespace DragonEngine.Entities
 
         #region Constructor
 
-        public Camera()
-        {
-        }
-
         public Camera(Rectangle pViewArea)
         {
             mViewArea = pViewArea;
-        }
-
-        #endregion
-
-        #region Methoden
-
-        public virtual void Initialize()
-        {
             mViewport = new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY);
             mScreenViewport = new Rectangle(0, 0, EngineSettings.ScreenResX, EngineSettings.ScreenResY);
             mScreenScale = Matrix.CreateScale((float)mScreenViewport.Width / EngineSettings.VirtualResX, (float)mScreenViewport.Height / EngineSettings.VirtualResY, 1);
             mScreenTransform = mScreenScale * Matrix.CreateTranslation(mScreenViewport.X, mScreenViewport.Y, 0);
         }
+
+        #endregion
+
+        #region Methoden
 
         public override void Update()
         {

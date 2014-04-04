@@ -10,7 +10,7 @@ using Spine;
 
 namespace DragonEngine
 {
-    class SpineSettings
+    static class SpineSettings
     {
         private struct AnimationMix
         {
@@ -57,7 +57,7 @@ namespace DragonEngine
         /// <summary>
         /// Läd die Settings für animationStateData.SetMix() in das AnimationFading-Dictionary.
         /// </summary>
-        public static void LoadSettings()
+        public static void Setup()
         {
             List<AnimationMix> AnimationFadingList; //Zu bearbeitende Liste, damit die nicht immer neu im Dictionary nachgeschlagen werden muss
 

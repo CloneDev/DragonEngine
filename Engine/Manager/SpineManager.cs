@@ -58,11 +58,6 @@ namespace DragonEngine.Manager
 
         #region Methoden
 
-        public override void Initialize()
-        {
-
-        }
-
         public override void LoadContent()
         {
             Add("fluffy");

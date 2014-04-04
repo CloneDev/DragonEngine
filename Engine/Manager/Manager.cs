@@ -23,7 +23,6 @@ namespace DragonEngine.Manager
         #region Methoden
 
         abstract public void Add(String pName, String pPath);
-        abstract public void Initialize();
         abstract public void LoadContent();
         abstract public void Unload();
         abstract public T GetElementByString<T>(String pElementName);

@@ -18,37 +18,23 @@ namespace DragonEngine.Manager
 
         private static TextureManager mInstance;
         public static TextureManager Instance { get { if (mInstance == null) mInstance = new TextureManager(); return mInstance; } }
-        #endregion
 
-        #region Properties
-        #endregion
-
-        #region Getter & Setter
         #endregion
 
         #region Constructor
 
         TextureManager()
         {
-            // Erzeugt einen pixel der danach beliebig eingefärbt und skaliert werden kann(debug hitbox usw.)
-            // und fügt ihn dem Ressourcen Dictionary bei.
-            //Texture2D pixel;
-            //pixel = new Texture2D(EngineSettings.Graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-            //pixel.SetData<Color>(new Color[] { Color.White });
+
         }
+
         #endregion
 
         #region Methoden
 
-
-        public override void Initialize()
-        {
-            
-        }
-
         public override void LoadContent()
         {
-            mRessourcen.Add("pixel", EngineSettings.EngineContent.Load<Texture2D>(@"gfx\pixel"));
+            mRessourcen.Add("pixel", EngineSettings.Content.Load<Texture2D>(@"gfx\pixel"));
         }
 
         /// <summary>
@@ -60,7 +46,7 @@ namespace DragonEngine.Manager
         {
             if (!mRessourcen.ContainsKey(pName))
             {
-                Texture2D tex = EngineSettings.EngineContent.Load<Texture2D>(pPath);
+                Texture2D tex = EngineSettings.Content.Load<Texture2D>(pPath);
                 mRessourcen.Add(pName, tex);
             }
         }

@@ -51,6 +51,7 @@ namespace DragonEngine.SceneManagement
         public static Scene CurrentScene { get { return mCurrentScene; } }
         public static Color FadeColor { set { mFadeColor = value; } }
         public float FadeSpeed { set { mFadeSpeed = 1.0f / 30.0f / value; } }
+
         #endregion
 
         #region Constructor
@@ -58,15 +59,10 @@ namespace DragonEngine.SceneManagement
         public SceneManager()
         {
         }
+
         #endregion
 
         #region Methoden
-
-        public void Initialize()
-        {
-            for (int i = 0; i < mSceneDictionary.Count; i++)
-                mSceneDictionary.ElementAt(i).Value.Initialize();
-        }
 
         public void LoadContent()
         {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace GrabberVer0001.Engine
+namespace DragonEngine
 {
     static class PlayerSettings
     {

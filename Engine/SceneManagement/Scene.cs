@@ -32,22 +32,16 @@ namespace DragonEngine.SceneManagement
 
         #region Constructor
 
-        public Scene()
-        {
-        }
         public Scene(String pSceneName)
         {
             this.mName = pSceneName;
+            mSpriteBatch = new SpriteBatch(EngineSettings.Graphics.GraphicsDevice);
+            mRenderTarget = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResX, EngineSettings.VirtualResY);
+            mCamera = new Camera(new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY));
         }
         #endregion
 
         #region Virtual Methods
-
-        public virtual void Initialize()
-        {
-            mRenderTarget = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResX, EngineSettings.VirtualResY);
-            mSpriteBatch = new SpriteBatch(EngineSettings.Graphics.GraphicsDevice);
-        }
 
         public virtual void LoadContent()
         {

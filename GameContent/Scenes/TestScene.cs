@@ -20,11 +20,8 @@ namespace SnakeMobile.GameContent.Scenes
     {
         #region Properties
 
-        SpineObject mFluffy;
+        SpineObject mFluffy = Engine.SpinePools["fluffy"].GetObject();
 
-        #endregion
-
-        #region Getter & Setter
         #endregion
 
         #region Construct
@@ -32,23 +29,13 @@ namespace SnakeMobile.GameContent.Scenes
         public TestScene(String pSceneName)
             : base(pSceneName)
         {
+            //mCamera.Move(-50, -50);
+
             mClearColor = Color.CadetBlue;
         }
         #endregion
 
         #region Methoden
-
-        #region Initialize & Load
-
-        public override void Initialize()
-        {
-            mCamera = new Camera(new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY));
-            mCamera.Initialize();
-            mCamera.Move(-50, -50);
-            mFluffy = Dragon.Engine.SpinePools["fluffy"].GetObject();
-
-            base.Initialize();
-        }
 
         public override void LoadContent()
         {
@@ -59,20 +46,17 @@ namespace SnakeMobile.GameContent.Scenes
             base.LoadContent();
         }
 
-        #endregion
-
         #region Update
 
         public override void Update()
         {
             CheckClick();
             mFluffy.Update();
-            mCamera.UpdateViewportTransformation();
+            mCamera.Update();
         }
 
         private void CheckClick()
         {
-            mCamera.UpdateViewportTransformation();
             MouseState ms = Mouse.GetState();
             if (ms.LeftButton == ButtonState.Pressed && mFluffy.AnimationState.GetCurrent(0) != null)
             {

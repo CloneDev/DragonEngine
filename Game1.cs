@@ -28,12 +28,12 @@ namespace SnakeMobile
             Content.RootDirectory = "Content";
 
             //Setting Enginge Settings
-            EngineSettings.EngineContent = Content;
+            EngineSettings.Content = Content;
             EngineSettings.Graphics = new GraphicsDeviceManager(this);
             EngineSettings.FitToFullScreen();
-            EngineSettings.SetWindowToFullScreenPC();
-
+            Engine.Setup();
             SceneManager.Instance.AddScene(new TestScene("Test"));
+            SceneManager.Instance.SetStartSceneTo("Test");
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace SnakeMobile
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Dragon.Engine.Load();
+            Engine.Load();
         }
 
         /// <summary>

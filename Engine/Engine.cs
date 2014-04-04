@@ -12,40 +12,36 @@ using DragonEngine.Pool;
 
 namespace DragonEngine
 {
-    class Dragon
+    static class Engine
     {
-        #region Singleton
-        private static Dragon mInstance;
-        public static Dragon Engine { get { if (mInstance == null) mInstance = new Dragon(); return mInstance; } }
-        #endregion
-
         #region Properties
 
-        public Dictionary<String, SpinePool> SpinePools;
-
-        #endregion
-
-        #region Constructor
-
-        public Dragon()
-        {
-
-        }
+        public static Dictionary<String, SpinePool> SpinePools = new Dictionary<string, SpinePool>();
 
         #endregion
 
         #region Methoden
 
-        public void Load()
+        /// <summary>
+        /// Setup engine-environment.
+        /// </summary>
+        public static void Setup()
         {
-            //Load Settings
-            SpineSettings.LoadSettings();
-            //Load Manager
+            //Settings
+            SpineSettings.Setup();
+            //Pools
+            SpinePools.Add("fluffy", new SpinePool("fluffy"));
+        }
+
+        /// <summary>
+        /// Load basic engine-content.
+        /// </summary>
+        public static void Load()
+        {
+            //Manager
             TextureManager.Instance.LoadContent();
             SpineManager.Instance.LoadContent();
             SceneManager.Instance.LoadContent();
-            //Load Pools
-            SpinePools.Add("fluffy", new SpinePool("fluffy"));
         }
 
         #endregion
