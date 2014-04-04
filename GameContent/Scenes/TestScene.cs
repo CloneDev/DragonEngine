@@ -31,7 +31,6 @@ namespace SnakeMobile.GameContent.Scenes
             : base(pSceneName)
         {
             //mCamera.Move(-50, -50);
-
             mClearColor = Color.CadetBlue;
         }
         #endregion
