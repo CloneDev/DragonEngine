@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace DragonEngine
 {
-    static class PlayerSettings
+    public static class PlayerSettings
     {
         #region Properties
 

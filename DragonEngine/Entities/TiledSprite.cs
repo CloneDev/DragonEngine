@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DragonEngine.Entities
 {
-    class TiledSprite : Sprite
+    public class TiledSprite : Sprite
     {
         #region Properties
 

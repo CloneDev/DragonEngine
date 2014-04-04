@@ -12,7 +12,7 @@ using Spine;
 
 namespace DragonEngine.Entities
 {
-    class SpineObject : BaseObject
+    public class SpineObject : BaseObject
     {
         #region Properties
 

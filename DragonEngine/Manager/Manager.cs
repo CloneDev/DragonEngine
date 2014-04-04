@@ -8,7 +8,7 @@ using System.Text;
 
 namespace DragonEngine.Manager
 {
-    abstract class Manager
+    public abstract class Manager
     {
         #region Properties
         protected Dictionary<String, object> mRessourcen = new Dictionary<string, object>();

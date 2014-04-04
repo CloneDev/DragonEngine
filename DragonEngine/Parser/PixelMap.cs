@@ -12,7 +12,7 @@ using DragonEngine.Entities;
 
 namespace DragonEngine.Parser
 {
-    static class PixelMap
+    public static class PixelMap
     {
         #region Methoden
 

@@ -10,7 +10,7 @@ using DragonEngine.Entities;
 
 namespace DragonEngine.Pools
 {
-    class SpinePool : Pool<SpineObject>
+    public class SpinePool : Pool<SpineObject>
     {
 
         #region Properties

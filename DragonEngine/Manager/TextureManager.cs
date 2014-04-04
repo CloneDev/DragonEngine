@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework;
 
 namespace DragonEngine.Manager
 {
-    class TextureManager : Manager
+    public class TextureManager : Manager
     {
         #region Singleton
 

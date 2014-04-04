@@ -13,7 +13,7 @@ using Spine;
 
 namespace DragonEngine.Manager
 {
-    class SpineManager : Manager
+    public class SpineManager : Manager
     {
         public struct RawSpineData
         {

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace DragonEngine.Entities
 {
-    class AnimatedSprite : TiledSprite
+    public class AnimatedSprite : TiledSprite
     {
         #region Properties
         protected List<int> mFrames = new List<int>();

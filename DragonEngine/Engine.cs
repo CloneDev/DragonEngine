@@ -12,7 +12,7 @@ using DragonEngine.Pools;
 
 namespace DragonEngine
 {
-    static class Engine
+    public static class Engine
     {
         #region Properties
 

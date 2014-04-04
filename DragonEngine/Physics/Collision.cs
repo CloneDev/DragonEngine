@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 
 namespace DragonEngine.Physics
 {
-    class Collision
+    public class Collision
     {
 
         public static Vector2 CollisionCheckedVector(Rectangle pBody ,int pDeltaX, int pDeltaY, List<Rectangle> pBodiesToCheck)

@@ -11,7 +11,7 @@ using DragonEngine.Manager;
 
 namespace DragonEngine.Entities
 {
-    class Sprite : GameObject
+    public class Sprite : GameObject
     {
         #region Properties
 

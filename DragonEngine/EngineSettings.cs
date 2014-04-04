@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 
 namespace DragonEngine
 {
-    static class EngineSettings
+    public static class EngineSettings
     {
         #region Properties
         

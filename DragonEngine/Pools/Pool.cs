@@ -8,7 +8,7 @@ using System.Text;
 
 namespace DragonEngine.Pools
 {
-    abstract class Pool<T>
+    public abstract class Pool<T>
     {
 
         #region Properties

@@ -10,7 +10,7 @@ using Spine;
 
 namespace DragonEngine
 {
-    static class SpineSettings
+    public static class SpineSettings
     {
         private struct AnimationMix
         {
