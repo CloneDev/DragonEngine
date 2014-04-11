@@ -66,9 +66,9 @@ namespace DragonEngine.Entities
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mTextureName), new Rectangle((int)mPosition.X + (int)mOrigin.X, (int)mPosition.Y + (int)mOrigin.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
+            spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mTextureName), new Rectangle(PositionX + (int)mOrigin.X, PositionY + (int)mOrigin.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
             if (EngineSettings.IsDebug)
-                spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), new Rectangle((int)mPosition.X, (int)mPosition.Y, mWidth, mHeight), mDebugColor);
+                spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), new Rectangle(PositionX, PositionY, mWidth, mHeight), mDebugColor);
         }
 
         #endregion

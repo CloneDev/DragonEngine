@@ -74,7 +74,7 @@ namespace DragonEngine.Entities
         {
             spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mTextureName), Position, mSourceRectangle[mSourceRectanglePosition], mTint);
             if (EngineSettings.IsDebug)
-                spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), new Rectangle((int)mPosition.X, (int)mPosition.Y, mSourceRectangleWidth, mSourceRectangleHeight), mDebugColor);
+                spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), new Rectangle(PositionX, PositionY, mSourceRectangleWidth, mSourceRectangleHeight), mDebugColor);
         }
 
         public Texture2D GetTileTexture2D(int pTile)
