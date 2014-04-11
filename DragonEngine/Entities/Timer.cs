@@ -1,5 +1,5 @@
 ﻿/**************************************************************
- * (c) Carsten Baus 2014
+ * (c) Carsten Baus, Jens Richter 2014
  *************************************************************/
 using System;
 using System.Collections.Generic;
@@ -13,22 +13,23 @@ namespace DragonEngine.Entities
     {
         #region Properties
 
-        protected double _startTime;
-        protected double _duration;
-        protected double _goalTime;
-        protected double _restTime;
+        protected double mStartTime;
+        protected double mDuration;
+        protected double mGoalTime;
+        protected double mRestTime;
 
-        protected bool _finished = false;
-        protected bool _running = false;
+        protected bool mLooped = false;
+        protected bool mFinished = false;
+        protected bool mRunning = false;
         //public delegate void SelfDestroyer(object sender, EventArgs ea);
         //public event SelfDestroyer Destroy;
         #endregion
 
         #region Getter & Setter
 
-        public double RestTimePercent { get { return _restTime / _duration; } }
-        public bool IsRunning { set { _running = value; } get { return _running; } }
-        public bool Finish { get { return _finished; } set { _finished = value; } }
+        public double RestTimePercentage { get { return mRestTime / mDuration; } }
+        public bool IsRunning { set { mRunning = value; } get { return mRunning; } }
+        public bool Finish { get { return mFinished; } set { mFinished = value; } }
         #endregion
 
         #region Constructor
@@ -37,59 +38,74 @@ namespace DragonEngine.Entities
 
         public Timer (double pDuration)
         {
-            _duration = pDuration;
+            mDuration = pDuration;
         }
+
+        public Timer(double pDuration, bool pLooped)
+        {
+            mDuration = pDuration;
+            mLooped = pLooped;
+        }
+
         #endregion
 
         #region Function
 
-        public bool IsTimerFinish(GameTime gameTime)
+        public bool IsTimerFinished()
         {
-            if (_running)
+            if (mRunning)
             {
-                CalculateRestTime(gameTime);
+                CalculateRestTime();
 
-                if (_restTime < 0)
+                if (mRestTime < 0)
                 {
-                    _finished = true;
-                    _running = false;
+                    mFinished = true;
+                    mRunning = false;
                 }
             }
+            bool TmpFinished = mFinished;
+            if (mLooped) //Loop Timer?
+            {
+                double TmpGoalTime = mGoalTime;
+                ResetTimer();
+                StartTimer();
+                mGoalTime = TmpGoalTime; //Deutlich genauer, da Zeit zwischen alter mGoalTime und Aufrug von IsTimerFinished() wegfällt!
+            }
 
-            return _finished;
+            return TmpFinished;
         }
 
-        public void StartTimer(GameTime _gameTime)
+        public void StartTimer()
         {
-            if (!_running)
+            if (!mRunning)
             {
-                _startTime = _gameTime.TotalGameTime.TotalMilliseconds;
-                _goalTime = _startTime + _duration;
-                _running = true;
+                mStartTime = EngineSettings.Time.TotalGameTime.TotalMilliseconds;
+                mGoalTime = mStartTime + mDuration;
+                mRunning = true;
             }
         }
 
         public String GetInfo()
         {
-            return "StartTime = " + _startTime + ".\nGoalTime = " + _goalTime + "\nDuration = " + _duration + "\nRestTime = " + _restTime + "\nPercent = " + RestTimePercent + "\nFinished : " + _finished;
+            return "StartTime = " + mStartTime + ".\nGoalTime = " + mGoalTime + "\nDuration = " + mDuration + "\nRestTime = " + mRestTime + "\nPercent = " + RestTimePercentage + "\nFinished : " + mFinished;
         }
 
-        public void CalculateRestTime(GameTime gameTime)
+        public void CalculateRestTime()
         {
-            _restTime = _goalTime - gameTime.TotalGameTime.TotalMilliseconds;
-            if (_restTime < 0)
+            mRestTime = mGoalTime - EngineSettings.Time.TotalGameTime.TotalMilliseconds;
+            if (mRestTime < 0)
             {
-                _finished = true;
-                _running = false;
+                mFinished = true;
+                mRunning = false;
             }
         }
 
-        public void ResetTimer(GameTime gameTime)
+        public void ResetTimer()
         {
-            _startTime = gameTime.TotalGameTime.TotalMilliseconds;
-            _goalTime = _startTime + _duration;
-            _finished = false;
-            _running = false;
+            mStartTime = EngineSettings.Time.TotalGameTime.TotalMilliseconds;
+            mGoalTime = mStartTime + mDuration;
+            mFinished = false;
+            mRunning = false;
         }
         #endregion
     }
