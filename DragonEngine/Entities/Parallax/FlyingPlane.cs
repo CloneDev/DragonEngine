@@ -16,19 +16,12 @@ namespace DragonEngine.Entities
 
         public double spawnTimer;
 
-        int mTop;
-        int mBottom;
-        int mAmount;
-        int mChaos;
-        int mType;
-        public float mWind;
-        int mSizeMin;
-        int mSizeMax;
-
-        int mTestSpawn;
-        int mTestType;
-        int mTestPosition;
-        int mTestSize;
+        protected int mTop;
+        protected int mBottom;
+        protected int mAmount;
+        protected int mChaos;
+        protected int mType;
+        protected float mWind;
 
         Random mRandomNumber = new Random();
 
@@ -107,37 +100,21 @@ namespace DragonEngine.Entities
             }
         }
 
-        public override void  Draw(SpriteBatch pSpriteBatch)
-        {
-            foreach (T TmpTile in mTiles)
-            {
-                TmpTile.Draw(pSpriteBatch, cloudTexture, position);
-                /*public void Cloud.Draw(SpriteBatch spriteBatch, Texture2D cloudTexture, Vector2 parallaxOffset)
-                {
-                    spriteBatch.Draw(cloudTexture, position + parallaxOffset, cuttexture, Color.White, 0.0f, Vector2.Zero, size, SpriteEffects.None, 1.0f);
-                }*/
-            }
-        }
-
         public void SpawnTile(Camera pCamera)
         {
             //Entscheiden ob Wolke gespawned werden soll
-            mTestSpawn = mRandomNumber.Next(0, 100);
-            if (mTestSpawn >= mChaos)
+            if (mRandomNumber.Next(0, 100) >= mChaos)
             {
                 //Wolkentyp bestimmen
-                mTestType = mRandomNumber.Next(0, 10);
                 int type = 1;
-                if (mTestType < mType)
+                if (mRandomNumber.Next(0, 10) < mType)
                 {
                     type = 2;
                 }
                 //Wolkenposition bestimmen
-                mTestPosition = mRandomNumber.Next(0, 100);
-                int spawnPosition = ((int)((mBottom - mTop) * ((float)mTestPosition / 100))) + mTop;
+                int spawnPosition = ((int)((mBottom - mTop) * ((float)mRandomNumber.Next(0, 100) / 100))) + mTop;
                 //Wolke erstellen
-                mTestSize = mRandomNumber.Next(mSizeMin, mSizeMax);
-                mTiles.Add(new Cloud(type, new Vector2(size.X, spawnPosition), (float)mTestSize / 100));
+                mTiles.Add(new Cloud(type, new Vector2(size.X, spawnPosition), (float)mRandomNumber.Next(mSizeMin, mSizeMax) / 100));
             }
         }
 
