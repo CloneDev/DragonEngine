@@ -27,6 +27,7 @@ namespace DragonEngine.Entities
         #region Constructor
 
         public GameObject()
+            : base()
         {
         }
 

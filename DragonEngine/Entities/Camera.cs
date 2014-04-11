@@ -25,7 +25,11 @@ namespace DragonEngine.Entities
         public Matrix ViewportTransform { get { return mViewportTransform; } }
         public Matrix ScreenTransform { get { return mScreenTransform; } }
         public Vector2 Position { get { return new Vector2(mViewport.X, mViewport.Y); } }
+        public int PositionX { set { mViewport.X = value; } get { return (int)mViewport.X; } }
+        public int PositionY { set { mViewport.Y = value; } get { return (int)mViewport.Y; } }
         public Rectangle ViewArea { get { return mViewArea; } set { mViewArea = value; } }
+        public int Width { get { return mViewport.Width; } }
+        public int Height { get { return mViewport.Height; } }
 
         #endregion
 
@@ -51,15 +55,15 @@ namespace DragonEngine.Entities
 
         public void Move(int pDeltaX, int pDeltaY)
         {
-            mViewport.X += pDeltaX;
-            mViewport.Y += pDeltaY;
+            PositionX += pDeltaX;
+            PositionY += pDeltaY;
             ForceInViewArea();
         }
 
         public void Move(Vector2 pDelta)
         {
-            mViewport.X += (int)pDelta.X;
-            mViewport.Y += (int)pDelta.Y;
+            PositionX += (int)pDelta.X;
+            PositionY += (int)pDelta.Y;
             ForceInViewArea();
         }
 
