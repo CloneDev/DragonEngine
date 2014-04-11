@@ -20,7 +20,7 @@ namespace DragonEngine.Entities
         /// </summary>
         protected Rectangle mCollisionBox = new Rectangle();
 
-        protected Color mDebugColor = Color.OrangeRed;
+        protected Color mDebugColor = Color.Gray;
         #endregion
 
         #region Getter & Setter

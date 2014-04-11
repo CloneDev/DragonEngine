@@ -18,8 +18,6 @@ namespace DragonEngine.Entities
         #region Get&Set
 
         public Vector2 Size { get { return mSize; } }
-        public int PositionX { set { mSize.X = value; } get { return (int)mSize.X; } }
-        public int PositionY { set { mSize.Y = value; } get { return (int)mSize.Y; } }
         public int Width { get { return (int)mSize.X; } }
         public int Height { get { return (int)mSize.Y; } }
 
