@@ -15,7 +15,7 @@ namespace DragonEngine.Entities
         #region Properties
 
         protected Vector2 mPosition;
-        protected Color mDebugColor = Color.Honeydew;
+        protected Color mDebugColor = Color.OrangeRed;
         #endregion
 
         #region Getter & Setter

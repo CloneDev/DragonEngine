@@ -22,7 +22,7 @@ namespace DragonEngine.SceneManagement
         protected RenderTarget2D mRenderTarget;
         protected Camera mCamera;
 
-        protected Color mClearColor = Color.LawnGreen;
+        protected Color mClearColor = Color.DarkGray;
         #endregion
 
         #region Getter & Setter
