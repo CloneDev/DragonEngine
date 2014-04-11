@@ -14,7 +14,12 @@ namespace DragonEngine.Entities
     {
         #region Properties
 
-        protected Vector2 mPosition;
+        private Vector2 mPosition;
+        /// <summary>
+        /// Kollisionsbox des Objekts relativ zum Objekt.
+        /// </summary>
+        protected Rectangle mCollisionBox = new Rectangle();
+
         protected Color mDebugColor = Color.OrangeRed;
         #endregion
 
@@ -22,6 +27,11 @@ namespace DragonEngine.Entities
         public Vector2 Position { set { mPosition = value; } get { return mPosition; } }
         public int PositionX { set { mPosition.X = value; } get { return (int)mPosition.X; } }
         public int PositionY { set { mPosition.Y = value; } get { return (int)mPosition.Y; } }
+        /// <summary>
+        /// Kollisionsbox des Objekts an den Weltkoordinaten.
+        /// </summary>
+        public Rectangle CollisionBox { get { return new Rectangle(mCollisionBox.X + PositionX, mCollisionBox.Y + PositionY, mCollisionBox.Width, mCollisionBox.Height); } }
+
         #endregion
 
         #region Constructor
@@ -34,7 +44,7 @@ namespace DragonEngine.Entities
         public GameObject(Vector2 pPosition)
             : base()
         {
-            mPosition = pPosition;
+            Position = pPosition;
         }
         #endregion
 
