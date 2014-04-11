@@ -76,7 +76,11 @@
     <Compile Include="DragonEngine\Entities\Camera.cs" />
     <Compile Include="DragonEngine\Entities\Parallax\FlyingPlane.cs" />
     <Compile Include="DragonEngine\Entities\GameObject.cs" />
+    <Compile Include="DragonEngine\Entities\Parallax\FlyingSpinePlane.cs" />
+    <Compile Include="DragonEngine\Entities\Parallax\FlyingSpritePlane.cs" />
     <Compile Include="DragonEngine\Entities\Parallax\ParallaxPlane.cs" />
+    <Compile Include="DragonEngine\Entities\Parallax\ParallaxSpinePlane.cs" />
+    <Compile Include="DragonEngine\Entities\Parallax\ParallaxSpritePlane.cs" />
     <Compile Include="DragonEngine\Entities\SpineObject.cs" />
     <Compile Include="DragonEngine\Entities\Sprite.cs" />
     <Compile Include="DragonEngine\Entities\TiledSprite.cs" />
