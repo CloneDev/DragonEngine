@@ -69,19 +69,19 @@ namespace DragonEngine.Entities
 
         public void FocusOn(Rectangle pFocus)
         {
-            if (mViewport.Left < pFocus.Left) //Scrolling nach links
+            if (mViewport.Left > pFocus.Left) //Scrolling nach links
             {
                 mViewport.X = pFocus.Left;
             }
-            else if (mViewport.Right > pFocus.Right) //Scrolling nach rechts
+            else if (mViewport.Right < pFocus.Right) //Scrolling nach rechts
             {
                 mViewport.X = pFocus.Right - mViewport.Width;
             }
-            if (mViewport.Top < pFocus.Top) //Scrolling nach oben
+            if (mViewport.Top > pFocus.Top) //Scrolling nach oben
             {
                 mViewport.Y = pFocus.Top;
             }
-            else if (mViewport.Bottom > pFocus.Bottom) //Scrolling nach unten
+            else if (mViewport.Bottom < pFocus.Bottom) //Scrolling nach unten
             {
                 mViewport.Y = pFocus.Bottom - mViewport.Height;
             }
