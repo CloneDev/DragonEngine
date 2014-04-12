@@ -93,6 +93,7 @@
     <Compile Include="DragonEngine\PlayerSettings.cs" />
     <Compile Include="DragonEngine\Pools\Pool.cs" />
     <Compile Include="DragonEngine\Pools\SpinePool.cs" />
+    <Compile Include="DragonEngine\Pools\SpritePool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DragonEngine\SceneManagement\Scene.cs" />
     <Compile Include="DragonEngine\SceneManagement\SceneManager.cs" />

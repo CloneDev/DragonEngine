@@ -126,10 +126,10 @@ namespace DragonEngine.Entities
 
         #endregion
 
-        public void Draw(Vector2 pOffset)
+        public void Draw(Camera pCamera)
         {
             Vector2 TmpPosition = Position;
-            Position += pOffset;
+            Position -= pCamera.Position;
             mSkeletonRenderer.Begin();
             mSkeletonRenderer.Draw(mSkeleton);
             mSkeletonRenderer.End();
