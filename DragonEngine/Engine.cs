@@ -16,8 +16,6 @@ namespace DragonEngine
     {
         #region Properties
 
-        public static Dictionary<String, SpinePool> SpinePools = new Dictionary<string, SpinePool>();
-
         #endregion
 
         #region Methoden
@@ -29,8 +27,6 @@ namespace DragonEngine
         {
             //Settings
             SpineSettings.Setup();
-            //Pools
-            SpinePools.Add("fluffy", new SpinePool("fluffy"));
         }
 
         /// <summary>

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace DragonEngine.Entities
 {
-    public class ParallaxSpritePlane
+    public class ParallaxSpritePlane : ParallaxPlane<Sprite>
     {
     }
 }

@@ -23,13 +23,19 @@ namespace DragonEngine.Entities
         protected Vector2 mOrigin;
         protected int mRotation = 0;
         protected SpriteEffects mEffekt = SpriteEffects.None;
-
-        protected Rectangle mSpriteBox;
         #endregion
 
         #region Getter & Setter
         
-        public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
+        public String TextureName
+        {
+            get { return mTextureName; }
+            set
+            {
+                mTextureName = value;
+                UpdateTextureDimensions();
+            }
+        }
         public Color Tint { set { mTint = value; } }
         public int Width { get { return mWidth; } }
         public int Height { get { return mHeight; } }
@@ -37,8 +43,6 @@ namespace DragonEngine.Entities
         public Vector2 Origin { get { return mOrigin; } }
         public int Rotation { get { return mRotation; } set { mRotation = value; } }
         public SpriteEffects Effect { get { return mEffekt; } set { mEffekt = value; } }
-
-        public Rectangle SpriteBox { get { return mSpriteBox; } }
 
         public Texture2D Texture { get { return TextureManager.Instance.GetElementByString<Texture2D>(mTextureName); } }
 
@@ -51,18 +55,32 @@ namespace DragonEngine.Entities
         public Sprite(Vector2 pPosition, String pTextureName)
             : base(pPosition)
         {
-            mTextureName = pTextureName;
-
-            mWidth = TextureManager.Instance.GetElementByString<Texture2D>(mTextureName).Width;
-            mHeight = TextureManager.Instance.GetElementByString<Texture2D>(mTextureName).Height;
-
-            mOrigin = new Vector2(mWidth / 2, mHeight / 2);
-
-            mSpriteBox = new Rectangle((int)pPosition.X, (int)pPosition.Y, mWidth, mHeight);
+            TextureName = pTextureName;
         }
+
+        #endregion
+
+        #region PoolMethoden
+
+        public void CleanUp()
+        {
+            TextureName = "pixel";
+            Tint = Color.White;
+            Rotation = 0;
+            Effect = SpriteEffects.None;
+        }
+
         #endregion
 
         #region Methoden
+
+        public void UpdateTextureDimensions()
+        {
+            mWidth = TextureManager.Instance.GetElementByString<Texture2D>(mTextureName).Width;
+            mHeight = TextureManager.Instance.GetElementByString<Texture2D>(mTextureName).Height;
+            mOrigin = new Vector2(Width / 2, Height / 2);
+            mCollisionBox = new Rectangle(PositionX, PositionY, Width, Height);
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
