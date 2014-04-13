@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using DragonEngine.Entities;
 using DragonEngine.Manager;
 using Spine;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace DragonEngine.Entities
 {
@@ -24,6 +25,8 @@ namespace DragonEngine.Entities
         private string mName;
         private Vector2 mInitPosition;
         private float mScale;
+
+        protected Color mDebugColor = Color.Yellow;
 
         #region Getter & Setter
 
@@ -127,14 +130,21 @@ namespace DragonEngine.Entities
 
         #endregion
 
-        public void Draw(Camera pCamera)
+        public void Draw(SpriteBatch pSpriteBatch, Camera pCamera)
+        {
+            Draw(pSpriteBatch, pCamera, Vector2.Zero);
+        }
+
+        public void Draw(SpriteBatch pSpriteBatch, Camera pCamera, Vector2 pOffset)
         {
             Vector2 TmpPosition = Position;
-            Position -= pCamera.Position;
+            Position -= pCamera.Position - pOffset;
             mSkeletonRenderer.Begin();
             mSkeletonRenderer.Draw(mSkeleton);
             mSkeletonRenderer.End();
             Position = TmpPosition;
+            if (EngineSettings.IsDebug)
+                pSpriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), new Rectangle(PositionX + (int)pOffset.X, PositionY + (int)pOffset.Y, 10, 10), mDebugColor);
         }
 
         private bool BoundingBoxCollision(Rectangle cbox) //Checken ob Rectangle mit bb-Attachement (z.B. Keule) kollidiert

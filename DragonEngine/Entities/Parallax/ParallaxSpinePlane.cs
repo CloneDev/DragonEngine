@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using DragonEngine.Pools;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace DragonEngine.Entities
 {
@@ -37,10 +38,17 @@ namespace DragonEngine.Entities
             }
         }
 
-        public void Draw(Camera pCamera)
+        public override void Update(Camera pCamera)
+        {
+            base.Update(pCamera);
+            foreach (SpineObject TmpSpineObject in mTiles)
+                TmpSpineObject.Update();
+        }
+
+        public void Draw(SpriteBatch pSpriteBatch, Camera pCamera)
         {
             foreach (SpineObject TmpSpineObject in mTiles)
-                TmpSpineObject.Draw(pCamera);
+                TmpSpineObject.Draw(pSpriteBatch, pCamera, Position);
         }
 
         #endregion
