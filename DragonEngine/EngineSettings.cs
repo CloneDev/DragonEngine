@@ -16,7 +16,62 @@ namespace DragonEngine
         #region Properties
         
         public static bool IsDebug = false;
-        public static bool OnAndriod = false;
+        public static bool OnAndriod
+        {
+            get { return OnAndriod; }
+            set
+            {
+                if (value)
+                {
+                    OnWindows = false;
+                    OnwindowsPhone = false;
+                    OnIOS = false;
+                    OnAndriod = true;
+                }
+            }
+        }
+        public static bool OnWindows
+        {
+            get { return OnWindows; }
+            set
+            {
+                if (value)
+                {
+                    OnWindows = true;
+                    OnwindowsPhone = false;
+                    OnIOS = false;
+                    OnAndriod = false;
+                }
+            }
+        }
+        public static bool OnwindowsPhone
+        {
+            get { return OnwindowsPhone; }
+            set
+            {
+                if (value)
+                {
+                    OnWindows = false;
+                    OnwindowsPhone = true;
+                    OnIOS = false;
+                    OnAndriod = false;
+                }
+            }
+        }
+        public static bool OnIOS
+        {
+            get { return OnIOS; }
+            set
+            {
+                if (value)
+                {
+                    OnWindows = false;
+                    OnwindowsPhone = false;
+                    OnIOS = true;
+                    OnAndriod = false;
+                }
+            }
+        }
 
         public static ContentManager Content;
         public static GraphicsDeviceManager Graphics;

@@ -73,6 +73,7 @@
     <Compile Include="DragonEngine\EngineSettings.cs" />
     <Compile Include="DragonEngine\Entities\AnimatedSprite.cs" />
     <Compile Include="DragonEngine\Entities\BaseObject.cs" />
+    <Compile Include="DragonEngine\Entities\Button.cs" />
     <Compile Include="DragonEngine\Entities\Camera.cs" />
     <Compile Include="DragonEngine\Entities\GameObject.cs" />
     <Compile Include="DragonEngine\Entities\Parallax\ParallaxPlane.cs" />

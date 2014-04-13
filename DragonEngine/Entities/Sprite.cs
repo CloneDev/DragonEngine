@@ -74,11 +74,17 @@ namespace DragonEngine.Entities
 
         #region Methoden
 
-        public void UpdateTextureDimensions()
+        protected void UpdateTextureDimensions()
         {
             mWidth = TextureManager.Instance.GetElementByString<Texture2D>(mTextureName).Width;
             mHeight = TextureManager.Instance.GetElementByString<Texture2D>(mTextureName).Height;
             mOrigin = new Vector2(Width / 2, Height / 2);
+            mCollisionBox = new Rectangle(PositionX, PositionY, Width, Height);
+        }
+
+        public void SetPosition(Vector2 pPosition)
+        {
+            this.Position = pPosition;
             mCollisionBox = new Rectangle(PositionX, PositionY, Width, Height);
         }
 
