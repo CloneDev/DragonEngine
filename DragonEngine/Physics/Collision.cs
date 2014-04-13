@@ -13,6 +13,8 @@ namespace DragonEngine.Physics
     public class Collision
     {
 
+        #region Methods
+        
         public static Vector2 CollisionCheckedVector(Rectangle pBody ,int pDeltaX, int pDeltaY, List<Rectangle> pBodiesToCheck)
         {
             Rectangle TmpCollisionBody = pBody;
@@ -57,5 +59,7 @@ namespace DragonEngine.Physics
             }
             return TmpMove;
         }
+
+        #endregion
     }
 }

@@ -23,7 +23,6 @@ namespace DragonEngine.Entities
         protected Vector2 mOrigin;
         protected int mRotation = 0;
         protected SpriteEffects mEffekt = SpriteEffects.None;
-        #endregion
 
         #region Getter & Setter
         
@@ -48,6 +47,8 @@ namespace DragonEngine.Entities
 
         #endregion
 
+        #endregion
+
         #region Constructor
 
         public Sprite() { }
@@ -60,7 +61,9 @@ namespace DragonEngine.Entities
 
         #endregion
 
-        #region PoolMethoden
+        #region Methods
+
+        #region Pool
 
         public void CleanUp()
         {
@@ -71,8 +74,6 @@ namespace DragonEngine.Entities
         }
 
         #endregion
-
-        #region Methoden
 
         public void UpdateTextureDimensions()
         {

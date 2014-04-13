@@ -12,9 +12,11 @@ namespace DragonEngine.Entities
     public class BaseObject
     {
         #region Properties
+        
+        #region Getter & Setter
+        
         #endregion
 
-        #region Getter & Setter
         #endregion
 
         #region Constructor
@@ -22,9 +24,10 @@ namespace DragonEngine.Entities
         public BaseObject()
         {
         }
+
         #endregion
 
-        #region Virtual Methoden
+        #region Methods
 
         public virtual void Update(){}
 

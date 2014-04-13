@@ -8,15 +8,19 @@ namespace DragonEngine.Particle
     class Particle
     {
         #region Properties
-        #endregion
-
+        
         #region Getter & Setter
+        
+        #endregion
+        
         #endregion
 
         #region Constructor
+
         #endregion
 
-        #region Methoden
+        #region Methods
+
         #endregion
     }
 }

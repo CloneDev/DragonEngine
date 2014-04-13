@@ -25,12 +25,11 @@ namespace DragonEngine.Manager
 
         TextureManager()
         {
-
         }
 
         #endregion
 
-        #region Methoden
+        #region Methods
 
         public override void LoadContent()
         {
@@ -87,6 +86,7 @@ namespace DragonEngine.Manager
         //            mRessourcen.Remove(s);
         //    }
         //}
+
         #endregion
     }
 }

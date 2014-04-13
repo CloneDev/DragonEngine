@@ -10,13 +10,15 @@ namespace DragonEngine.Pools
 {
     public abstract class Pool<T>
     {
-
         #region Properties
+
         protected static List<T> mFreeRessources;
         protected static List<T> mUsedRessources;
-        #endregion
 
         #region Getter & Setter
+        
+        #endregion
+
         #endregion
 
         #region Constructor
@@ -29,7 +31,7 @@ namespace DragonEngine.Pools
 
         #endregion
 
-        #region Methoden
+        #region Methods
 
         public T GetObject()
         {

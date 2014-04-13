@@ -37,7 +37,7 @@ namespace DragonEngine
 
         #endregion
 
-        #region Methoden
+        #region Methods
 
         /// <summary>
         /// Setzt die Windowauflösung auf Bildschirmauflösung und Fullscreen = true.

@@ -9,7 +9,6 @@ namespace DragonEngine.Pools
 {
     public class SpritePool : Pool<Sprite>
     {
-
         #region Singleton
 
         private static SpritePool mInstance;
@@ -25,7 +24,7 @@ namespace DragonEngine.Pools
 
         #endregion
 
-        #region Methoden
+        #region Methods
 
         protected override Sprite CreateInstance()
         {

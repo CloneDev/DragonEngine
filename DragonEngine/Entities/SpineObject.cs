@@ -25,10 +25,7 @@ namespace DragonEngine.Entities
         private Vector2 mInitPosition;
         private float mScale;
 
-
-        #endregion
-
-        #region Get_Set
+        #region Getter & Setter
 
         public string Name { get { return mName; } }
         public Vector2 Position { get { return new Vector2(mSkeleton.X, mSkeleton.Y); } set { mSkeleton.X = value.X; mSkeleton.Y = value.Y; } }
@@ -37,6 +34,8 @@ namespace DragonEngine.Entities
         public bool FlipY { get { return mSkeleton.FlipY; } set { mSkeleton.FlipY = value; } }
         public Skeleton Skeleton { get { return mSkeleton; } }
         public AnimationState AnimationState { get { return mAnimationState; } }//set { mAnimationState = value; } }
+
+        #endregion
 
         #endregion
 
@@ -79,7 +78,9 @@ namespace DragonEngine.Entities
 
         #endregion
 
-        #region PoolMethoden
+        #region Methods
+
+        #region Pool
 
         public void CleanUp()
         {
@@ -91,8 +92,6 @@ namespace DragonEngine.Entities
         }
 
         #endregion
-
-        #region Methoden
 
         public void Load()
         {

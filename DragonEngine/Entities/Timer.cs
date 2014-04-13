@@ -23,13 +23,15 @@ namespace DragonEngine.Entities
         protected bool mRunning = false;
         //public delegate void SelfDestroyer(object sender, EventArgs ea);
         //public event SelfDestroyer Destroy;
-        #endregion
 
         #region Getter & Setter
 
         public double RestTimePercentage { get { return mRestTime / mDuration; } }
         public bool IsRunning { set { mRunning = value; } get { return mRunning; } }
         public bool Finish { get { return mFinished; } set { mFinished = value; } }
+
+        #endregion
+        
         #endregion
 
         #region Constructor
@@ -49,7 +51,7 @@ namespace DragonEngine.Entities
 
         #endregion
 
-        #region Function
+        #region Methods
 
         public bool IsTimerFinished()
         {
@@ -107,6 +109,7 @@ namespace DragonEngine.Entities
             mFinished = false;
             mRunning = false;
         }
+
         #endregion
     }
 

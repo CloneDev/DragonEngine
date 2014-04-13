@@ -15,6 +15,7 @@ namespace DragonEngine
         private struct AnimationMix
         {
             #region Properties
+
             private string from;
             private string to;
             private float fading;
@@ -22,9 +23,11 @@ namespace DragonEngine
             public string From { get { return from; } set { from = value; } }
             public string To { get { return to; } set { to = value; } }
             public float Fading { get { return fading; } set { fading = Math.Abs(value); } }
+
             #endregion
 
             #region Constructor
+
             public AnimationMix(string pFrom, string pTo)
             {
                 from = pFrom;
@@ -38,6 +41,7 @@ namespace DragonEngine
                 to = pTo;
                 fading = pFading;
             }
+
             #endregion
         }
 

@@ -21,8 +21,8 @@ namespace DragonEngine.SceneManagement
         #region Singleton
 
         private static SceneManager mInstance;
-
         public static SceneManager Instance { get { if (mInstance == null) mInstance = new SceneManager(); return mInstance; } }
+
         #endregion
 
         #region Properties
@@ -35,14 +35,13 @@ namespace DragonEngine.SceneManagement
         private Dictionary<String, Scene> mSceneDictionary = new Dictionary<String, Scene>();
 
         #region FadeToColor
+
         // FadeSpeed 1 / 30 statt 1 / 60 für die dauer da in beide Richtungen gefadet wird.
         // Eine Richtung dauert dann die hälfte der angegebenen Zeit.
         private float mFadeSpeed = 1.0f / 30.0f / 0.5f; // Default Zeit : 0.5 sekunden.
         private static Color mFadeColor = Color.Black; // Default Farbe : Schwarz.
         private float mFadeAlpha = 0.0f;
         private bool mFadeActiv = false;
-
-        #endregion
 
         #endregion
 
@@ -54,6 +53,8 @@ namespace DragonEngine.SceneManagement
 
         #endregion
 
+        #endregion
+
         #region Constructor
 
         public SceneManager()
@@ -62,7 +63,7 @@ namespace DragonEngine.SceneManagement
 
         #endregion
 
-        #region Methoden
+        #region Methods
 
         public void LoadContent()
         {
@@ -154,6 +155,7 @@ namespace DragonEngine.SceneManagement
                 mFadeActiv = false;
             }
         }
+
         #endregion
     }
 }

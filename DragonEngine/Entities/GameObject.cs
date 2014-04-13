@@ -21,9 +21,9 @@ namespace DragonEngine.Entities
         protected Rectangle mCollisionBox = new Rectangle();
 
         protected Color mDebugColor = Color.Gray;
-        #endregion
 
         #region Getter & Setter
+
         public Vector2 Position { set { mPosition = value; } get { return mPosition; } }
         public int PositionX { set { mPosition.X = value; } get { return (int)mPosition.X; } }
         public int PositionY { set { mPosition.Y = value; } get { return (int)mPosition.Y; } }
@@ -31,6 +31,8 @@ namespace DragonEngine.Entities
         /// Kollisionsbox des Objekts an den Weltkoordinaten.
         /// </summary>
         public Rectangle CollisionBox { get { return new Rectangle(mCollisionBox.X + PositionX, mCollisionBox.Y + PositionY, mCollisionBox.Width, mCollisionBox.Height); } }
+
+        #endregion
 
         #endregion
 
@@ -46,10 +48,13 @@ namespace DragonEngine.Entities
         {
             Position = pPosition;
         }
+
         #endregion
 
-        #region Virtual Methoden
+        #region Methods
+
         public virtual void Draw(SpriteBatch spriteBatch) { }
+
         #endregion
     }
 }

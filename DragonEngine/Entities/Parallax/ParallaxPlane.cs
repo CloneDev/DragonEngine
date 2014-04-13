@@ -15,7 +15,7 @@ namespace DragonEngine.Entities
 
         protected Vector2 mSize;
 
-        #region Get&Set
+        #region Get & Set
 
         public Vector2 Size { get { return mSize; } }
         public int Width { get { return (int)mSize.X; } }
@@ -41,7 +41,7 @@ namespace DragonEngine.Entities
 
         #endregion
 
-        #region Methoden
+        #region Methods
 
         /// <summary>
         /// Updated die Ebenenverschiebung anhand der übergebenen Kamera, relativ zu Viewport und Viewarea.

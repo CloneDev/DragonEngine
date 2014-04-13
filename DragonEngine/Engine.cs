@@ -18,7 +18,7 @@ namespace DragonEngine
 
         #endregion
 
-        #region Methoden
+        #region Methods
 
         /// <summary>
         /// Setup engine-environment.

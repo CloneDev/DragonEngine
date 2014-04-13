@@ -23,11 +23,14 @@ namespace DragonEngine.SceneManagement
         protected Camera mCamera;
 
         protected Color mClearColor = Color.DarkGray;
-        #endregion
 
         #region Getter & Setter
+
         public String Name { get { return this.mName; } }
         public String Background { set { mBackgroundName = value; mClearColor = Color.White; } }
+
+        #endregion
+
         #endregion
 
         #region Constructor
@@ -39,9 +42,10 @@ namespace DragonEngine.SceneManagement
             mRenderTarget = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResX, EngineSettings.VirtualResY);
             mCamera = new Camera(new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY));
         }
+
         #endregion
 
-        #region Virtual Methods
+        #region Methods
 
         public virtual void LoadContent()
         {
@@ -71,6 +75,7 @@ namespace DragonEngine.SceneManagement
                 mSpriteBatch.Draw(mRenderTarget, new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY), Color.White);
             mSpriteBatch.End();
         }
+
         #endregion
 
     }

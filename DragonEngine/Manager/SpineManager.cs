@@ -18,12 +18,15 @@ namespace DragonEngine.Manager
         public struct RawSpineData
         {
             #region Properties
+
             public SkeletonRenderer skeletonRenderer;
             public Atlas atlas;
             public SkeletonJson json;
+
             #endregion
 
             #region Constructor
+
             public RawSpineData(string pSkeletonName)
             {
                 skeletonRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
@@ -39,24 +42,26 @@ namespace DragonEngine.Manager
                 atlas = new Atlas(pSkeletonDataPath + pSkeletonName + ".atlas", new XnaTextureLoader(EngineSettings.Graphics.GraphicsDevice));
                 json = new SkeletonJson(atlas);
             }
+
             #endregion
-            
-
-
         }
 
         #region Singleton
+
         private static SpineManager mInstance;
         public static SpineManager Instance { get { if (mInstance == null) mInstance = new SpineManager(); return mInstance; } }
+
         #endregion
 
         #region Constructor
+
         SpineManager()
         {
         }
+
         #endregion
 
-        #region Methoden
+        #region Methods
 
         public override void LoadContent()
         {

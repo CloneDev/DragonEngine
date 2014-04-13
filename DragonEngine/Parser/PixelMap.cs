@@ -14,7 +14,8 @@ namespace DragonEngine.Parser
 {
     public static class PixelMap
     {
-        #region Methoden
+
+        #region Methods
 
         /// <summary>
         /// Erzeugt eine PixelMap(byte[x,y,rgba]=0-255) aus einem Sprite.

@@ -13,23 +13,21 @@ namespace DragonEngine.Particle
     class Emitter : GameObject
     {
         #region Properties
+
         private List<Modifier> mEmitterModifer;
         private List<Particle> mEmitterParticel;
-
         
+        #region Getter & Setter
+
         #endregion
 
-        #region Getter & Setter
         #endregion
 
         #region Constructor
+
         #endregion
 
-       
-       
-        
-
-        #region Methoden
+        #region Methods
 
         public void addModifier(Modifier pModifier)
         {
@@ -45,6 +43,7 @@ namespace DragonEngine.Particle
         {
             throw new NotImplementedException();
         }
+
         #endregion
     }
 }

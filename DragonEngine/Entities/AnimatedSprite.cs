@@ -12,15 +12,18 @@ namespace DragonEngine.Entities
     public class AnimatedSprite : TiledSprite
     {
         #region Properties
+
         protected List<int> mFrames = new List<int>();
         protected bool mRepeatAnimation = true;
         protected bool mAnimDone = false;
         protected int mAnimSpeed;
         protected int mAnimElapsedTime = 0;
         protected int mFrameInList = 0;
-        #endregion
 
         #region Getter & Setter
+
+        #endregion
+
         #endregion
 
         #region Constructor
@@ -56,9 +59,10 @@ namespace DragonEngine.Entities
             mAnimSpeed = pAnimSpeed;
             mRepeatAnimation = pIsRepeat;
         }
+
         #endregion
 
-        #region Methoden
+        #region Methods
 
         public override void Update()
         {

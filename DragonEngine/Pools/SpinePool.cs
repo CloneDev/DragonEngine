@@ -22,7 +22,6 @@ namespace DragonEngine.Pools
 
         #endregion
 
-
         #region Properties
 
         private string mName;
@@ -38,7 +37,7 @@ namespace DragonEngine.Pools
 
         #endregion
 
-        #region Methoden
+        #region Methods
 
         protected override SpineObject CreateInstance()
         {

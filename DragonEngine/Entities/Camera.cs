@@ -22,6 +22,8 @@ namespace DragonEngine.Entities
         private Matrix mScreenScale;
         private Matrix mScreenTransform;
 
+        #region Getter & Setter
+
         public Matrix ViewportTransform { get { return mViewportTransform; } }
         public Matrix ScreenTransform { get { return mScreenTransform; } }
         public Vector2 Position { get { return new Vector2(mViewport.X, mViewport.Y); } }
@@ -30,6 +32,8 @@ namespace DragonEngine.Entities
         public Rectangle ViewArea { get { return mViewArea; } set { mViewArea = value; } }
         public int Width { get { return mViewport.Width; } }
         public int Height { get { return mViewport.Height; } }
+
+        #endregion
 
         #endregion
 
@@ -46,7 +50,7 @@ namespace DragonEngine.Entities
 
         #endregion
 
-        #region Methoden
+        #region Methods
 
         public override void Update()
         {

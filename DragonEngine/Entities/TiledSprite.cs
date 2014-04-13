@@ -20,7 +20,6 @@ namespace DragonEngine.Entities
         protected int mSourceRectanglePosition = 0;
         protected int mSourceRectangleHeight;
         protected int mSourceRectangleWidth;
-        #endregion
 
         #region Getter & Setter
 
@@ -34,6 +33,9 @@ namespace DragonEngine.Entities
 
         public int CurrentTileWidth { get { return mSourceRectangle[mSourceRectanglePosition].Width; } }
         public int CurrentTileHeight { get { return mSourceRectangle[mSourceRectanglePosition].Height; } }
+        
+        #endregion
+        
         #endregion
 
         #region Constructor
@@ -66,9 +68,10 @@ namespace DragonEngine.Entities
             for (int i = 0; i < pSourceRectangleList.Count; i++)
                 mSourceRectangle[i] = pSourceRectangleList[i];
         }
+
         #endregion
 
-        #region Methoden
+        #region Methods
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
@@ -92,6 +95,7 @@ namespace DragonEngine.Entities
 
             return subtexture;
         }
+
         #endregion
     }
 }
