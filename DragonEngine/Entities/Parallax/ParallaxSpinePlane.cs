@@ -26,7 +26,12 @@ namespace DragonEngine.Entities
                 for (int y = 0; y < pRGBMap.GetLength(1); y++)
                 {
                     if (pInterpreter.ContainsKey(pRGBMap[x,y])) //Zuweisung für diesen Farbwert vorhanden?
-                        mTiles.Add(pInterpreter[pRGBMap[x,y]].GetObject(); //SpineObject von zugewiesenem Pool holen und zur ParallaxPlane hinzufügen
+                    {
+                        SpineObject TmpSpineObject = pInterpreter[pRGBMap[x,y]].GetObject(); //SpineObject von zugewiesenem Pool holen
+                        TmpSpineObject.PositionX = x * pTileSize;
+                        TmpSpineObject.PositionY = y * pTileSize;
+                        mTiles.Add(TmpSpineObject); //SpineObject zur ParallaxPlane hinzufügen
+                    }
                 }
             }
         }

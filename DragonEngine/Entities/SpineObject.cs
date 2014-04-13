@@ -29,6 +29,8 @@ namespace DragonEngine.Entities
 
         public string Name { get { return mName; } }
         public Vector2 Position { get { return new Vector2(mSkeleton.X, mSkeleton.Y); } set { mSkeleton.X = value.X; mSkeleton.Y = value.Y; } }
+        public int PositionX { set { mSkeleton.X = value; } get { return (int)mSkeleton.X; } }
+        public int PositionY { set { mSkeleton.Y = value; } get { return (int)mSkeleton.Y; } }
         public float Scale { get { return mScale; } }
         public bool Flip { get { return mSkeleton.FlipX; } set { mSkeleton.FlipX = value; } }
         public bool FlipY { get { return mSkeleton.FlipY; } set { mSkeleton.FlipY = value; } }

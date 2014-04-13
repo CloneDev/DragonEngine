@@ -30,6 +30,8 @@ namespace DragonEngine.Entities
                     {
                         Sprite TmpSprite = SpritePool.Instance.GetObject(); //Sprite vom Pool holen
                         TmpSprite.TextureName = pInterpreter[pRGBMap[x,y]]; //Sprite entsprechend Zuweisung definieren
+                        TmpSprite.PositionX = x * pTileSize;
+                        TmpSprite.PositionY = y * pTileSize;
                         mTiles.Add(TmpSprite); //Sprite zur ParallaxPlane hinzufügen
                     }
                 }
