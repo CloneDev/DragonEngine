@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DragonEngine.Partikel.Modifer;
+using DragonEngine.Particle;
 using DragonEngine.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace DragonEngine.Partikel
+namespace DragonEngine.Particle
 {
     class Emitter : GameObject
     {
-        #region Proberties
-        private List<Modifer> mEmitterModifer;
-        private List<Particel> mEmitterParticel;
+        #region Properties
+        private List<Modifier> mEmitterModifer;
+        private List<Particle> mEmitterParticel;
 
         
         #endregion
@@ -29,19 +29,19 @@ namespace DragonEngine.Partikel
        
         
 
-        #region Methods
+        #region Methoden
 
-        public void addModifier(Modifer pModifer)
+        public void addModifier(Modifier pModifier)
         {
-            if(pModifer.Type == ModifierType.EmitterModifer) this.mEmitterModifer.Add(pModifer);
+            if(pModifier.Type == ModifierType.EmitterModifier) this.mEmitterModifer.Add(pModifier);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Update()
         {
             throw new NotImplementedException();
         }
 
-        public override void Update()
+        public override void Draw(SpriteBatch pSpriteBatch)
         {
             throw new NotImplementedException();
         }

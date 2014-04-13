@@ -86,9 +86,9 @@
     <Compile Include="DragonEngine\Manager\SpineManager.cs" />
     <Compile Include="DragonEngine\Manager\TextureManager.cs" />
     <Compile Include="DragonEngine\Parser\PixelMap.cs" />
-    <Compile Include="DragonEngine\Partikel\Emitter.cs" />
-    <Compile Include="DragonEngine\Partikel\Modifer\Modifer.cs" />
-    <Compile Include="DragonEngine\Partikel\Particel.cs" />
+    <Compile Include="DragonEngine\Particle\Emitter.cs" />
+    <Compile Include="DragonEngine\Particle\Modifier\Modifier.cs" />
+    <Compile Include="DragonEngine\Particle\Particle.cs" />
     <Compile Include="DragonEngine\Physics\Collision.cs" />
     <Compile Include="DragonEngine\PlayerSettings.cs" />
     <Compile Include="DragonEngine\Pools\Pool.cs" />

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DragonEngine.Partikel
+namespace DragonEngine.Particle
 {
-    class Particel
+    class Particle
     {
-        #region Proberties
+        #region Properties
         #endregion
 
         #region Getter & Setter
@@ -16,7 +16,7 @@ namespace DragonEngine.Partikel
         #region Constructor
         #endregion
 
-        #region Methods
+        #region Methoden
         #endregion
     }
 }
