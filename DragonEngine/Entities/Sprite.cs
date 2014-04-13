@@ -71,6 +71,7 @@ namespace DragonEngine.Entities
             Tint = Color.White;
             Rotation = 0;
             Effect = SpriteEffects.None;
+            Position = Vector2.Zero;
         }
 
         #endregion
@@ -83,11 +84,16 @@ namespace DragonEngine.Entities
             mCollisionBox = new Rectangle(PositionX, PositionY, Width, Height);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch pSpriteBatch)
         {
-            spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mTextureName), new Rectangle(PositionX + (int)mOrigin.X, PositionY + (int)mOrigin.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
+            Draw(pSpriteBatch, Vector2.Zero);
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 pOffset)
+        {
+            spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mTextureName), new Rectangle(PositionX + (int)mOrigin.X + (int)pOffset.X, PositionY + (int)mOrigin.Y + (int)pOffset.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
             if (EngineSettings.IsDebug)
-                spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), new Rectangle(PositionX, PositionY, mWidth, mHeight), mDebugColor);
+                spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), new Rectangle(PositionX + (int)pOffset.X, PositionY + (int)pOffset.Y, mWidth, mHeight), mDebugColor);
         }
 
         #endregion

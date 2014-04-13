@@ -41,7 +41,9 @@ namespace DragonEngine.Pools
 
         protected override SpineObject CreateInstance()
         {
-            return new SpineObject(mName);
+            SpineObject TmpSpineObject = new SpineObject(mName);
+            TmpSpineObject.Load();
+            return TmpSpineObject;
         }
 
         protected override void CleanUpInstance(SpineObject pObject)

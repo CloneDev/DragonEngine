@@ -22,7 +22,7 @@ namespace DragonEngine.SceneManagement
         protected RenderTarget2D mRenderTarget;
         protected Camera mCamera;
 
-        protected Color mClearColor = Color.DarkGray;
+        protected Color mClearColor = Color.Transparent;
 
         #region Getter & Setter
 
@@ -63,6 +63,7 @@ namespace DragonEngine.SceneManagement
         protected void DrawBackground()
         {
             EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(mRenderTarget);
+            EngineSettings.Graphics.GraphicsDevice.Clear(mClearColor);
             mSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null, mCamera.ViewportTransform);
                 mSpriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mBackgroundName), new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY), mClearColor);
             mSpriteBatch.End();
