@@ -92,7 +92,7 @@ namespace DragonEngine
             AnimationFading.Add("boxman", new List<AnimationMix>());
             AnimationFadingList = AnimationFading["boxman"];
 
-            AnimationFadingList.Add(new AnimationMix("standing", "wall"));
+            AnimationFadingList.Add(new AnimationMix("standing", "walk"));
             AnimationFadingList.Add(new AnimationMix("walk", "standing"));
             #endregion
 
