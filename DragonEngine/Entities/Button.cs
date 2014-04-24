@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace DragonEngine.Entities
 {
-    class Button : Sprite
+    public class Button : Sprite
     {
         #region Proberties
 
