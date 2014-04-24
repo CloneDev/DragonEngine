@@ -87,6 +87,15 @@ namespace DragonEngine
             AnimationFadingList.Add(new AnimationMix("walk", "idle"));
             #endregion
 
+            #region Boxman
+            Scaling.Add("boxman", 1.0f);
+            AnimationFading.Add("boxman", new List<AnimationMix>());
+            AnimationFadingList = AnimationFading["boxman"];
+
+            AnimationFadingList.Add(new AnimationMix("standing", "wall"));
+            AnimationFadingList.Add(new AnimationMix("walk", "standing"));
+            #endregion
+
             #region Skeleton XY
             //Scaling.Add("skeleton", 1.0f);
             //AnimationFading.Add("skeleton", new List<AnimationMix>());
