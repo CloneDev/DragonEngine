@@ -83,6 +83,10 @@
     <Compile Include="DragonEngine\Entities\Sprite.cs" />
     <Compile Include="DragonEngine\Entities\TiledSprite.cs" />
     <Compile Include="DragonEngine\Entities\Timer.cs" />
+    <Compile Include="DragonEngine\Light\AmbientLight.cs" />
+    <Compile Include="DragonEngine\Light\Light.cs" />
+    <Compile Include="DragonEngine\Light\PointLight.cs" />
+    <Compile Include="DragonEngine\Light\SpotLight.cs" />
     <Compile Include="DragonEngine\Manager\Manager.cs" />
     <Compile Include="DragonEngine\Manager\SpineManager.cs" />
     <Compile Include="DragonEngine\Manager\TextureManager.cs" />

@@ -70,7 +70,7 @@ namespace DragonEngine.Physics
             } while (TmpSlide);
             return TmpMove;
         }
-
+       o
         protected static bool CollisionCheck(Rectangle pBodyToCheck, List<Rectangle> pBodiesToCheck)
         {
             bool TmpCollision = false;
