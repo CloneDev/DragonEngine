@@ -46,10 +46,10 @@
   <ItemGroup>
     <Compile Include="Controls\MouseHelper.cs" />
     <Compile Include="EngineGame.cs" />
+    <Compile Include="Interface\Button.cs" />
     <Compile Include="Settings\EngineSettings.cs" />
     <Compile Include="Entities\AnimatedSprite.cs" />
     <Compile Include="Entities\BaseObject.cs" />
-    <Compile Include="Entities\Button.cs" />
     <Compile Include="Entities\Camera.cs" />
     <Compile Include="Entities\GameObject.cs" />
     <Compile Include="Entities\InterfaceObject.cs" />
