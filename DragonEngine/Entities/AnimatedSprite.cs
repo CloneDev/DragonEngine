@@ -30,30 +30,30 @@ namespace DragonEngine.Entities
 
         public AnimatedSprite() { }
 
-        public AnimatedSprite(Vector2 pPosition, String pTextureName, int pRectangleWidth, int pRectangleHeight, List<int> pFrames, int pAnimSpeed)
-            : base(pPosition, pTextureName, pRectangleWidth, pRectangleHeight)
+        public AnimatedSprite(Vector2 pPosition, String pTextureName, String pPath, int pRectangleWidth, int pRectangleHeight, List<int> pFrames, int pAnimSpeed)
+            : base(pPosition, pTextureName, pPath, pRectangleWidth, pRectangleHeight)
         {
             mFrames = pFrames;
             mAnimSpeed = pAnimSpeed;
         }
 
-        public AnimatedSprite(Vector2 pPosition, String pTextureName, List<Rectangle> pSourceRectangleList, List<int> pFrames, int pAnimSpeed)
-            : base(pPosition, pTextureName, pSourceRectangleList)
+        public AnimatedSprite(Vector2 pPosition, String pTextureName, String pPath, List<Rectangle> pSourceRectangleList, List<int> pFrames, int pAnimSpeed)
+            : base(pPosition, pTextureName, pPath, pSourceRectangleList)
         {
             mFrames = pFrames;
             mAnimSpeed = pAnimSpeed;
         }
 
-        public AnimatedSprite(Vector2 pPosition, String pTextureName, int pRectangleWidth, int pRectangleHeight, List<int> pFrames, int pAnimSpeed, bool pIsRepeat)
-            : base(pPosition, pTextureName, pRectangleWidth, pRectangleHeight)
+        public AnimatedSprite(Vector2 pPosition, String pTextureName, String pPath, int pRectangleWidth, int pRectangleHeight, List<int> pFrames, int pAnimSpeed, bool pIsRepeat)
+            : base(pPosition, pTextureName, pPath, pRectangleWidth, pRectangleHeight)
         {
             mFrames = pFrames;
             mAnimSpeed = pAnimSpeed;
             mRepeatAnimation = pIsRepeat;
         }
 
-        public AnimatedSprite(Vector2 pPosition, String pTextureName, List<Rectangle> pSourceRectangleList, List<int> pFrames, int pAnimSpeed, bool pIsRepeat)
-            : base(pPosition, pTextureName, pSourceRectangleList)
+        public AnimatedSprite(Vector2 pPosition, String pTextureName, String pPath, List<Rectangle> pSourceRectangleList, List<int> pFrames, int pAnimSpeed, bool pIsRepeat)
+            : base(pPosition, pTextureName, pPath, pSourceRectangleList)
         {
             mFrames = pFrames;
             mAnimSpeed = pAnimSpeed;
@@ -70,7 +70,7 @@ namespace DragonEngine.Entities
         }
 
 
-        private void Animate()
+        protected void Animate()
         {
             mAnimElapsedTime += (EngineSettings.Time.ElapsedGameTime.Milliseconds);
             if (mAnimElapsedTime >= mAnimSpeed)
@@ -83,7 +83,6 @@ namespace DragonEngine.Entities
                     if (!mRepeatAnimation)
                     {
                         CurrentTile = mFrames[mFrames.Count - 1];
-                        //mUpdateActionGameTime.Remove(Animate);
                         mAnimDone = true;
                         return;
                     }

@@ -8,85 +8,96 @@ using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace DragonEngine
 {
     public static class EngineSettings
     {
         #region Properties
-        
+
         public static bool IsDebug = false;
+
+        #region Device
+        private static bool mOnAndroid = false;
+        private static bool mOnWindows = false;
+        private static bool mOnWindowsPhone = false;
+        private static bool mOnIOs = false;
+        
         public static bool OnAndriod
         {
-            get { return OnAndriod; }
+            get { return mOnAndroid; }
             set
             {
                 if (value)
                 {
-                    OnWindows = false;
-                    OnwindowsPhone = false;
-                    OnIOS = false;
-                    OnAndriod = true;
+                    mOnWindows = false;
+                    mOnWindowsPhone = false;
+                    mOnIOs = false;
+                    mOnAndroid = true;
                 }
             }
         }
         public static bool OnWindows
         {
-            get { return OnWindows; }
+            get { return mOnWindows; }
             set
             {
                 if (value)
                 {
-                    OnWindows = true;
-                    OnwindowsPhone = false;
-                    OnIOS = false;
-                    OnAndriod = false;
+                    mOnWindows = true;
+                    mOnWindowsPhone = false;
+                    mOnIOs = false;
+                    mOnAndroid = false;
                 }
             }
         }
         public static bool OnwindowsPhone
         {
-            get { return OnwindowsPhone; }
+            get { return mOnWindowsPhone; }
             set
             {
                 if (value)
                 {
-                    OnWindows = false;
-                    OnwindowsPhone = true;
-                    OnIOS = false;
-                    OnAndriod = false;
+                    mOnWindows = false;
+                    mOnWindowsPhone = true;
+                    mOnIOs = false;
+                    mOnAndroid = false;
                 }
             }
         }
         public static bool OnIOS
         {
-            get { return OnIOS; }
+            get { return mOnIOs; }
             set
             {
                 if (value)
                 {
-                    OnWindows = false;
-                    OnwindowsPhone = false;
-                    OnIOS = true;
-                    OnAndriod = false;
+                    mOnWindows = false;
+                    mOnWindowsPhone = false;
+                    mOnIOs = true;
+                    mOnAndroid = false;
                 }
             }
         }
+        #endregion
 
         public static ContentManager Content;
         public static GraphicsDeviceManager Graphics;
         public static GameTime Time;
 
+        public static Keys Exitkey = Keys.F12;
+
         #region Resolution
 
-        private static Vector2 ScreenResolution = Vector2.Zero;
-        private static Vector2 VirtualResolution = new Vector2(1280, 720);
+        public static int WindowHeight = 720;
+        public static int WindowWidth = 1280;
 
-        public static int VirtualResX { get { return (int)VirtualResolution.X; } }
-        public static int VirtualResY { get { return (int)VirtualResolution.Y; } }
+        public static int DisplayHeight = 360;
+        public static int DisplayWidth = 640;
 
-        public static int ScreenResX { get { return (int)ScreenResolution.X; } }
-        public static int ScreenResY { get { return (int)ScreenResolution.Y; } }
+        public static float AspectRatioX;
+        public static float AspectRatioY;
 
         #endregion
 
@@ -95,46 +106,26 @@ namespace DragonEngine
         #region Methods
 
         /// <summary>
-        /// Setzt die Windowauflösung auf Bildschirmauflösung und Fullscreen = true.
+        /// Setzt die Auflösung wie sie gewünscht ist.
         /// </summary>
-        public static void FitToFullScreen()
+        public static void SetResolution()
         {
-            GetScreenResolution();
-            SetWindowToFullScreenPC();
-        }
+            Graphics.PreferredBackBufferHeight = DisplayHeight;
+            Graphics.PreferredBackBufferWidth = DisplayWidth;
 
-        /// <summary>
-        /// Läd die Bildschirmauflösung in Vector2 ScreenResolution.
-        /// </summary>
-        public static void GetScreenResolution()
-        {
-            ScreenResolution.X = (float)GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            ScreenResolution.Y = (float)GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-        }
+            AspectRatioX = WindowWidth / (float)DisplayWidth;
+            AspectRatioY = WindowHeight / (float)DisplayHeight;
 
-        /// <summary>
-        /// Setzt die Windowauflösung auf Vector2 ScreenResolution und Fullscreen = true.
-        /// </summary>
-        public static void SetWindowToFullScreen()
-        {
-            Graphics.PreferredBackBufferWidth = (int)ScreenResolution.X;
-            Graphics.PreferredBackBufferHeight = (int)ScreenResolution.Y;
-            Graphics.IsFullScreen = true;
             Graphics.ApplyChanges();
         }
 
-        /// <summary>
-        /// Setzt die Windowauflösung auf VirtualResolution.
-        /// </summary>
-        public static void SetWindowToFullScreenPC()
+        public static void SetResolution(int pWidth, int pHeight)
         {
-            ScreenResolution = VirtualResolution;
-            ScreenResolution *= 0.75f;
-            Graphics.PreferredBackBufferWidth = (int)ScreenResolution.X;
-            Graphics.PreferredBackBufferHeight = (int)ScreenResolution.Y;
-            Graphics.ApplyChanges();
+            WindowHeight = pHeight;
+            WindowWidth = pWidth;
+
+            SetResolution();
         }
-        
         #endregion
     }
 }

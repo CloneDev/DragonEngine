@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using DragonEngine.Controls;
+using DragonEngine.Entities;
 
-namespace DragonEngine.Entities
+namespace DragonEngine.Interface
 {
-    public class Button : Sprite
+    public class Button : TiledSprite
     {
         #region Proberties
 
@@ -25,10 +27,31 @@ namespace DragonEngine.Entities
 
         public Button() { }
 
-        public Button(Vector2 pPosition, String pTextureName)
-            : base(pPosition, pTextureName)
+        public Button(Vector2 pPosition, String pTextureName, String pPath, int pRectangleWidth, int pRectangleHeight)
+            : base(pPosition, pTextureName, pPath, pRectangleWidth, pRectangleHeight)
+        {   }
+
+        public Button(Vector2 pPosition, String pTextureName, String pPath, List<Rectangle> pSourceRectangleList)
+            : base(pPosition, pTextureName, pPath, pSourceRectangleList)
+        {
+            mSourceRectangle = new Rectangle[pSourceRectangleList.Count];
+
+            for (int i = 0; i < pSourceRectangleList.Count; i++)
+                mSourceRectangle[i] = pSourceRectangleList[i];
+        }
+
+        public Button(Vector2 pPosition, String pTextureName, String pPath)
+            : base(pPosition, pTextureName, pPath)
         {
             TextureName = pTextureName;
+        }
+        #endregion
+
+        #region Override Methods
+
+        public void Update()
+        {
+            IsButtonPressed(MouseHelper.Position);
         }
         #endregion
 
@@ -36,7 +59,10 @@ namespace DragonEngine.Entities
 
         public void IsButtonPressed(Vector2 pClickArea)
         {
-            if(mCollisionBox.Contains((int)pClickArea.X, (int)pClickArea.Y) && OnButtonPressed != null)
+            if(mCollisionBox.Contains((int)pClickArea.X, (int)pClickArea.Y)
+                && OnButtonPressed != null
+                && MouseHelper.Instance.IsClickedLeft
+                )
                 OnButtonPressed();
         }
 

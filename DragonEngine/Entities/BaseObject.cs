@@ -12,24 +12,31 @@ namespace DragonEngine.Entities
     public class BaseObject
     {
         #region Properties
-        
+
+        protected int mId;
+        protected static int mIdAll = 0;
+        #endregion
+
         #region Getter & Setter
         
         #endregion
 
-        #endregion
-
         #region Constructor
 
-        public BaseObject()
+        public BaseObject() 
         {
+            mId = mIdAll;
+            mIdAll++;
         }
 
         #endregion
 
         #region Methods
 
-        public virtual void Update(){}
+        public virtual void Update() { }
+        public virtual void LoadContent() { }
+        public virtual void Initialize() { }
+        public virtual String GetInfo() { return ""; }
 
         #endregion
     }

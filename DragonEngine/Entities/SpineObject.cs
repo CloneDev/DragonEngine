@@ -103,9 +103,9 @@ namespace DragonEngine.Entities
             mSkeletonRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
             mBounds = new SkeletonBounds();
 
-            mSkeleton = SpineManager.Instance.NewSkeleton(mName, mScale); //Fixed Scale from here. Main instanciation.
+            //mSkeleton = SpineManager.Instance.NewSkeleton(mName, mScale); //Fixed Scale from here. Main instanciation.
             mSkeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
-            mAnimationState = SpineManager.Instance.NewAnimationState(mSkeleton.Data);
+            //mAnimationState = SpineManager.Instance.NewAnimationState(mSkeleton.Data);
             mSkeleton.X = mInitPosition.X;
             mSkeleton.Y = mInitPosition.Y;
         }

@@ -38,11 +38,11 @@ namespace DragonEngine.Entities
             }
         }
 
-        new public void Draw(SpriteBatch pSpriteBatch)
-        {
-            foreach (Sprite TmpSprite in mTiles)
-                TmpSprite.Draw(pSpriteBatch, Position);
-        }
+        //public void Draw(SpriteBatch pSpriteBatch)
+        //{
+        //    foreach (Sprite TmpSprite in mTiles)
+        //        TmpSprite.Draw(pSpriteBatch, Position);
+        //}
 
         #endregion
 

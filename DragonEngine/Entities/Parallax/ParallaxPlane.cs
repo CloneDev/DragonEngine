@@ -50,8 +50,8 @@ namespace DragonEngine.Entities
         /// <param name="pCamera">Zu verwendende Kamera.</param>
         public virtual void Update(Camera pCamera)
         {
-            PositionX = pCamera.PositionX - (int)((float)(Width - pCamera.Width) * ((float)(pCamera.PositionX - pCamera.ViewArea.X) / (float)(pCamera.ViewArea.Width - pCamera.Width)));
-            PositionY = pCamera.PositionY - (int)((float)(Height - pCamera.Height) * ((float)(pCamera.PositionY - pCamera.ViewArea.Y) / (float)(pCamera.ViewArea.Height - pCamera.Height)));
+            //PositionX = pCamera.PositionX - (int)((float)(Width - pCamera.Width) * ((float)(pCamera.PositionX - pCamera.ViewArea.X) / (float)(pCamera.ViewArea.Width - pCamera.Width)));
+            //PositionY = pCamera.PositionY - (int)((float)(Height - pCamera.Height) * ((float)(pCamera.PositionY - pCamera.ViewArea.Y) / (float)(pCamera.ViewArea.Height - pCamera.Height)));
         }
 
         #endregion

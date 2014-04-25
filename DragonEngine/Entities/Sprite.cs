@@ -16,6 +16,7 @@ namespace DragonEngine.Entities
         #region Properties
 
         protected String mTextureName;
+        protected Texture2D mTexture;
         protected Color mTint = Color.White;
         protected int mWidth;
         protected int mHeight;
@@ -25,16 +26,8 @@ namespace DragonEngine.Entities
         protected SpriteEffects mEffekt = SpriteEffects.None;
 
         #region Getter & Setter
-        
-        public String TextureName
-        {
-            get { return mTextureName; }
-            set
-            {
-                mTextureName = value;
-                UpdateTextureDimensions();
-            }
-        }
+
+        public String TextureName;
         public Color Tint { set { mTint = value; } }
         public int Width { get { return mWidth; } }
         public int Height { get { return mHeight; } }
@@ -43,7 +36,7 @@ namespace DragonEngine.Entities
         public int Rotation { get { return mRotation; } set { mRotation = value; } }
         public SpriteEffects Effect { get { return mEffekt; } set { mEffekt = value; } }
 
-        public Texture2D Texture { get { return TextureManager.Instance.GetElementByString<Texture2D>(mTextureName); } }
+        public Texture2D Texture { get { return mTexture; } }
 
         #endregion
 
@@ -53,55 +46,42 @@ namespace DragonEngine.Entities
 
         public Sprite() { }
 
+        public Sprite(Vector2 pPosition, String pTextureName, String pPathName)
+            : base(pPosition)
+        {
+            TextureName = pTextureName;
+            mTexture = TextureManager.Instance.Add<Texture2D>(pTextureName, @"gfx\" + pPathName);
+            
+            mWidth = mTexture.Width;
+            mHeight = mTexture.Height;
+            mOrigin = new Vector2(mWidth / 2, mHeight / 2);
+
+            mCollisionBox = new Rectangle((int)pPosition.X, (int)pPosition.Y, mWidth, mHeight);
+        }
+
         public Sprite(Vector2 pPosition, String pTextureName)
             : base(pPosition)
         {
             TextureName = pTextureName;
+
+            mTexture = TextureManager.Instance.GetElementByString<Texture2D>(TextureName);
+            mWidth = mTexture.Width;
+            mHeight = mTexture.Height;
+            mOrigin = new Vector2(mWidth / 2, mHeight / 2);
+
+            mCollisionBox = new Rectangle((int)pPosition.X, (int)pPosition.Y, mWidth, mHeight);
         }
 
         #endregion
 
         #region Methods
 
-        #region Pool
-
-        public void CleanUp()
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            TextureName = "pixel";
-            Tint = Color.White;
-            Rotation = 0;
-            Effect = SpriteEffects.None;
-            Position = Vector2.Zero;
-        }
-
-        #endregion
-
-        protected void UpdateTextureDimensions()
-        {
-            mWidth = TextureManager.Instance.GetElementByString<Texture2D>(mTextureName).Width;
-            mHeight = TextureManager.Instance.GetElementByString<Texture2D>(mTextureName).Height;
-            mOrigin = new Vector2(Width / 2, Height / 2);
-            mCollisionBox = new Rectangle(PositionX, PositionY, Width, Height);
-        }
-
-        public void SetPosition(Vector2 pPosition)
-        {
-            this.Position = pPosition;
-            mCollisionBox = new Rectangle(PositionX, PositionY, Width, Height);
-        }
-
-        public override void Draw(SpriteBatch pSpriteBatch)
-        {
-            Draw(pSpriteBatch, Vector2.Zero);
-        }
-
-        public void Draw(SpriteBatch spriteBatch, Vector2 pOffset)
-        {
-            spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mTextureName), new Rectangle(PositionX + (int)mOrigin.X + (int)pOffset.X, PositionY + (int)mOrigin.Y + (int)pOffset.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
+            spriteBatch.Draw(mTexture, new Rectangle(PositionX + (int)mOrigin.X, PositionY + (int)mOrigin.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
             if (EngineSettings.IsDebug)
-                spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), new Rectangle(PositionX + (int)pOffset.X, PositionY + (int)pOffset.Y, mWidth, mHeight), mDebugColor);
+                spriteBatch.Draw(mTexture, new Rectangle(PositionX, PositionY, mWidth, mHeight), mDebugColor);
         }
-
         #endregion
     }
 }

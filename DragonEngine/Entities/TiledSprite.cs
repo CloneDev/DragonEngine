@@ -24,16 +24,20 @@ namespace DragonEngine.Entities
         #region Getter & Setter
 
         public int CurrentTile { get { return mSourceRectanglePosition; } 
-            set { 
+            set 
+            { 
                 if (value < mSourceRectangle.Length && value >= 0 ) 
                     mSourceRectanglePosition = value; 
                 else mSourceRectanglePosition = 0;
+
+                mCollisionBox = new Rectangle(PositionX, PositionY, mSourceRectangle[mSourceRectanglePosition].Width, mSourceRectangle[mSourceRectanglePosition].Height);
             } 
         }
 
         public int CurrentTileWidth { get { return mSourceRectangle[mSourceRectanglePosition].Width; } }
         public int CurrentTileHeight { get { return mSourceRectangle[mSourceRectanglePosition].Height; } }
-        
+
+        public Rectangle CollisionBox { get { return mSourceRectangle[mSourceRectanglePosition]; } }
         #endregion
         
         #endregion
@@ -42,8 +46,8 @@ namespace DragonEngine.Entities
 
         public TiledSprite() { }
 
-        public TiledSprite(Vector2 pPosition, String pTextureName, int pRectangleWidth, int pRectangleHeight)
-            : base(pPosition, pTextureName)
+        public TiledSprite(Vector2 pPosition, String pTextureName, String pPath, int pRectangleWidth, int pRectangleHeight)
+            : base(pPosition, pTextureName, pPath)
         {
             mSourceRectangleWidth = pRectangleWidth;
             mSourceRectangleHeight = pRectangleHeight;
@@ -58,15 +62,32 @@ namespace DragonEngine.Entities
             for (int y = 0; y < rectangleRows; y++)
                 for (int x = 0; x < rectangleColumns; x++)
                     mSourceRectangle[y * rectangleRows + x] = new Rectangle(x * pRectangleWidth, y * pRectangleHeight, pRectangleWidth, pRectangleHeight);
+
+            mCollisionBox = new Rectangle((int)pPosition.X, (int)pPosition.Y, mSourceRectangleWidth, mSourceRectangleHeight);
+            mDebugColor = Color.AliceBlue;
         }
 
-        public TiledSprite(Vector2 pPosition, String pTextureName, List<Rectangle> pSourceRectangleList)
-            : base(pPosition, pTextureName)
+        public TiledSprite(Vector2 pPosition, String pTextureName, String pPath, List<Rectangle> pSourceRectangleList)
+            : base(pPosition, pTextureName, pPath)
         {
             mSourceRectangle = new Rectangle[pSourceRectangleList.Count];
 
             for (int i = 0; i < pSourceRectangleList.Count; i++)
                 mSourceRectangle[i] = pSourceRectangleList[i];
+
+            mCollisionBox = mSourceRectangle[0];
+            mDebugColor = Color.AliceBlue;
+        }
+
+        public TiledSprite(Vector2 pPosition, String pTextureName, String pPath)
+            : base(pPosition, pTextureName, pPath)
+        {
+            mSourceRectangleHeight = mTexture.Height;
+            mSourceRectangleWidth = mTexture.Width;
+
+            mSourceRectangle = new Rectangle[1];
+            mSourceRectangle[0] = new Rectangle(0, 0, mSourceRectangleWidth, mSourceRectangleHeight);
+            mDebugColor = Color.AliceBlue;
         }
 
         #endregion
@@ -75,7 +96,7 @@ namespace DragonEngine.Entities
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>(mTextureName), Position, mSourceRectangle[mSourceRectanglePosition], mTint);
+            spriteBatch.Draw(mTexture, Position, mSourceRectangle[mSourceRectanglePosition], mTint);
             if (EngineSettings.IsDebug)
                 spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), new Rectangle(PositionX, PositionY, mSourceRectangleWidth, mSourceRectangleHeight), mDebugColor);
         }

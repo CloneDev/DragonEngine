@@ -42,6 +42,7 @@ namespace DragonEngine.SceneManagement
         private static Color mFadeColor = Color.Black; // Default Farbe : Schwarz.
         private float mFadeAlpha = 0.0f;
         private bool mFadeActiv = false;
+        private Texture2D mFadeTexture;
 
         #endregion
 
@@ -59,6 +60,7 @@ namespace DragonEngine.SceneManagement
 
         public SceneManager()
         {
+            
         }
 
         #endregion
@@ -67,6 +69,7 @@ namespace DragonEngine.SceneManagement
 
         public void LoadContent()
         {
+            mFadeTexture = TextureManager.Instance.Add<Texture2D>("pixel", @"gfx\pixel");
             foreach (KeyValuePair<string, Scene> pair in mSceneDictionary)
                 pair.Value.LoadContent();
         }
@@ -124,6 +127,12 @@ namespace DragonEngine.SceneManagement
                 FadeColorScene();
         }
 
+        public void Initialize()
+        {
+            foreach (KeyValuePair<String, Scene> pair in mSceneDictionary)
+                pair.Value.Initialize();
+        }
+
         public void Draw(SpriteBatch spritebatch)
         {
             mCurrentScene.Draw();
@@ -131,7 +140,7 @@ namespace DragonEngine.SceneManagement
             if (mFadeActiv)
             {
                 spritebatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-                spritebatch.Draw((Texture2D)TextureManager.Instance.GetElementByString<Texture2D>("pixel"), new Rectangle(0, 0, EngineSettings.Graphics.PreferredBackBufferWidth, EngineSettings.Graphics.PreferredBackBufferHeight), mFadeColor * mFadeAlpha);
+                spritebatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), new Rectangle(0, 0, EngineSettings.Graphics.PreferredBackBufferWidth, EngineSettings.Graphics.PreferredBackBufferHeight), mFadeColor * mFadeAlpha);
                 spritebatch.End();
             }
         }

@@ -33,7 +33,7 @@ namespace DragonEngine.Pools
 
         protected override void CleanUpInstance(Sprite pObject)
         {
-            pObject.CleanUp();
+            //pObject.CleanUp();
         }
 
         #endregion
