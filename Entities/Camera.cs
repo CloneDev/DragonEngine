@@ -1,5 +1,5 @@
 ﻿/**************************************************************
- * (c) Jens Richter 2014
+ * (c) Carsten Baus 2014
  *************************************************************/
 using System;
 using System.Collections.Generic;
@@ -16,6 +16,8 @@ namespace DragonEngine.Entities
         #region Properties
 
         private Vector2 mPosition;
+        private Rectangle mViewport;
+        private Rectangle mGameScreen;
         #endregion
 
         #region Getter & Setter
@@ -27,16 +29,28 @@ namespace DragonEngine.Entities
         public Camera()
         {
             mPosition = Vector2.Zero;
+            Initialize();
         }
 
         public Camera(Vector2 pPosition)
         {
             mPosition = pPosition;
+            Initialize();
+        }
+
+        public Camera(Vector2 pPosition, Rectangle pGameScreen)
+        {
+
         }
 
         #endregion
 
         #region Override Methods
+
+        public override void Initialize()
+        {
+            mViewport = new Rectangle(0, 0, EngineSettings.WindowWidth, EngineSettings.WindowHeight);
+        }
 
         public override void Update()
         {
