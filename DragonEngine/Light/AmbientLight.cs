@@ -1,11 +1,24 @@
-﻿using System;
+﻿/**************************************************************
+ * (c) Joss Lattner 2014
+ *************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DragonEngine.DragonEngine.Light
+namespace DragonEngine.Light
 {
-    class AmbientLight
+    class AmbientLight : Light
     {
+
+        #region Properties
+        #endregion
+
+        #region Constructor
+        #endregion
+
+        #region Methods
+        #endregion
+
     }
 }

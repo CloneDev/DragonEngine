@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DragonEngine.DragonEngine.Light
+namespace DragonEngine.Light
 {
-    class SpotLight
+    class SpotLight : Light
     {
         
     }

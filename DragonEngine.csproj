@@ -84,6 +84,7 @@
     <Compile Include="DragonEngine\Entities\TiledSprite.cs" />
     <Compile Include="DragonEngine\Entities\Timer.cs" />
     <Compile Include="DragonEngine\Light\AmbientLight.cs" />
+    <Compile Include="DragonEngine\Light\DiffuseLight.cs" />
     <Compile Include="DragonEngine\Light\Light.cs" />
     <Compile Include="DragonEngine\Light\PointLight.cs" />
     <Compile Include="DragonEngine\Light\SpotLight.cs" />

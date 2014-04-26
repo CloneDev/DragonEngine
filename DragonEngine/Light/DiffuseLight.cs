@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DragonEngine.Light
 {
-    class PointLight
+    class DiffuseLight : Light
     {
     }
 }
