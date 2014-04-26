@@ -10,6 +10,8 @@ namespace DragonEngine.Interface
     public class Box : InterfaceObject
     {
         #region Properties
+
+        protected Rectangle mBoxDimension;
         #endregion
 
         #region Getter & Setter
@@ -19,6 +21,7 @@ namespace DragonEngine.Interface
         public Box(Vector2 pPosition, Rectangle pRectangle)
             : base(pPosition, pRectangle)
         {
+            mBoxDimension = pRectangle;
         }
         #endregion
 
