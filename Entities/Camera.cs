@@ -15,32 +15,35 @@ namespace DragonEngine.Entities
     {
         #region Properties
 
-        private Vector2 mPosition;
+        private Vector2 mCameraOffset;
+        private Vector2 mPositionCamera;
         private Rectangle mViewport;
         private Rectangle mGameScreen;
         #endregion
 
         #region Getter & Setter
-        public Vector2 Position { get { return mPosition; } set { mPosition = value; } }
+        public Vector2 Position { get { return mPositionCamera; } set { mPositionCamera = value; } }
+        public Rectangle GameScreen { get { return mGameScreen; } set { mGameScreen = value; } }
         #endregion
 
         #region Constructor
 
         public Camera()
         {
-            mPosition = Vector2.Zero;
+            mCameraOffset = Vector2.Zero;
             Initialize();
         }
 
-        public Camera(Vector2 pPosition)
+        public Camera(Vector2 pOffset)
         {
-            mPosition = pPosition;
+            mCameraOffset = pOffset;
             Initialize();
         }
 
         public Camera(Vector2 pPosition, Rectangle pGameScreen)
         {
-
+            mGameScreen = pGameScreen;
+            Initialize();
         }
 
         #endregion
@@ -49,7 +52,9 @@ namespace DragonEngine.Entities
 
         public override void Initialize()
         {
-            mViewport = new Rectangle(0, 0, EngineSettings.WindowWidth, EngineSettings.WindowHeight);
+            Position = Vector2.Zero;
+            mCameraOffset = Vector2.Zero;
+            mViewport = new Rectangle(0, 0, 1280, 720);
         }
 
         public override void Update()
@@ -63,16 +68,42 @@ namespace DragonEngine.Entities
 
         public Matrix GetTranslationMatrix()
         {
-            return Matrix.CreateTranslation(new Vector3(mPosition, 0));
+            return Matrix.CreateTranslation(new Vector3(mCameraOffset + Position, 0));
+        }
+
+        public void MoveCamera(Vector2 mSpeed)
+        {
+            // Links Bewegung
+            if (mSpeed.X > 0)
+                if (mPositionCamera.X < (mViewport.Width / 2))
+                    mPositionCamera.X += mSpeed.X;
+                else
+                    mPositionCamera.X = mViewport.Width / 2;
+            // Rechts Bewegung
+            else if (mSpeed.X < 0)
+                if (mPositionCamera.X <= (-GameScreen.Width + mViewport.Width / 2))
+                    mPositionCamera.X = (-GameScreen.Width + mViewport.Width / 2);
+                else
+                    mPositionCamera.X += mSpeed.X;
+
+            // Bewegung Oben
+            if (mSpeed.Y > 0)
+                if (mPositionCamera.Y < mViewport.Height / 2)
+                    mPositionCamera.Y += mSpeed.Y;
+                else
+                    mPositionCamera.Y = mViewport.Height / 2;
+            //Bewegung Unten
+            else if (mSpeed.Y < 0)
+                if (mPositionCamera.Y <= (-mGameScreen.Height + mViewport.Height / 2))
+                    mPositionCamera.Y = (-mGameScreen.Height + mViewport.Height / 2);
+                else
+                    mPositionCamera.Y += mSpeed.Y;
+
         }
         #endregion
 
     }
 }
-
-
-
-
 
 
 /*

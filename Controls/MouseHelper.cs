@@ -81,6 +81,22 @@ namespace DragonEngine.Controls
                 return (msCurrent.MiddleButton == ButtonState.Pressed) ? true : false;
             }
         }
+
+        public bool IsWheelUp
+        {
+            get
+            {
+                return (msCurrent.ScrollWheelValue > msLast.ScrollWheelValue) ? true : false;
+            }
+        }
+
+        public bool IsWheelDown
+        {
+            get
+            {
+                return (msCurrent.ScrollWheelValue < msLast.ScrollWheelValue) ? true : false;
+            }
+        }
         
         #endregion
 
