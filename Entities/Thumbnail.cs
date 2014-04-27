@@ -25,16 +25,23 @@ namespace DragonEngine.Entities
         public Thumbnail(Vector2 pPosition, String pTextureName, String pPathName)
             : base(pPosition, pTextureName, pPathName)
         {
+            Initialize();
         }
 
         public Thumbnail(Vector2 pPosition, String pTextureName)
             : base(pPosition, pTextureName)
         {
+            Initialize();
         }
 
         #endregion
 
         #region Override Methods
+
+        public override void Initialize()
+        {
+            mCollisionBox = new Rectangle(PositionX, PositionY, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {

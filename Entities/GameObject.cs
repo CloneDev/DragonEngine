@@ -42,7 +42,6 @@ namespace DragonEngine.Entities
             }
             get { return (int)mPosition.X; } 
         }
-
         public int PositionY 
         { 
             set 

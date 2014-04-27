@@ -1,136 +1,108 @@
-﻿/**************************************************************
- * (c) Jens Richter 2014
- *************************************************************/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Spine;
+﻿///**************************************************************
+// * (c) Jens Richter 2014
+// *************************************************************/
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using Microsoft.Xna.Framework;
+//using Microsoft.Xna.Framework.Content;
+//using Microsoft.Xna.Framework.Graphics;
+//using Spine;
+//using DragonEngine.Entities;
 
 
-namespace DragonEngine.Manager
-{
-    public class SpineManager //: Manager
-    {
-    //    public struct RawSpineData
-    //    {
-    //        #region Properties
+//namespace DragonEngine.Manager
+//{
+//    public class SpineManager : Manager
+//    {
+//        #region Singleton
 
-    //        public SkeletonRenderer skeletonRenderer;
-    //        public Atlas atlas;
-    //        public SkeletonJson json;
+//        private static SpineManager mInstance;
+//        public static SpineManager Instance { get { if (mInstance == null) mInstance = new SpineManager(); return mInstance; } }
 
-    //        #endregion
+//        #endregion
 
-    //        #region Constructor
+//        #region Properties
+//        #endregion
 
-    //        public RawSpineData(string pSkeletonName)
-    //        {
-    //            skeletonRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
-    //            skeletonRenderer.PremultipliedAlpha = SpineSettings.PremultipliedAlphaRendering;
-    //            atlas = new Atlas(SpineSettings.DefaultDataPath + pSkeletonName + ".atlas", new XnaTextureLoader(EngineSettings.Graphics.GraphicsDevice));
-    //            json = new SkeletonJson(atlas);
-    //        }
+//        #region Constructor
 
-    //        public RawSpineData(string pSkeletonDataPath, string pSkeletonName)
-    //        {
-    //            skeletonRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
-    //            skeletonRenderer.PremultipliedAlpha = SpineSettings.PremultipliedAlphaRendering;
-    //            atlas = new Atlas(pSkeletonDataPath + pSkeletonName + ".atlas", new XnaTextureLoader(EngineSettings.Graphics.GraphicsDevice));
-    //            json = new SkeletonJson(atlas);
-    //        }
+//        SpineManager()
+//        {
+//        }
 
-    //        #endregion
-    //    }
+//        #endregion
 
-    //    #region Singleton
+//        #region Methods
 
-    //    private static SpineManager mInstance;
-    //    public static SpineManager Instance { get { if (mInstance == null) mInstance = new SpineManager(); return mInstance; } }
+//        public override void LoadContent()
+//        {
+//            Add("fluffy");
+//        }
 
-    //    #endregion
+//        public override void Unload()
+//        {
+//            mRessourcen.Clear();
+//        }
 
-    //    #region Constructor
+//        /// <summary>
+//        /// Fügt ein neues Element in mRessourcenManager ein.
+//        /// </summary>
+//        /// <param name="pName">Name des Skeletons.</param>
+//        /// <param name="pPath">Pfad zu den Skeleton-Daten.</param>
+//        public void Add<RawSpineData>(String pName, String pPath)
+//        {
+//            RawSpineData data;
+//            if (!mRessourcen.ContainsKey(pName))
+//            {
+//                data = new RawSpineData(pPath, pName);
+//                mRessourcen.Add(pName, data);
+//            }
+//            else
+//                data = (RawSpineData)mRessourcen[pName];
 
-    //    SpineManager()
-    //    {
-    //    }
+//            data;
+//        }
 
-    //    #endregion
+//        /// <summary>
+//        /// Fügt ein neues Element in mRessourcenManager ein.
+//        /// </summary>
+//        /// <param name="pName">Name des Skeletons.</param>
+//        public void Add(String pName)
+//        {
+//            if (!mRessourcen.ContainsKey(pName))
+//            {
+//                RawSpineData data = new RawSpineData(pName);
+//                mRessourcen.Add(pName, data);
+//            }
+//        }
 
-    //    #region Methods
+//        /// <summary>
+//        /// Gibt RawSpineData zurück.
+//        /// </summary>
+//        public override T GetElementByString<T>(string pElementName)
+//        {
+//            if (mRessourcen.ContainsKey(pElementName))
+//                return (T)mRessourcen[pElementName];
+//            else
+//                return (T)new object();
+//        }
 
-    //    public override void LoadContent()
-    //    {
-    //        Add("fluffy");
-    //    }
+//        public Skeleton NewSkeleton(string pName, float pScale)
+//        {
+//            RawSpineData TmpSpineData = GetElementByString<RawSpineData>(pName);
+//            TmpSpineData.json.Scale = SpineSettings.GetScaling(pName); //Set Scaling
+//            SkeletonData TmpSkeletonData = TmpSpineData.json.ReadSkeletonData(SpineSettings.DefaultDataPath + pName + ".json"); //Apply Json with Scaling to get skelData
+//            return new Skeleton(TmpSkeletonData);
+//        }
 
-    //    public override void Unload()
-    //    {
-    //        mRessourcen.Clear();
-    //    }
-
-    //    /// <summary>
-    //    /// Fügt ein neues Element in mRessourcenManager ein.
-    //    /// </summary>
-    //    /// <param name="pName">Name des Skeletons.</param>
-    //    /// <param name="pPath">Pfad zu den Skeleton-Daten.</param>
-    //    public override RawSpineData Add<RawSpineData>(String pName, String pPath)
-    //    {
-    //        RawSpineData data;
-    //        if (!mRessourcen.ContainsKey(pName))
-    //        {
-    //            data = new RawSpineData(pPath, pName);
-    //            mRessourcen.Add(pName, data);
-    //        }
-    //        else
-    //            data = (RawSpineData)mRessourcen[pName];
-
-    //        return data;
-    //    }
-
-    //    /// <summary>
-    //    /// Fügt ein neues Element in mRessourcenManager ein.
-    //    /// </summary>
-    //    /// <param name="pName">Name des Skeletons.</param>
-    //    public void Add(String pName)
-    //    {
-    //        if (!mRessourcen.ContainsKey(pName))
-    //        {
-    //            RawSpineData data = new RawSpineData(pName);
-    //            mRessourcen.Add(pName, data);
-    //        }
-    //    }
-
-    //    /// <summary>
-    //    /// Gibt RawSpineData zurück.
-    //    /// </summary>
-    //    public override T GetElementByString<T>(string pElementName)
-    //    {
-    //        if (mRessourcen.ContainsKey(pElementName))
-    //            return (T)mRessourcen[pElementName];
-    //        else
-    //            return (T)new object();
-    //    }
-
-    //    public Skeleton NewSkeleton(string pName, float pScale)
-    //    {
-    //        RawSpineData TmpSpineData = GetElementByString<RawSpineData>(pName);
-    //        TmpSpineData.json.Scale = SpineSettings.GetScaling(pName); //Set Scaling
-    //        SkeletonData TmpSkeletonData = TmpSpineData.json.ReadSkeletonData(SpineSettings.DefaultDataPath + pName + ".json"); //Apply Json with Scaling to get skelData
-    //        return new Skeleton(TmpSkeletonData);
-    //    }
-
-    //    public AnimationState NewAnimationState(SkeletonData pSkeletonData)
-    //    {
-    //        AnimationStateData TmpAnimationStateData = new AnimationStateData(pSkeletonData);
-    //        SpineSettings.SetFadingSettings(TmpAnimationStateData);//Set mixing between animations
-    //        return new AnimationState(TmpAnimationStateData);
-    //    }
-
-    //    #endregion
-    }
-}
+//        public AnimationState NewAnimationState(SkeletonData pSkeletonData)
+//        {
+//            AnimationStateData TmpAnimationStateData = new AnimationStateData(pSkeletonData);
+//            SpineSettings.SetFadingSettings(TmpAnimationStateData);//Set mixing between animations
+//            return new AnimationState(TmpAnimationStateData);
+//        }
+//        #endregion
+//    }
+//}

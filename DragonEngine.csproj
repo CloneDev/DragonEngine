@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Controls\MouseHelper.cs" />
     <Compile Include="EngineGame.cs" />
+    <Compile Include="Entities\RawSpineData.cs" />
     <Compile Include="Interface\Button.cs" />
     <Compile Include="Settings\EngineSettings.cs" />
     <Compile Include="Entities\AnimatedSprite.cs" />

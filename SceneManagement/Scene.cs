@@ -48,7 +48,7 @@ namespace DragonEngine.SceneManagement
         {
             this.mName = pSceneName;
             mSpriteBatch = new SpriteBatch(EngineSettings.Graphics.GraphicsDevice);
-            mRenderTarget = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.WindowWidth, EngineSettings.WindowHeight);
+            mRenderTarget = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);
         }
 
         #endregion
@@ -77,7 +77,7 @@ namespace DragonEngine.SceneManagement
         protected void DrawBackground()
         {
             mSpriteBatch.Begin();
-            mSpriteBatch.Draw(mBackgroundTexture, new Rectangle(0, 0, EngineSettings.WindowWidth, EngineSettings.WindowHeight), mClearColor);
+            mSpriteBatch.Draw(mBackgroundTexture, new Rectangle(0, 0, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight), mClearColor);
             mSpriteBatch.End();
         }
 
@@ -86,7 +86,7 @@ namespace DragonEngine.SceneManagement
             EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(null);
 
             mSpriteBatch.Begin();
-            mSpriteBatch.Draw(mRenderTarget, new Rectangle(0, 0, EngineSettings.WindowWidth, EngineSettings.WindowHeight), Color.White);
+            mSpriteBatch.Draw(mRenderTarget, new Rectangle(0, 0, EngineSettings.DisplayWidth, EngineSettings.DisplayHeight), Color.White);
             mSpriteBatch.End();
         }
 

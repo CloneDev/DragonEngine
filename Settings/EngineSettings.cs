@@ -90,8 +90,8 @@ namespace DragonEngine
 
         #region Resolution
 
-        public static int WindowHeight = 720;
-        public static int WindowWidth = 1280;
+        public static int VirtualResHeight = 720;
+        public static int VirtualResWidth = 1280;
 
         public static int DisplayHeight = 360;
         public static int DisplayWidth = 640;
@@ -113,16 +113,16 @@ namespace DragonEngine
             Graphics.PreferredBackBufferHeight = DisplayHeight;
             Graphics.PreferredBackBufferWidth = DisplayWidth;
 
-            AspectRatioX = WindowWidth / (float)DisplayWidth;
-            AspectRatioY = WindowHeight / (float)DisplayHeight;
+            AspectRatioX = VirtualResWidth / (float)DisplayWidth;
+            AspectRatioY = VirtualResHeight / (float)DisplayHeight;
 
             Graphics.ApplyChanges();
         }
 
         public static void SetResolution(int pWidth, int pHeight)
         {
-            WindowHeight = pHeight;
-            WindowWidth = pWidth;
+            VirtualResHeight = pHeight;
+            VirtualResWidth = pWidth;
 
             SetResolution();
         }

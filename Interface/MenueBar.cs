@@ -57,7 +57,7 @@ namespace DragonEngine.Interface
             mBackgroundColor = Color.Gray;
             mMargin = 5;
             mHoverOver = -1;
-            mDrawRectangle = new Rectangle(0, 0, EngineSettings.WindowWidth, MENUE_HEIGHT);
+            mDrawRectangle = new Rectangle(0, 0, EngineSettings.VirtualResWidth, MENUE_HEIGHT);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
