@@ -37,13 +37,14 @@ namespace DragonEngine
 
             SceneManager.Instance.LoadContent();
             TextureManager.Instance.LoadContent();
-            //SpineManager.Instance.LoadContent();
+            SpineManager.Instance.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (!this.IsActive) return;
-            if (EngineSettings.Time == null) EngineSettings.Time = gameTime;
+
+            EngineSettings.Time = gameTime;
 
             if (EngineSettings.OnWindows)
                 if (Keyboard.GetState().IsKeyDown(EngineSettings.Exitkey)) Exit();

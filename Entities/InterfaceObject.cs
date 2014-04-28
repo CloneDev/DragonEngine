@@ -55,10 +55,10 @@ namespace DragonEngine.Entities
             mFontColor = Color.Black;
             mOutlineColor = Color.AliceBlue;
 
-            font = FontManager.Instance.Add<SpriteFont>("MenueFont", @"font\font");
+            font = FontManager.Instance.Add("MenueFont", @"font\font");
 
             mTextureName = "pixel";
-            mTexture = TextureManager.Instance.GetElementByString<Texture2D>(mTextureName);
+            mTexture = TextureManager.Instance.GetElementByString(mTextureName);
         }
 
         #endregion

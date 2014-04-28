@@ -33,7 +33,7 @@ namespace DragonEngine.SceneManagement
             set 
             { 
                 mBackgroundName = value;
-                mBackgroundTexture = TextureManager.Instance.GetElementByString<Texture2D>(value);
+                mBackgroundTexture = TextureManager.Instance.GetElementByString(value);
                 mClearColor = Color.White; 
             } 
         }

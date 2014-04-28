@@ -8,11 +8,11 @@ using System.Text;
 
 namespace DragonEngine.Manager
 {
-    public abstract class Manager
+    public abstract class Manager<T>
     {
         #region Properties
 
-        protected Dictionary<String, object> mRessourcen = new Dictionary<string, object>();
+        protected Dictionary<String, T> mRessourcen = new Dictionary<string, T>();
         
         #region Getter & Setter
 
@@ -26,10 +26,13 @@ namespace DragonEngine.Manager
 
         #region Methods
 
-        abstract public T Add<T>(String pName, String pPath);
+        abstract public T Add(String pName, String pPath);
+
         abstract public void LoadContent();
+
         abstract public void Unload();
-        abstract public T GetElementByString<T>(String pElementName);
+
+        abstract public T GetElementByString(String pElementName);
 
         #endregion
     }

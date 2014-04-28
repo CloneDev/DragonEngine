@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DragonEngine.Manager
 {
-    class FontManager : Manager
+    class FontManager : Manager<SpriteFont>
     {
          #region Singleton
 
@@ -38,7 +38,7 @@ namespace DragonEngine.Manager
         /// 
         /// <param name="pName">ID der Texture für den Zugriff.</param>
         /// <param name="pPath">Pfad zur Texture.</param>
-        public override SpriteFont Add<SpriteFont>(String pName, String pPath)
+        public override SpriteFont Add(String pName, String pPath)
         {
             SpriteFont font;
             if (!mRessourcen.ContainsKey(pName))
@@ -55,13 +55,14 @@ namespace DragonEngine.Manager
         /// <summary>
         /// Gibt eine Texture2D zurück.
         /// </summary>
-        public override T GetElementByString<T>(string pElementName)
+        public override SpriteFont GetElementByString(string pElementName)
         {
             if (mRessourcen.ContainsKey(pElementName))
-                return (T) mRessourcen[pElementName];
-            else
-                return (T) new object();
+                return mRessourcen[pElementName];
+
+            throw new ArgumentException("Element not found!");
         }
+
 
         public override void Unload()
         {

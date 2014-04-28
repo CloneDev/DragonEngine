@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework;
 
 namespace DragonEngine.Manager
 {
-    public class TextureManager : Manager
+    public class TextureManager : Manager<Texture2D>
     {
         #region Singleton
 
@@ -41,29 +41,28 @@ namespace DragonEngine.Manager
         /// 
         /// <param name="pName">ID der Texture für den Zugriff.</param>
         /// <param name="pPath">Pfad zur Texture.</param>
-        public override Texture2D Add<Texture2D>(String pName, String pPath)
+        public override Texture2D Add(String pName, String pPath)
         {
-            Texture2D tex;
             if (!mRessourcen.ContainsKey(pName))
             {
-                tex = EngineSettings.Content.Load<Texture2D>(pPath);
+                Texture2D tex = EngineSettings.Content.Load<Texture2D>(pPath);
                 mRessourcen.Add(pName, tex);
-            }
-            else
-                tex = (Texture2D)mRessourcen[pName];
 
-            return tex;
+                return tex;
+            }
+
+            return (Texture2D)mRessourcen[pName];
         }
 
         /// <summary>
         /// Gibt eine Texture2D zurück.
         /// </summary>
-        public override T GetElementByString<T>(string pElementName)
+        public override Texture2D GetElementByString(string pElementName)
         {
             if (mRessourcen.ContainsKey(pElementName))
-                return (T) mRessourcen[pElementName];
-            else
-                return (T) new object();
+                return mRessourcen[pElementName];
+
+            throw new ArgumentException("Element not found!");
         }
 
         public override void Unload()
@@ -71,15 +70,17 @@ namespace DragonEngine.Manager
             mRessourcen.Clear();
         }
 
-        public Dictionary<String, T> GetAllEntitys<T>()
+        public Dictionary<String, Texture2D> GetAllEntitys()
         {
-            Dictionary<String, T> result = new Dictionary<String, T>();
+            Dictionary<String, Texture2D> result = new Dictionary<String, Texture2D>();
 
-            foreach (KeyValuePair<string, object> pair in mRessourcen)
+            foreach(string num in this.mRessourcen.Keys)
             {
-                if (pair.Key.IndexOf("Engine") == -1)
-                    result.Add(pair.Key, (T)pair.Value);
+              if(num.IndexOf("Engine") == -1)
+                result.Add(num, this.mRessourcen[num]);
+
             }
+
             return result;
         }
 

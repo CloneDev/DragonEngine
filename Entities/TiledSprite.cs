@@ -98,18 +98,18 @@ namespace DragonEngine.Entities
         {
             spriteBatch.Draw(mTexture, Position, mSourceRectangle[mSourceRectanglePosition], mTint);
             if (EngineSettings.IsDebug)
-                spriteBatch.Draw(TextureManager.Instance.GetElementByString<Texture2D>("pixel"), new Rectangle(PositionX, PositionY, mSourceRectangleWidth, mSourceRectangleHeight), mDebugColor);
+                spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, PositionY, mSourceRectangleWidth, mSourceRectangleHeight), mDebugColor);
         }
 
         public Texture2D GetTileTexture2D(int pTile)
         {
             Color[] imageData = new Color[mWidth * mHeight];
-            TextureManager.Instance.GetElementByString<Texture2D>(mTextureName).GetData<Color>(imageData);
+            TextureManager.Instance.GetElementByString(mTextureName).GetData<Color>(imageData);
 
             Color[] color = new Color[mSourceRectangle[pTile].Width * mSourceRectangle[pTile].Height];
             for (int x = 0; x < mSourceRectangle[pTile].Width; x++)
                 for (int y = 0; y < mSourceRectangle[pTile].Height; y++)
-                    color[x + y * mSourceRectangle[pTile].Width] = imageData[x + mSourceRectangle[pTile].X + (y + mSourceRectangle[pTile].Y) * TextureManager.Instance.GetElementByString<Texture2D>(mTextureName).Width];
+                  color[x + y * mSourceRectangle[pTile].Width] = imageData[x + mSourceRectangle[pTile].X + (y + mSourceRectangle[pTile].Y) * TextureManager.Instance.GetElementByString(mTextureName).Width];
 
             Texture2D subtexture = new Texture2D(EngineSettings.Graphics.GraphicsDevice, mSourceRectangle[pTile].Width, mSourceRectangle[pTile].Height);
             subtexture.SetData<Color>(color);

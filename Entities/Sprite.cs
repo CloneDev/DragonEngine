@@ -50,7 +50,7 @@ namespace DragonEngine.Entities
             : base(pPosition)
         {
             TextureName = pTextureName;
-            mTexture = TextureManager.Instance.Add<Texture2D>(pTextureName, @"gfx\" + pPathName);
+            mTexture = TextureManager.Instance.Add(pTextureName, @"gfx\" + pPathName);
             
             mWidth = mTexture.Width;
             mHeight = mTexture.Height;
@@ -64,7 +64,7 @@ namespace DragonEngine.Entities
         {
             TextureName = pTextureName;
 
-            mTexture = TextureManager.Instance.GetElementByString<Texture2D>(TextureName);
+            mTexture = TextureManager.Instance.GetElementByString(TextureName);
             mWidth = mTexture.Width;
             mHeight = mTexture.Height;
             mOrigin = new Vector2(mWidth / 2, mHeight / 2);

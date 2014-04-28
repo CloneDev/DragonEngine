@@ -18,8 +18,6 @@ namespace DragonEngine.Entities
 
         #region Constructor
 
-        public RawSpineData() { }
-
         public RawSpineData(string pSkeletonName)
         {
             skeletonRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
