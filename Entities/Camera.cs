@@ -84,8 +84,8 @@ namespace DragonEngine.Entities
         public override void Initialize()
         {
 			//Viewports auf EngineSettings setzen
-			mViewportVirtual = new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY);
-			mViewportScreen = new Rectangle(0, 0, EngineSettings.ScreenResX, EngineSettings.ScreenResY);
+			mViewportVirtual = new Rectangle(0, 0, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);
+			mViewportScreen = new Rectangle(0, 0, EngineSettings.DisplayWidth, EngineSettings.DisplayHeight);
 
 			Position = Vector2.Zero;
 
