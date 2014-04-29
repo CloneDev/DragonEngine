@@ -1,5 +1,5 @@
 ﻿/**************************************************************
- * (c) Carsten Baus 2014
+ * (c) Jens Richter, Carsten Baus 2014
  *************************************************************/
 using System;
 using System.Collections.Generic;
@@ -15,226 +15,194 @@ namespace DragonEngine.Entities
     {
         #region Properties
 
-        private Vector2 mCameraOffset;
-        private Vector2 mPositionCamera;
-        private Rectangle mViewport;
-        private Rectangle mGameScreen;
+		private Vector2 mPosition; //Für smoothe Bewegung, da mViewportVirtual.xy jeweils int ist
+        private Rectangle mViewportVirtual; //Virtueller Viewport
+        private Rectangle mViewportScreen; //Screen Viewport
+		private Matrix mTransformToViewport; //TransformationsMatrix vom ObjectSpace zum WorldSpace(/VirtualSpace)
+		private Matrix mTransformToScreen; //TransformationsMatrix vom VirtualSpace(/WorldSpace) zum ScreenSpace
+		
+		private Rectangle mVirtualMoveRestriction; //Bereich, in dem sich der virtuelle Viewport (/die Camera) bewegen darf.
+
         #endregion
 
         #region Getter & Setter
-        public Vector2 Position { get { return mPositionCamera; } set { mPositionCamera = value; } }
-        public Rectangle GameScreen { get { return mGameScreen; } set { mGameScreen = value; } }
+		//Position
+		public Vector2 Position
+		{
+			get { return mPosition; }
+			protected set //Protected Setter damit die Position nicht verändert werden kann ohne dass in VirtualMoveRestriction geforced wird.
+			{
+				mPosition = value;
+				mViewportVirtual.X = (int)value.X;
+				mViewportVirtual.Y = (int)value.Y;
+			}
+		}
+		public int PositionX { get { return (int)mPosition.X; } }
+		public int PositionY { get { return (int)mPosition.Y; } }
+		
+		//CameraMaße (ViewportVirtual)
+		public int Width { get { return mViewportVirtual.Width; } }
+		public int Height { get { return mViewportVirtual.Height; } }
+
+		//Viewports
+		public Rectangle ViewportVirtual { get { return mViewportVirtual; } }
+		public Rectangle ViewportScreen { get { return mViewportScreen; } }
+
+		//TransformationMatrizen
+		public Matrix TransformToViewport { get { return mTransformToViewport; } }
+		public Matrix TransformToScreen { get { return mTransformToScreen; } }
+		
         #endregion
 
         #region Constructor
 
         public Camera()
         {
-            mCameraOffset = Vector2.Zero;
             Initialize();
         }
 
-        public Camera(Vector2 pOffset)
+		public Camera(Vector2 pPosition)
         {
-            mCameraOffset = pOffset;
             Initialize();
+			Position = pPosition;
         }
 
-        public Camera(Vector2 pPosition, Rectangle pGameScreen)
+        public Camera(Vector2 pPosition, Rectangle pVirtualMoveRestriction)
         {
-            mGameScreen = pGameScreen;
             Initialize();
+			Position = pPosition;
+			mVirtualMoveRestriction = pVirtualMoveRestriction;
         }
 
         #endregion
 
         #region Override Methods
 
+		/// <summary>
+		/// Initialisiert die Camera mit den Standardwerten und führt einmal eine Aktualisierung der Matrizen durch.
+		/// </summary>
         public override void Initialize()
         {
-            Position = Vector2.Zero;
-            mCameraOffset = Vector2.Zero;
-            mViewport = new Rectangle(0, 0, 1280, 720);
+			//Viewports auf EngineSettings setzen
+			mViewportVirtual = new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY);
+			mViewportScreen = new Rectangle(0, 0, EngineSettings.ScreenResX, EngineSettings.ScreenResY);
+
+			Position = Vector2.Zero;
+
+			//Transformation Matrizen updaten
+			UpdateTransformationToViewport();
+			UpdateTransformationToScreen();
+
+			//MoveRestriction per Default auf den Viewport setzen
+			mVirtualMoveRestriction = mViewportVirtual;
         }
 
+		/// <summary>
+		/// Updated die Transformations-Matrizen.
+		/// </summary>
         public override void Update()
         {
-            
+			UpdateTransformationToViewport();
         }
 
         #endregion
 
         #region Methods
 
-        public Matrix GetTranslationMatrix()
-        {
-            return Matrix.CreateTranslation(new Vector3(mCameraOffset + Position, 0));
-        }
+		/// <summary>
+		/// Updated die Object to ViewportVirtual Transformation.
+		/// </summary>
+		protected void UpdateTransformationToViewport()
+		{
+			mTransformToViewport = Matrix.CreateTranslation(-mViewportVirtual.X, -mViewportVirtual.Y, 0);
+		}
 
-        public void MoveCameraInGameSceene(Vector2 mSpeed)
-        {
-            // Links Bewegung
-            if (mSpeed.X > 0)
-                if (mPositionCamera.X < (mViewport.Width / 2))
-                    mPositionCamera.X += mSpeed.X;
-                else
-                    mPositionCamera.X = mViewport.Width / 2;
-            // Rechts Bewegung
-            else if (mSpeed.X < 0)
-                if (mPositionCamera.X <= (-GameScreen.Width + mViewport.Width / 2))
-                    mPositionCamera.X = (-GameScreen.Width + mViewport.Width / 2);
-                else
-                    mPositionCamera.X += mSpeed.X;
+		/// <summary>
+		/// Updated die ViewportVirtual to ViewportScreen Transformation.
+		/// </summary>
+		protected void UpdateTransformationToScreen()
+		{
+			Matrix TmpScaleToScreen = Matrix.CreateScale((float)mViewportScreen.Width / (float)mViewportVirtual.Width, (float)mViewportScreen.Height / (float)mViewportVirtual.Height, 1);
+			Matrix TmpTranslationToScreen = Matrix.CreateTranslation(mViewportScreen.X, mViewportScreen.Y, 0);
+			mTransformToScreen = TmpScaleToScreen * TmpTranslationToScreen;
+		}
 
-            // Bewegung Oben
-            if (mSpeed.Y > 0)
-                if (mPositionCamera.Y < mViewport.Height / 2)
-                    mPositionCamera.Y += mSpeed.Y;
-                else
-                    mPositionCamera.Y = mViewport.Height / 2;
-            //Bewegung Unten
-            else if (mSpeed.Y < 0)
-                if (mPositionCamera.Y <= (-mGameScreen.Height + mViewport.Height / 2))
-                    mPositionCamera.Y = (-mGameScreen.Height + mViewport.Height / 2);
-                else
-                    mPositionCamera.Y += mSpeed.Y;
+		/// <summary>
+		/// Setzt den Viewport in den auf den Bildschirm gezeichnet werden soll neu.
+		/// </summary>
+		/// <param name="pNewScreenViewport">Neuer Screen-Viewport (relativ zum Application-Fenster angegeben, nicht zum Monitor)</param>
+		public void ChangeViewportOnScreen(Rectangle pViewportScreen)
+		{
+			mViewportScreen = pViewportScreen;
+			UpdateTransformationToScreen();
+		}
 
-        }
+		/// <summary>
+		/// Bewegt die Camera im Virtual/World Space.
+		/// </summary>
+		public void Move(int pDeltaX, int pDeltaY)
+		{
+			Position += new Vector2(pDeltaX, pDeltaY);
+			ForceInMoveRestriction();
+		}
+
+		/// <summary>
+		/// Bewegt die Camera im Virtual/World Space.
+		/// </summary>
+		public void Move(Vector2 pDelta)
+		{
+			Position += pDelta;
+			ForceInMoveRestriction();
+		}
+
+		/// <summary>
+		/// Pointed die Camera im Virtual/World Space auf ein Rectangle. Forced danach in VirtualMoveRestriction.
+		/// </summary>
+		/// <param name="pFocus">Rectangle auf das Fokussiert werden soll</param>
+		public void FocusOn(Rectangle pFocus)
+		{
+			if (mViewportVirtual.Left > pFocus.Left) //Scrolling nach links
+			{
+				mViewportVirtual.X = pFocus.Left;
+			}
+			else if (mViewportVirtual.Right < pFocus.Right) //Scrolling nach rechts
+			{
+				mViewportVirtual.X = pFocus.Right - mViewportVirtual.Width;
+			}
+			if (mViewportVirtual.Top > pFocus.Top) //Scrolling nach oben
+			{
+				mViewportVirtual.Y = pFocus.Top;
+			}
+			else if (mViewportVirtual.Bottom < pFocus.Bottom) //Scrolling nach unten
+			{
+				mViewportVirtual.Y = pFocus.Bottom - mViewportVirtual.Height;
+			}
+			ForceInMoveRestriction();
+		}
+
+		/// <summary>
+		/// Catched die Camera im Virtual/World Space in VirtualMoveRestriction.
+		/// </summary>
+		public void ForceInMoveRestriction()
+		{
+			if (mViewportVirtual.Left < mVirtualMoveRestriction.Left) //Linker Rand
+			{
+				mViewportVirtual.X = mVirtualMoveRestriction.Left;
+			}
+			else if (mViewportVirtual.Right > mVirtualMoveRestriction.Right) //Rechter Rand
+			{
+				mViewportVirtual.X = mVirtualMoveRestriction.Right - mViewportVirtual.Width;
+			}
+			if (mViewportVirtual.Top < mVirtualMoveRestriction.Top) //Oberer Rand
+			{
+				mViewportVirtual.Y = mVirtualMoveRestriction.Top;
+			}
+			else if (mViewportVirtual.Bottom > mVirtualMoveRestriction.Bottom) //Unterer Rand
+			{
+				mViewportVirtual.Y = mVirtualMoveRestriction.Bottom - mViewportVirtual.Height;
+			}
+		}
+
         #endregion
-
     }
 }
-
-
-/*
- * public class Camera : BaseObject
-    {
-        #region Properties
-
-        private Rectangle mViewArea;
-        private Rectangle mViewport;
-        private Rectangle mScreenViewport;
-        private Matrix mViewportTransform;
-        private Matrix mScreenScale;
-        private Matrix mScreenTransform;
-
-        #region Getter & Setter
-
-        public Matrix ViewportTransform { get { return mViewportTransform; } }
-        public Matrix ScreenTransform { get { return mScreenTransform; } }
-        public Vector2 Position { get { return new Vector2(mViewport.X, mViewport.Y); } }
-        public int PositionX { set { mViewport.X = value; } get { return (int)mViewport.X; } }
-        public int PositionY { set { mViewport.Y = value; } get { return (int)mViewport.Y; } }
-        public Rectangle ViewArea { get { return mViewArea; } set { mViewArea = value; } }
-        public int Width { get { return mViewport.Width; } }
-        public int Height { get { return mViewport.Height; } }
-
-        #endregion
-
-        #endregion
-
-        #region Constructor
-
-        public Camera(Rectangle pViewArea)
-        {
-            mViewArea = pViewArea;
-            mViewport = new Rectangle(0, 0, EngineSettings.VirtualResX, EngineSettings.VirtualResY);
-            mScreenViewport = new Rectangle(0, 0, EngineSettings.ScreenResX, EngineSettings.ScreenResY);
-            mScreenScale = Matrix.CreateScale((float)mScreenViewport.Width / EngineSettings.VirtualResX, (float)mScreenViewport.Height / EngineSettings.VirtualResY, 1);
-            mScreenTransform = mScreenScale * Matrix.CreateTranslation(mScreenViewport.X, mScreenViewport.Y, 0);
-        }
-
-        #endregion
-
-        #region Methods
-
-        public override void Update()
-        {
-            UpdateViewportTransformation();
-        }
-
-        public void Move(int pDeltaX, int pDeltaY)
-        {
-            PositionX += pDeltaX;
-            PositionY += pDeltaY;
-            ForceInViewArea();
-        }
-
-        public void Move(Vector2 pDelta)
-        {
-            PositionX += (int)pDelta.X;
-            PositionY += (int)pDelta.Y;
-            ForceInViewArea();
-        }
-
-        public void FocusOn(Rectangle pFocus)
-        {
-            if (mViewport.Left > pFocus.Left) //Scrolling nach links
-            {
-                mViewport.X = pFocus.Left;
-            }
-            else if (mViewport.Right < pFocus.Right) //Scrolling nach rechts
-            {
-                mViewport.X = pFocus.Right - mViewport.Width;
-            }
-            if (mViewport.Top > pFocus.Top) //Scrolling nach oben
-            {
-                mViewport.Y = pFocus.Top;
-            }
-            else if (mViewport.Bottom < pFocus.Bottom) //Scrolling nach unten
-            {
-                mViewport.Y = pFocus.Bottom - mViewport.Height;
-            }
-            ForceInViewArea();
-        }
-
-        public void ForceInViewArea()
-        {
-            if (mViewport.Left < mViewArea.Left) //Linker Rand
-            {
-                mViewport.X = mViewArea.Left;
-            }
-            else if (mViewport.Right > mViewArea.Right) //Rechter Rand
-            {
-                mViewport.X = mViewArea.Right - mViewport.Width;
-            }
-            if (mViewport.Top < mViewArea.Top) //Oberer Rand
-            {
-                mViewport.Y = mViewArea.Top;
-            }
-            else if (mViewport.Bottom > mViewArea.Bottom) //Unterer Rand
-            {
-                mViewport.Y = mViewArea.Bottom - mViewport.Height;
-            }
-        }
-
-        public void UpdateViewportTransformation()
-        {
-            mViewportTransform = Matrix.CreateTranslation(-mViewport.X, -mViewport.Y, 0);
-        }
-
-        public void InitializeBlackBandTransformation()
-        {
-            if (mScreenViewport.X < mScreenViewport.Y) //Balken oben/unten
-            {
-                mScreenViewport.Width = (int)EngineSettings.ScreenResX;
-                mScreenViewport.Height = (int)(EngineSettings.ScreenResX / EngineSettings.VirtualResX * EngineSettings.VirtualResY);
-            }
-            else //Balken links/rechts
-            {
-                mScreenViewport.Height = (int)EngineSettings.ScreenResY;
-                mScreenViewport.Width = (int)(EngineSettings.ScreenResY / EngineSettings.VirtualResY * EngineSettings.VirtualResX);
-            }
-            mScreenViewport.X = (EngineSettings.ScreenResX - (int)mScreenViewport.Width) / 2;
-            mScreenViewport.Y = (EngineSettings.ScreenResY - (int)mScreenViewport.Height) / 2;
-
-            mScreenScale = Matrix.CreateScale((float)mScreenViewport.Width / EngineSettings.VirtualResX, (float)mScreenViewport.Height / EngineSettings.VirtualResY, 1);
-            mScreenTransform = mScreenScale * Matrix.CreateTranslation(mScreenViewport.X, mScreenViewport.Y, 0);
-            //mViewportTransform = Matrix.CreateTranslation(-mViewport.X, -mViewport.Y, 0);
-        }
-
-        #endregion
-
-    }
-}
-*/
