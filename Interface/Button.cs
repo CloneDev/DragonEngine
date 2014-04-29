@@ -57,9 +57,9 @@ namespace DragonEngine.Interface
 
         #region Methods
 
-        public void IsButtonPressed(Vector2 pClickArea)
+        public void IsButtonPressed(Vector2 pClickPosition)
         {
-            if(mCollisionBox.Contains((int)pClickArea.X, (int)pClickArea.Y)
+          if (mCollisionBox.Contains((int)pClickPosition.X, (int)pClickPosition.Y)
                 && OnButtonPressed != null
                 && MouseHelper.Instance.IsClickedLeft
                 )

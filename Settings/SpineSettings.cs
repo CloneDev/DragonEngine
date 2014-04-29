@@ -65,27 +65,27 @@ namespace DragonEngine
         {
             List<AnimationMix> AnimationFadingList; //Zu bearbeitende Liste, damit die nicht immer neu im Dictionary nachgeschlagen werden muss
 
-            #region Fluffy
-            Scaling.Add("fluffy", 1.0f);
-            AnimationFading.Add("fluffy", new List<AnimationMix>());
-            AnimationFadingList = AnimationFading["fluffy"];
+            //#region Fluffy
+            //Scaling.Add("fluffy", 1.0f);
+            //AnimationFading.Add("fluffy", new List<AnimationMix>());
+            //AnimationFadingList = AnimationFading["fluffy"];
 
-            AnimationFadingList.Add(new AnimationMix("attack", "die"));
-            AnimationFadingList.Add(new AnimationMix("attack", "die"));
-            AnimationFadingList.Add(new AnimationMix("attack", "smash_die"));
-            AnimationFadingList.Add(new AnimationMix("attack", "idle"));
-            AnimationFadingList.Add(new AnimationMix("attack", "walk"));
+            //AnimationFadingList.Add(new AnimationMix("attack", "die"));
+            //AnimationFadingList.Add(new AnimationMix("attack", "die"));
+            //AnimationFadingList.Add(new AnimationMix("attack", "smash_die"));
+            //AnimationFadingList.Add(new AnimationMix("attack", "idle"));
+            //AnimationFadingList.Add(new AnimationMix("attack", "walk"));
 
-            AnimationFadingList.Add(new AnimationMix("idle", "die"));
-            AnimationFadingList.Add(new AnimationMix("idle", "smash_die"));
-            AnimationFadingList.Add(new AnimationMix("idle", "attack"));
-            AnimationFadingList.Add(new AnimationMix("idle", "walk"));
+            //AnimationFadingList.Add(new AnimationMix("idle", "die"));
+            //AnimationFadingList.Add(new AnimationMix("idle", "smash_die"));
+            //AnimationFadingList.Add(new AnimationMix("idle", "attack"));
+            //AnimationFadingList.Add(new AnimationMix("idle", "walk"));
 
-            AnimationFadingList.Add(new AnimationMix("walk", "die"));
-            AnimationFadingList.Add(new AnimationMix("walk", "smash_die"));
-            AnimationFadingList.Add(new AnimationMix("walk", "attack"));
-            AnimationFadingList.Add(new AnimationMix("walk", "idle"));
-            #endregion
+            //AnimationFadingList.Add(new AnimationMix("walk", "die"));
+            //AnimationFadingList.Add(new AnimationMix("walk", "smash_die"));
+            //AnimationFadingList.Add(new AnimationMix("walk", "attack"));
+            //AnimationFadingList.Add(new AnimationMix("walk", "idle"));
+            //#endregion
 
             #region Skeleton XY
             //Scaling.Add("skeleton", 1.0f);

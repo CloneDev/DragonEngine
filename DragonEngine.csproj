@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Controls\MouseHelper.cs" />
     <Compile Include="EngineGame.cs" />
-    <Compile Include="Entities\RawSpineData.cs" />
+    <Compile Include="Entities\Data\RawSpineData.cs" />
     <Compile Include="Interface\Button.cs" />
     <Compile Include="Settings\EngineSettings.cs" />
     <Compile Include="Entities\AnimatedSprite.cs" />
@@ -75,7 +75,6 @@
     <Compile Include="Particle\Modifier\Modifier.cs" />
     <Compile Include="Particle\Particle.cs" />
     <Compile Include="Physics\Collision.cs" />
-    <Compile Include="Settings\PlayerSettings.cs" />
     <Compile Include="Pools\Pool.cs" />
     <Compile Include="Pools\SpinePool.cs" />
     <Compile Include="Pools\SpritePool.cs" />

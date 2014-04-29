@@ -33,6 +33,8 @@ namespace DragonEngine.Manager
         {
             if(!mRessourcen.ContainsKey("pixel"))
                 mRessourcen.Add("pixel", EngineSettings.Content.Load<Texture2D>(@"gfx\pixel"));
+
+            //throw new ArgumentException("Element already exists!");
         }
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace DragonEngine.Manager
             mRessourcen.Clear();
         }
 
-        public Dictionary<String, Texture2D> GetAllEntitys()
+        public Dictionary<String, Texture2D> GetAllGameEntitys()
         {
             Dictionary<String, Texture2D> result = new Dictionary<String, Texture2D>();
 

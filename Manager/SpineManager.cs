@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Spine;
 using DragonEngine.Entities;
+using DragonEngine.Entities.Data;
 
 
 namespace DragonEngine.Manager
@@ -38,7 +39,7 @@ namespace DragonEngine.Manager
 
     public override void LoadContent()
     {
-      Add("fluffy");
+      
     }
 
     public override void Unload()

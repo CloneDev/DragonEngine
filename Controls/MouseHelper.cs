@@ -32,7 +32,7 @@ namespace DragonEngine.Controls
 
         #region Getter & Setter
 
-        public static Vector2 Position { get { return mousePosition * new Vector2(EngineSettings.AspectRatioX, EngineSettings.AspectRatioY); } }
+        public static Vector2 Position { get { return mousePosition * new Vector2(EngineSettings.RatioWidth, EngineSettings.RatioHeight); } }
 
         public bool IsClickedLeft
         {

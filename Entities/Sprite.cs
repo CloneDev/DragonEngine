@@ -27,7 +27,7 @@ namespace DragonEngine.Entities
 
         #region Getter & Setter
 
-        public String TextureName;
+        public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
         public Color Tint { set { mTint = value; } }
         public int Width { get { return mWidth; } }
         public int Height { get { return mHeight; } }

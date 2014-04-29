@@ -96,8 +96,8 @@ namespace DragonEngine
         public static int DisplayHeight = 360;
         public static int DisplayWidth = 640;
 
-        public static float AspectRatioX;
-        public static float AspectRatioY;
+        public static float RatioWidth;
+        public static float RatioHeight;
 
         #endregion
 
@@ -108,17 +108,6 @@ namespace DragonEngine
         /// <summary>
         /// Setzt die Auflösung wie sie gewünscht ist.
         /// </summary>
-        public static void SetResolution()
-        {
-            Graphics.PreferredBackBufferHeight = DisplayHeight;
-            Graphics.PreferredBackBufferWidth = DisplayWidth;
-
-            AspectRatioX = VirtualResWidth / (float)DisplayWidth;
-            AspectRatioY = VirtualResHeight / (float)DisplayHeight;
-
-            Graphics.ApplyChanges();
-        }
-
         public static void SetResolution(int pWidth, int pHeight)
         {
             VirtualResHeight = pHeight;
@@ -126,6 +115,24 @@ namespace DragonEngine
 
             SetResolution();
         }
+
+        public static void SetResolution()
+        {
+            Graphics.PreferredBackBufferHeight = DisplayHeight;
+            Graphics.PreferredBackBufferWidth = DisplayWidth;
+
+            RatioWidth = VirtualResWidth / (float)DisplayWidth;
+            RatioHeight = VirtualResHeight / (float)DisplayHeight;
+
+            Graphics.ApplyChanges();
+        }
+
+        public static void SetToFullScreen()
+        {
+          Graphics.IsFullScreen = true;
+          Graphics.ApplyChanges();
+        }
+
         #endregion
     }
 }

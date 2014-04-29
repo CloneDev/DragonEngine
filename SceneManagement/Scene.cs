@@ -28,13 +28,16 @@ namespace DragonEngine.SceneManagement
         #region Getter & Setter
 
         public String Name { get { return this.mName; } }
+        /// <summary>
+        /// Background sollte idealerweise 1280x720p sein bzw. VirtualRes.
+        /// </summary>
         public String Background 
         { 
             set 
             { 
                 mBackgroundName = value;
                 mBackgroundTexture = TextureManager.Instance.GetElementByString(value);
-                mClearColor = Color.White; 
+                mClearColor = Color.White;
             } 
         }
 
@@ -65,6 +68,8 @@ namespace DragonEngine.SceneManagement
         /// </summary>
         /// <param name="gameTime"></param>
         public virtual void Update(){ }
+
+        // In Initialize mBackground auf pixel
         public virtual void Initialize() { }
 
         public virtual void Draw()

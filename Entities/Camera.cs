@@ -71,7 +71,7 @@ namespace DragonEngine.Entities
             return Matrix.CreateTranslation(new Vector3(mCameraOffset + Position, 0));
         }
 
-        public void MoveCamera(Vector2 mSpeed)
+        public void MoveCameraInGameSceene(Vector2 mSpeed)
         {
             // Links Bewegung
             if (mSpeed.X > 0)
