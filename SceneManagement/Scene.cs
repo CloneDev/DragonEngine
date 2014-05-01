@@ -76,7 +76,7 @@ namespace DragonEngine.SceneManagement
         {
             DrawBackground();
 
-            DrawOnScene();
+			DrawOnScene(Matrix.Identity);
         }
 
         protected void DrawBackground()
@@ -86,11 +86,11 @@ namespace DragonEngine.SceneManagement
             mSpriteBatch.End();
         }
 
-        protected void DrawOnScene()
+		protected void DrawOnScene(Matrix pTransformationMatrix)
         {
             EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(null);
 
-            mSpriteBatch.Begin();
+			mSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, pTransformationMatrix);
             mSpriteBatch.Draw(mRenderTarget, new Rectangle(0, 0, EngineSettings.DisplayWidth, EngineSettings.DisplayHeight), Color.White);
             mSpriteBatch.End();
         }

@@ -13,7 +13,7 @@ namespace DragonEngine.Interface
     {
         #region Properties
 
-        private const int MENUE_HEIGHT = 20;
+        public const int MENUE_HEIGHT = 20;
 
         private List<String> mMenueString = new List<String>();
         private List<DropDownMenue> mDropDownList = new List<DropDownMenue>();

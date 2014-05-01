@@ -32,7 +32,7 @@ namespace DragonEngine.Controls
 
         #region Getter & Setter
 
-        public static Vector2 Position { get { return mousePosition * new Vector2(EngineSettings.RatioWidth, EngineSettings.RatioHeight); } }
+		public static Vector2 Position { get { return mousePosition; } } //* new Vector2(EngineSettings.RatioWidth, EngineSettings.RatioHeight); } } <- Wird im konkreten Game gemacht, da man es direkt wie man braucht machen kann, siehe Editor. Ggf noch div funktionen dafür hier einfügen.
 
         public bool IsClickedLeft
         {

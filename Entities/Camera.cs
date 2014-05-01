@@ -51,6 +51,8 @@ namespace DragonEngine.Entities
 		//TransformationMatrizen
 		public Matrix TransformToViewport { get { return mTransformToViewport; } }
 		public Matrix TransformToScreen { get { return mTransformToScreen; } }
+
+		public Rectangle VirtualMoveRestriction { get { return mVirtualMoveRestriction; } set { mVirtualMoveRestriction = value; } }
 		
         #endregion
 
@@ -131,9 +133,22 @@ namespace DragonEngine.Entities
 		/// Setzt den Viewport in den auf den Bildschirm gezeichnet werden soll neu.
 		/// </summary>
 		/// <param name="pNewScreenViewport">Neuer Screen-Viewport (relativ zum Application-Fenster angegeben, nicht zum Monitor)</param>
-		public void ChangeViewportOnScreen(Rectangle pViewportScreen)
+		public void ChangeViewportOnScreenSpace(Rectangle pViewportScreen)
 		{
 			mViewportScreen = pViewportScreen;
+			SetPositionToVirtualViewport();
+			UpdateTransformationToScreen();
+		}
+
+		/// <summary>
+		/// Setzt den Viewport in dem virtuell gezeichnet werden soll neu.
+		/// </summary>
+		/// <param name="pNewScreenViewport">Neuer Virtual-Viewport</param>
+		public void ChangeViewportOnVirtualSpace(Rectangle pViewportVirtual)
+		{
+			mViewportVirtual = pViewportVirtual;
+			SetPositionToVirtualViewport();
+			UpdateTransformationToViewport();
 			UpdateTransformationToScreen();
 		}
 
@@ -201,6 +216,12 @@ namespace DragonEngine.Entities
 			{
 				mViewportVirtual.Y = mVirtualMoveRestriction.Bottom - mViewportVirtual.Height;
 			}
+			SetPositionToVirtualViewport();
+		}
+
+		private void SetPositionToVirtualViewport()
+		{
+			Position = new Vector2(mViewportVirtual.X, mViewportVirtual.Y);
 		}
 
         #endregion
