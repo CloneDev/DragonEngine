@@ -15,6 +15,7 @@ namespace DragonEngine.Entities
         #region Properties
 
         protected Vector2 mSize;
+		protected float mSpeed;
 
         #region Get & Set
 
@@ -40,6 +41,12 @@ namespace DragonEngine.Entities
         {
         }
 
+		public ParallaxPlane(float pSpeed)
+            : base()
+        {
+			mSpeed = pSpeed;
+        }
+
         #endregion
 
         #region Methods
@@ -50,8 +57,13 @@ namespace DragonEngine.Entities
         /// <param name="pCamera">Zu verwendende Kamera.</param>
         public virtual void Update(Camera pCamera)
         {
-            //PositionX = pCamera.PositionX - (int)((float)(Width - pCamera.Width) * ((float)(pCamera.PositionX - pCamera.ViewArea.X) / (float)(pCamera.ViewArea.Width - pCamera.Width)));
-            //PositionY = pCamera.PositionY - (int)((float)(Height - pCamera.Height) * ((float)(pCamera.PositionY - pCamera.ViewArea.Y) / (float)(pCamera.ViewArea.Height - pCamera.Height)));
+			if (mSpeed != null && mSpeed != 0)
+			{
+				Position = pCamera.Position * mSpeed;
+				return;
+			}
+			PositionX = pCamera.PositionX - (int)((float)(Width - pCamera.Width) * ((float)(pCamera.PositionX - pCamera.VirtualMoveRestriction.X) / (float)(pCamera.VirtualMoveRestriction.Width - pCamera.Width)));
+			PositionY = pCamera.PositionY - (int)((float)(Height - pCamera.Height) * ((float)(pCamera.PositionY - pCamera.VirtualMoveRestriction.Y) / (float)(pCamera.VirtualMoveRestriction.Height - pCamera.Height)));
         }
 
         #endregion
